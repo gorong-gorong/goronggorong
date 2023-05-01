@@ -15,18 +15,18 @@
   </head>
   <body>
     <header></header>
-    <main role="main">
-      <section class="title">
-        <h1>마이페이지</h1>
+    <main role="main" class="mypage">
+      <section class="title mypage__section">
+        <h1 class="page-title">마이페이지</h1>
       </section>
-      <section class="user">
-        <div>
-          <p><span class="user__name"></span>님🐶</p>
+      <section class="user mypage__section">
+        <div class="user__container">
+          <p class="user__greeting"><span class="user__name"></span>님🐶</p>
           <a class="user__edit" href="/mypage/check-valid-user">⚙️ 회원정보 수정</a>
         </div>
         <a class="user__signout" href="/">로그아웃</a>
       </section>
-      <section>
+      <section class="mypage__section">
         <article>
           <ul class="state">
             <li class="state__li">

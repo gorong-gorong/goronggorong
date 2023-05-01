@@ -1,6 +1,6 @@
-.sign__form p{
+.sign__form--message{
   color: #666666;
 }
-input{
+.form__pw{
   margin-top: 20px;
 }

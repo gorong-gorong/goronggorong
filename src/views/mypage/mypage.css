@@ -1,4 +1,4 @@
-main {
+.mypage {
   max-width: 1200px;
   height: 1050px;
   margin: auto;
@@ -7,11 +7,11 @@ main {
   border-radius: 20px;
 }
 
-section {
+.mypage__section {
   margin: 20px 0;
 }
 
-.title h1{
+.page-title{
   font-size: 24px;
   font-weight: 500;
   padding: 24px 0 24px 0;
@@ -26,12 +26,12 @@ section {
   border-radius: 8px;
   padding: 40px;
 }
-.user div{
+.user__container{
 display: flex;
 flex-direction: column;
 
 }
-.user p{
+.user__greeting{
   flex: 1;
   font-size: 20px;
   margin-bottom: 24px;
@@ -41,13 +41,12 @@ flex-direction: column;
   margin-right: 2px;
 }
 
-.user a{
+.user__signout,
+.user__edit{
   text-decoration: 0;
   color: #666666;
   font-size: 14px;
-}
-.user__signout{
-align-self: flex-end;
+  align-self: flex-end;
 }
 
 /* status */
@@ -104,10 +103,9 @@ margin-bottom: 24px;
   border-bottom: 1px solid #dddddd ;
   padding: 16px 0 24px 0;
   margin-bottom: 24px;
-}
-.preview__top p{
   color: #666666;
 }
+
 .preview__info-container {
   display: flex;
   justify-content: space-between;
@@ -115,7 +113,7 @@ margin-bottom: 24px;
   padding-bottom: 16px;
 }
 
-.preview__info-container img {
+.preview__info--img {
   border-radius: 8px;
   margin-right: 24px;
 }
@@ -132,9 +130,7 @@ margin-bottom: 24px;
   color: #999999;
   margin-bottom: 16px;
 }
-.preview__info > p {
-  padding: 3px;
-}
+
 .preview__info--title{
   margin-bottom: 8px;
 }

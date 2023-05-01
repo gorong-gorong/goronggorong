@@ -7,7 +7,7 @@ const modal = document.querySelector('.modal');
 const exitBtn = document.querySelector('.delete');
 const copyBtn = document.querySelector('.modal-copy');
 const signinBtn = document.querySelector('.modal-signin');
-const newPw = document.querySelector('.new-pw');
+const newPw = document.querySelector('.new-pw--value');
 
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();

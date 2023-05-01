@@ -82,7 +82,7 @@ axios({
 
 const createOrderPreview = (order) => {
   const orderDate = order.orderDate;
-  const getDate = dayjs(orderDate).format('YYYY년 MM월 DD일');
+  const getDate = dayjs(orderDate).format('YYYY년 MM월 DD일 HH:mm:ss');
 
   return `<li class="order__preview">
   <div class="preview__top">
@@ -99,7 +99,6 @@ const createOrderPreview = (order) => {
     order.totalCase - 1
   }</strong>건</span>
         </p>
-        <!-- <p><strong class="preview__info--count">${order.products[0].id.amount}</strong>개</p> -->
         <p><strong class="preview__info--price">${order.totalPrice.toLocaleString()}</strong>원</p>
       </div>
     </div>

@@ -3,21 +3,21 @@
   font-weight: 600;
 }
 
-.modal-card-body h1{
+.new-pw{
   font-size: 20px;
   font-weight: 500;
   margin-top: 16px;
 }
 
-.new-pw{
+.new-pw--value{
   height: 34px;
   width: 160px;
   background-color: #f4f4f4;
 }
-.new-pw:hover{
+.new-pw--value:hover{
   background-color: #f4f4f4;
 }
-.new-pw:focus{
+.new-pw--value:focus{
   outline: 0;
   border: 0;
   background-color: #f4f4f4;
