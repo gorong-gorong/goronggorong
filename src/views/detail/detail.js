@@ -27,11 +27,9 @@ axios({
 
     category.innerText = item.category;
     description.innerText = item.description;
-    navCartBtn.addEventListener('click', addCart);
 
     let cartItem = [];
-
-    function addCart() {
+    const addCart = () => {
       const newItem = {
         id: item._id,
         imgUrl: item.imgUrl,
@@ -62,7 +60,8 @@ axios({
       localStorage.setItem('cart', JSON.stringify(cartItem));
       //배열 초기화
       cartItem = [];
-    }
+    };
+    navCartBtn.addEventListener('click', addCart);
   })
   .catch((err) => {
     alert(err.response.data.message);

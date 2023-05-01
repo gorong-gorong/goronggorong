@@ -12,7 +12,7 @@ const address = () => {
 };
 const submitBtn = document.querySelector('.form__submit');
 
-submitBtn.addEventListener('click', (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   if (pw.value !== pwCheck.value) {
     alert('비밀번호가 일치하지 않습니다.');
@@ -42,4 +42,5 @@ submitBtn.addEventListener('click', (e) => {
         alert(err.response.data.message);
       });
   }
-});
+};
+submitBtn.addEventListener('click', handleSubmit);

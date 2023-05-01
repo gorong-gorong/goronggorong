@@ -1,7 +1,7 @@
 const pw = document.querySelector('.form__pw');
 const submit = document.querySelector('.form__submit');
 
-submit.addEventListener('click', (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   const userToken = localStorage.getItem('userToken');
   axios({
@@ -23,4 +23,5 @@ submit.addEventListener('click', (e) => {
     .catch((err) => {
       alert(err.response.data.message);
     });
-});
+};
+submit.addEventListener('click', handleSubmit);

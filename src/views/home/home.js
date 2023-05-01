@@ -53,7 +53,7 @@ const createItem = (item) => {
 const categories = document.querySelectorAll('.nav__cate li');
 
 categories.forEach((category) => {
-  category.addEventListener('click', (e) => {
+  const renderProducts = (e) => {
     //기존 on카테고리에서 on클래스 삭제하고
     document.querySelector('.nav__cate--on').classList.remove('nav__cate--on');
     //클릭한 카테고리에 on 클래스 추가
@@ -85,5 +85,6 @@ categories.forEach((category) => {
           alert(err);
         });
     }
-  });
+  };
+  category.addEventListener('click', renderProducts);
 });

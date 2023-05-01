@@ -4,10 +4,11 @@ await main();
 
 //로그아웃 로직
 const signout = document.querySelector('.user__signout');
-signout.addEventListener('click', () => {
+const handleSignoutClick = () => {
   localStorage.removeItem('userToken');
   alert('로그아웃 되었습니다.');
-});
+};
+signout.addEventListener('click', handleSignoutClick);
 
 //배송 status 로직
 const state1 = document.querySelector('.state__1');

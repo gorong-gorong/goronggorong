@@ -29,9 +29,8 @@ axios({
 
 //회원정보 업데이트
 
-submitBtn.addEventListener('click', function (e) {
+const handleSubmit = (e) => {
   e.preventDefault();
-  console.log(address());
   axios({
     method: 'put',
     url: '/api/mypage/edit-user-info',
@@ -55,10 +54,12 @@ submitBtn.addEventListener('click', function (e) {
     .catch((err) => {
       alert(err.response.data.message);
     });
-});
+};
+submitBtn.addEventListener('click', handleSubmit);
 
 //회원탈퇴 로직
-deleteBtn.addEventListener('click', function () {
+
+const handleDeleteClick = () => {
   if (confirm('탈퇴하시겠습니까?')) {
     axios({
       method: 'delete',
@@ -78,4 +79,5 @@ deleteBtn.addEventListener('click', function () {
         alert(err.response.data.message);
       });
   }
-});
+};
+deleteBtn.addEventListener('click', handleDeleteClick);

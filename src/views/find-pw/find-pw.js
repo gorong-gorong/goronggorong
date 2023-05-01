@@ -9,7 +9,7 @@ const copyBtn = document.querySelector('.modal-copy');
 const signinBtn = document.querySelector('.modal-signin');
 const newPw = document.querySelector('.new-pw--value');
 
-submitBtn.addEventListener('click', (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   axios
     .put('/api/signin/find-password', {
@@ -29,15 +29,19 @@ submitBtn.addEventListener('click', (e) => {
     .catch((err) => {
       alert(err.response.data.message);
     });
-});
+};
+submitBtn.addEventListener('click', handleSubmit);
 
 //모달 관련 이벤트
-exitBtn.addEventListener('click', () => {
+const handleExitClick = () => {
   modal.classList.remove('is-active');
-});
-copyBtn.addEventListener('click', () => {
+};
+const handleCopyClick = () => {
   navigator.clipboard.writeText(newPw.value);
-});
-signinBtn.addEventListener('click', () => {
+};
+const handleSigninClick = () => {
   window.location.href = '/signin';
-});
+};
+exitBtn.addEventListener('click', handleExitClick);
+copyBtn.addEventListener('click', handleCopyClick);
+signinBtn.addEventListener('click', handleSigninClick);
