@@ -1,7 +1,6 @@
 import { main } from '/layouts/main.js';
 await main();
 
-//전체 상품 목록 불러오기
 const amountAll = document.querySelector('.prod__item--amount');
 
 const getItemData = async () => {
@@ -11,8 +10,10 @@ const getItemData = async () => {
     const items = res.data.info;
     amountAll.innerText = items.length;
     const list = document.querySelector('.prod__list');
+
     items.forEach((item) => {
-      list.innerHTML += createItem(item);
+      const itemElement = createItem(item);
+      list.appendChild(itemElement);
     });
 
     const category = document.querySelectorAll('.nav__cate li');
@@ -31,26 +32,44 @@ const getItemData = async () => {
 
 getItemData();
 
-//상품상세 불러오기
+//item 리스트 컴포넌트 만들기
 const createItem = (item) => {
-  return `
-  <li class="prod__item">
-            <a class="prod__link" href="/products?id=${item.id}">
-              <img
-                class="prod__link-thumb"
-                src="${item.imgUrl}"
-                alt="${item.name} 대표 이미지"
-              />
-              <div class="prod__info">
-                <p class="prod__title">${item.name}</p>
-                <div class="prod__order">
-                  <span><strong class="prod__order-price">${item.price.toLocaleString()}</strong>원</span>
-                </div>
-              </div>
-            </a>
-          </li>`;
+  const itemElement = document.createElement('li');
+  itemElement.classList.add('prod__item');
+
+  const link = document.createElement('a');
+  link.classList.add('prod__link');
+  link.setAttribute('href', `/products?id=${item.id}`);
+
+  const thumb = document.createElement('img');
+  thumb.classList.add('prod__link-thumb');
+  thumb.setAttribute('src', item.imgUrl);
+  thumb.setAttribute('alt', `${item.name} 대표 이미지`);
+
+  const info = document.createElement('div');
+  info.classList.add('prod__info');
+
+  const title = document.createElement('p');
+  title.classList.add('prod__title');
+  title.innerText = item.name;
+
+  const order = document.createElement('div');
+  order.classList.add('prod__order');
+
+  const price = document.createElement('span');
+  price.innerHTML = `<strong class="prod__order-price">${item.price}</strong>원`;
+
+  order.appendChild(price);
+  info.appendChild(title);
+  info.appendChild(order);
+  link.appendChild(thumb);
+  link.appendChild(info);
+  itemElement.appendChild(link);
+
+  return itemElement;
 };
 
+//카테고리별 아이템 렌더링
 const categories = document.querySelectorAll('.nav__cate li');
 
 categories.forEach((category) => {
@@ -64,28 +83,32 @@ categories.forEach((category) => {
       window.location.href = '/';
       return;
     } else {
-      axios
-        .get(`/api/products/${selectedCategory}`)
-        .then((res) => {
-          const items = res.data.info;
-          amountAll.innerText = items.length;
-          const list = document.querySelector('.prod__list');
-          list.innerHTML = ''; //기존 상품 목록 초기화
-          items.forEach((item) => {
-            list.innerHTML += createItem(item);
-          });
-
-          // URL 변경 코드
-          const currentUrl = window.location.href;
-          // /products/뒤에오는 문자열 찾기-> 카테고리명으로 변경하기
-          const newUrl = currentUrl.replace(/\/products\/(.*)\/?/, `/products/${selectedCategory}`);
-          // 브라우저 히스토리에 새 url추가
-          window.history.pushState({ path: newUrl }, '', newUrl);
-        })
-        .catch((err) => {
-          alert(err);
-        });
+      getCategoryItem(selectedCategory);
     }
   };
   category.addEventListener('click', renderProducts);
 });
+
+const getCategoryItem = async (selectedCategory) => {
+  try {
+    const res = await axios.get(`/api/products/${selectedCategory}`);
+
+    const items = res.data.info;
+    amountAll.innerText = items.length;
+    const list = document.querySelector('.prod__list');
+    list.innerHTML = ''; //기존 상품 목록 초기화
+    items.forEach((item) => {
+      const itemElement = createItem(item);
+      list.appendChild(itemElement);
+    });
+
+    // URL 변경 코드
+    const currentUrl = window.location.href;
+    // /products/뒤에오는 문자열 찾기-> 카테고리명으로 변경하기
+    const newUrl = currentUrl.replace(/\/products\/(.*)\/?/, `/products/${selectedCategory}`);
+    // 브라우저 히스토리에 새 url추가
+    window.history.pushState({ path: newUrl }, '', newUrl);
+  } catch (err) {
+    alert(err);
+  }
+};
