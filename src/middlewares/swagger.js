@@ -14,7 +14,7 @@ const options = {
     basePath: '/api',
   },
   // 라우트 경로(API 위치)
-  apis: [path.join(__dirname + '/../routes/*.js')],
+  apis: [path.join('/../routes/*.js')],
 };
 
 const specs = swaggerJSDoc(options);

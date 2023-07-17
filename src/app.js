@@ -10,7 +10,7 @@ import cors from 'cors';
 // MODULE
 import { httpLogStream } from './utils/index.js';
 import router from './routes/index.js';
-import { errorHandler } from './middlewares/index.js';
+import { errorHandler, swaggerUi, specs } from './middlewares/index.js';
 
 const app = express();
 
@@ -38,6 +38,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(rootDir + '/public')); // public 폴더 접근
 app.use(morgan('dev', { stream: httpLogStream })); // Log 생성기
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // ROUTER
 app.use(router);
