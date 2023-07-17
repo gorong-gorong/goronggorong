@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { customError } from '../middlewares/index.js';
+import { customError } from './index.js';
 import { authService } from '../services/index.js';
 
 const verifyToken = (req, res, next) => {
