@@ -92,7 +92,9 @@ const createOrderPreview = (order) => {
   </div>
   <div class="preview__info-container">
     <div class="preview__info-wrap">
-      <img width="100px" class="preview__info--img" src="${order.products[0].id.imgUrl}" />
+      <img width="100px" class="preview__info--img" src="${order.products[0].id.imgUrl}" alt="${
+    order.products[0].id.name
+  } 대표 이미지" />
       <div class="preview__info">
       <p class="preview__state">${order.deliveryStatus}</p>
         <p class="preview__info--title">

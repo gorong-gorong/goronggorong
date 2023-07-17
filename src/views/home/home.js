@@ -39,6 +39,7 @@ const createItem = (item) => {
               <img
                 class="prod__link-thumb"
                 src="${item.imgUrl}"
+                alt="${item.name} 대표 이미지"
               />
               <div class="prod__info">
                 <p class="prod__title">${item.name}</p>

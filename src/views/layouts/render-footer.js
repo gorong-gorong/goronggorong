@@ -4,7 +4,7 @@ function renderFooter() {
   <div class="footer-container">
     <div class="footer__brand">
       <a href="/">
-        <img src="/img/logo_simple.png" width="120px" />
+        <img src="/img/logo_simple.png" alt="고롱고롱 로고" width="120px" />
       </a>
       <p><strong>고롱고롱</strong></p>
       <p>우리 댕댕이, 우리 야옹이 용품 쉽게, 빠르게!</p>

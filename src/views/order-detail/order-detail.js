@@ -22,7 +22,7 @@ const load = async () => {
 
   await products.forEach((item) => {
     itemInfoWrap.innerHTML += `<li class="item-info">
-    <img class="item-img" src="${item.id.imgUrl}" />
+    <img class="item-img" src="${item.id.imgUrl}" alt="${item.id.name} 대표 이미지"/>
     <div>
       <span>제품명: ${item.id.name}</span>
       <span>수량: ${item.amount}</span>

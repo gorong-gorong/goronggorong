@@ -7,7 +7,7 @@ function renderHeader() {
   if (userToken) {
     header.innerHTML = `
   <nav class="nav">
-    <a href="/"><img class="nav__logo" src="/img/logo.png" width="140" /></a>
+    <a href="/"><img class="nav__logo" src="/img/logo.png" width="140" alt="고롱고롱 로고"/></a>
 
     <ul class="nav__user-menu">
       <li>
@@ -25,7 +25,7 @@ function renderHeader() {
     header.innerHTML = `
       <nav class="nav">
         <a href="/">
-          <img class="nav__logo" src="/img/logo.png" width="140" />
+          <img class="nav__logo" src="/img/logo.png" width="140" alt="고롱고롱 로고"/>
         </a>
 
         <ul class="nav__user-menu">
