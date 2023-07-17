@@ -4,19 +4,17 @@ await main();
 //전체 상품 목록 불러오기
 const amountAll = document.querySelector('.prod__item--amount');
 
-axios({
-  method: '',
-  url: `/api`,
-})
-  .then((res) => {
+const getItemData = async () => {
+  try {
+    const res = await axios.get('/api');
+
     const items = res.data.info;
     amountAll.innerText = items.length;
     const list = document.querySelector('.prod__list');
     items.forEach((item) => {
       list.innerHTML += createItem(item);
     });
-  })
-  .then((res) => {
+
     const category = document.querySelectorAll('.nav__cate li');
     category.forEach((cate) => {
       cate.addEventListener('click', (e) => {
@@ -26,10 +24,12 @@ axios({
         e.target.classList.add('nav__cate--on');
       });
     });
-  })
-  .catch((err) => {
+  } catch (err) {
     alert(err.response.data.message);
-  });
+  }
+};
+
+getItemData();
 
 //상품상세 불러오기
 const createItem = (item) => {
