@@ -9,7 +9,7 @@ import cors from 'cors';
 
 // MODULE
 import { httpLogStream } from './utils/index.js';
-import { userRouter, productRouter, orderRouter, authRouter, viewRouter } from './routes/index.js';
+import router from './routes/index.js';
 import { errorHandler } from './middlewares/index.js';
 
 const app = express();
@@ -40,11 +40,7 @@ app.use(express.static(rootDir + '/public')); // public 폴더 접근
 app.use(morgan('dev', { stream: httpLogStream })); // Log 생성기
 
 // ROUTER
-app.use(viewRouter);
-app.use('/api', userRouter);
-app.use('/api', productRouter);
-app.use('/api', orderRouter);
-app.use('/api', authRouter);
+app.use(router);
 app.use(errorHandler);
 
 // app.listen(port, process.env.HOST, () => {
