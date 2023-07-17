@@ -18,7 +18,14 @@ const handleSubmit = (e) => {
     alert('비밀번호가 일치하지 않습니다.');
     return;
   } else {
-    axios({
+    postSignup();
+  }
+};
+submitBtn.addEventListener('click', handleSubmit);
+
+const postSignup = async () => {
+  try {
+    const res = await axios({
       method: 'post',
       url: '/api/signup',
       data: {
@@ -28,19 +35,16 @@ const handleSubmit = (e) => {
         phone: phone.value,
         address: address(),
       },
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          alert(`
-        성공적으로 회원가입되었어요🎉
-        로그인 페이지로 이동합니다.`);
-          //로그인페이지로 이동
-          window.location.href = '/signin';
-        }
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    });
+
+    if (res.status === 201) {
+      alert(`
+    성공적으로 회원가입되었어요🎉
+    로그인 페이지로 이동합니다.`);
+      //로그인페이지로 이동
+      window.location.href = '/signin';
+    }
+  } catch (err) {
+    alert(err.response.data.message);
   }
 };
-submitBtn.addEventListener('click', handleSubmit);

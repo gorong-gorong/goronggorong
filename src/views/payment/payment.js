@@ -134,16 +134,15 @@ const changeDeliveryInfoWrap = {
 
 // 주문정보의 기본 배송지 설정
 const userToken = localStorage.getItem('userToken');
-
-axios({
-  method: 'GET',
-  url: '/api/auth/get-user-info',
-  headers: {
-    Authorization: `Bearer ${userToken}`,
-  },
-})
-  .then((res) => {
-    console.log(res);
+const getUserInfo = async (userToken) => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: '/api/auth/get-user-info',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
     const userName = document.querySelector('.user-name');
     const userPhone = document.querySelector('.user-phone');
     const { address, name, phone } = res.data.info;
@@ -152,8 +151,11 @@ axios({
     deliveryInfoWrap.phone.innerHTML = phone;
     userName.innerHTML = name;
     userPhone.innerHTML = phone;
-  })
-  .catch();
+  } catch (err) {
+    console.log(err);
+  }
+};
+getUserInfo(userToken);
 
 changeDeliveryInfoWrap.phone.addEventListener('input', (e) => {
   inputNumberTypeCheck(e, (targetNumber) => {
@@ -199,7 +201,7 @@ changeDeliveryInfoBtn.addEventListener('click', (e) => {
 });
 
 const paymentBtn = document.querySelector('.payment-btn');
-paymentBtn.addEventListener('click', async (e) => {
+paymentBtn.addEventListener('click', (e) => {
   e.preventDefault();
 
   if (
@@ -271,20 +273,22 @@ paymentBtn.addEventListener('click', async (e) => {
     }),
   );
   localStorage.removeItem('orders');
-  console.log(reqBody.getValue());
-  axios({
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-    url: '/api/orders/payment',
-    data: reqBody.getValue(),
-  })
-    .then(() => {
-      window.location.href = '/orders/payment/success/';
-    })
-    .catch((err) => {
-      alert(err.status);
-      if (err.status === 500) window.location.href = '/signin';
-    });
+  postPayment(userToken);
 });
+
+const postPayment = async (userToken) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      url: '/api/orders/payment',
+      data: reqBody.getValue(),
+    });
+    window.location.href = '/orders/payment/success/';
+  } catch (err) {
+    alert(err.status);
+    if (err.status === 500) window.location.href = '/signin';
+  }
+};

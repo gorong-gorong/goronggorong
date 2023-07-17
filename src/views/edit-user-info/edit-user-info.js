@@ -13,71 +13,84 @@ const address = () => {
 };
 
 const userToken = localStorage.getItem('userToken');
+
 //기존 회원정보(변경불가능 값)
-axios({
-  method: 'get',
-  url: '/api/auth/get-user-info',
-  headers: {
-    Authorization: `Bearer ${userToken}`,
-  },
-}).then((res) => {
-  const data = res.data.info;
-  id.value = data.email;
-  phone.value = data.phone;
-  userName.value = data.name;
-});
+getUserInfo(userToken);
+
+const getUserInfo = async (userToken) => {
+  try {
+    const res = await axios({
+      method: 'get',
+      url: '/api/auth/get-user-info',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const data = res.data.info;
+    id.value = data.email;
+    phone.value = data.phone;
+    userName.value = data.name;
+  } catch (err) {
+    alert(err.response.data.message);
+  }
+};
 
 //회원정보 업데이트
-
 const handleSubmit = (e) => {
   e.preventDefault();
-  axios({
-    method: 'put',
-    url: '/api/mypage/edit-user-info',
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-    data: {
-      name: userName.value,
-      password: pw.value,
-      phone: phone.value,
-      address: address(),
-    },
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        alert(`회원정보가 수정되었습니다.`);
-        window.location.href = '/mypage';
-        localStorage.setItem('userToken', res.data.token);
-      }
-    })
-    .catch((err) => {
-      alert(err.response.data.message);
-    });
+  putUserInfo(userToken);
 };
 submitBtn.addEventListener('click', handleSubmit);
 
-//회원탈퇴 로직
+const putUserInfo = async (userToken) => {
+  try {
+    const res = axios({
+      method: 'put',
+      url: '/api/mypage/edit-user-info',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+      data: {
+        name: userName.value,
+        password: pw.value,
+        phone: phone.value,
+        address: address(),
+      },
+    });
+    if (res.status === 200) {
+      alert(`회원정보가 수정되었습니다.`);
+      window.location.href = '/mypage';
+      localStorage.setItem('userToken', res.data.token);
+    }
+  } catch (err) {
+    alert(err.response.data.message);
+  }
+};
 
+//회원탈퇴 로직
 const handleDeleteClick = () => {
   if (confirm('탈퇴하시겠습니까?')) {
-    axios({
+    deleteUserInfo(userToken);
+  }
+};
+deleteBtn.addEventListener('click', handleDeleteClick);
+
+const deleteUserInfo = async (userToken) => {
+  try {
+    const res = axios({
       method: 'delete',
       url: '/api/mypage/delete-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          window.alert(`탈퇴되었습니다`);
-          localStorage.removeItem('userToken');
-          window.location.href = '/';
-        }
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    });
+
+    if (res.status === 200) {
+      window.alert(`탈퇴되었습니다`);
+      localStorage.removeItem('userToken');
+      window.location.href = '/';
+    }
+  } catch (err) {
+    alert(err.response.data.message);
   }
 };
-deleteBtn.addEventListener('click', handleDeleteClick);

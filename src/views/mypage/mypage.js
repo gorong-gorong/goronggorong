@@ -21,25 +21,33 @@ const state = [state1, state2, state3, state4, state5, state6];
 let status = [0, 0, 0, 0, 0, 0];
 
 const userToken = localStorage.getItem('userToken');
-axios({
-  method: 'get',
-  url: '/api/auth/get-user-info',
-  headers: {
-    Authorization: `Bearer ${userToken}`,
-  },
-}).then((res) => {
-  const username = document.querySelector('.user__name');
-  username.innerText = res.data.info.name;
-});
 
-axios({
-  method: 'get',
-  url: '/api/orders/user/order-list',
-  headers: {
-    Authorization: `Bearer ${userToken}`,
-  },
-})
-  .then((res) => {
+const getUserInfo = async (userToken) => {
+  try {
+    const res = await axios({
+      method: 'get',
+      url: '/api/auth/get-user-info',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const username = document.querySelector('.user__name');
+    username.innerText = res.data.info.name;
+  } catch (err) {
+    alert(err.response.data.message);
+  }
+};
+
+const getOrderList = async (userToken) => {
+  try {
+    const res = await axios({
+      method: 'get',
+      url: '/api/orders/user/order-list',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
     if (res.status === 200) {
       const orders = res.data.info;
       if (!orders.length) {
@@ -76,10 +84,10 @@ axios({
         orderList.innerHTML += createOrderPreview(order);
       });
     }
-  })
-  .catch((err) => {
+  } catch (err) {
     console.log(err.response.data.message);
-  });
+  }
+};
 
 const createOrderPreview = (order) => {
   const orderDate = order.orderDate;
@@ -110,3 +118,6 @@ const createOrderPreview = (order) => {
 </li>
 `;
 };
+
+getUserInfo(userToken);
+getOrderList(userToken);

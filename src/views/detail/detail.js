@@ -14,7 +14,10 @@ const itemId = url.split('=')[1];
 
 export const getItemById = async (itemId) => {
   try {
-    const res = await axios.get(`/api/products?id=${itemId}`);
+    const res = await axios({
+      method: 'get',
+      url: `/api/products?id=${itemId}`,
+    });
     const item = res.data.info;
 
     itemImg.forEach((data) => {

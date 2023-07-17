@@ -5,7 +5,10 @@ const amountAll = document.querySelector('.prod__item--amount');
 
 const getItemData = async () => {
   try {
-    const res = await axios.get('/api');
+    const res = await axios({
+      method: 'get',
+      url: `/api`,
+    });
 
     const items = res.data.info;
     amountAll.innerText = items.length;
@@ -91,7 +94,10 @@ categories.forEach((category) => {
 
 const getCategoryItem = async (selectedCategory) => {
   try {
-    const res = await axios.get(`/api/products/${selectedCategory}`);
+    const res = await axios({
+      method: 'get',
+      url: `/api/products/${selectedCategory}`,
+    });
 
     const items = res.data.info;
     amountAll.innerText = items.length;
