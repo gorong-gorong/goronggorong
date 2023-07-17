@@ -9,7 +9,7 @@ import cors from 'cors';
 
 // MODULE
 import { httpLogStream } from './utils/index.js';
-import { userRouter, productRouter, orderRouter, authRouter, viewRouter } from './routers/index.js';
+import { userRouter, productRouter, orderRouter, authRouter, viewRouter } from './routes/index.js';
 import { errorHandler } from './middlewares/index.js';
 
 const app = express();
