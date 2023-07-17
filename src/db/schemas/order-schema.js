@@ -1,88 +1,96 @@
 import { Schema, model } from 'mongoose';
 
-const OrderSchema = new Schema({
-  orderId: {
-    type: Number,
-    required: true,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  receiver: {
-    name: {
-      type: String,
+const OrderSchema = new Schema(
+  {
+    orderId: {
+      type: Number,
       required: true,
     },
-    phone: {
-      type: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
-    address: {
-      type: String,
-      required: true,
-    },
-    requestMessage: {
-      type: String,
-    },
-  },
-  products: [
-    {
-      id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
+    receiver: {
+      name: {
+        type: String,
         required: true,
       },
-      amount: {
-        type: Number,
+      phone: {
+        type: String,
         required: true,
       },
+      address: {
+        type: String,
+        required: true,
+      },
+      requestMessage: {
+        type: String,
+      },
     },
-  ],
-  totalCase: {
-    type: Number,
-    required: true,
-  },
-  totalPrice: {
-    type: Number,
-    required: true,
-  },
-  paymentMethod: {
-    paymentType: {
-      // credit, account
-      // "card", "account"
-      type: String,
+    products: [
+      {
+        id: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        amount: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    totalCase: {
+      type: Number,
       required: true,
     },
-    creditInfo: {
-      company: {
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    paymentMethod: {
+      paymentType: {
+        // credit, account
+        // "card", "account"
         type: String,
+        required: true,
       },
-      cardNumber: {
-        type: String,
-      },
-      expiryDate: {
-        type: String,
-      },
-      cvc: {
-        type: String,
-      },
-      cardOwner: {
-        type: String,
+      creditInfo: {
+        company: {
+          type: String,
+        },
+        cardNumber: {
+          type: String,
+        },
+        expiryDate: {
+          type: String,
+        },
+        cvc: {
+          type: String,
+        },
+        cardOwner: {
+          type: String,
+        },
       },
     },
+    orderDate: {
+      type: Date,
+      default: Date.now,
+      required: true,
+    },
+    deliveryStatus: {
+      type: String,
+      default: '입금대기',
+      required: true,
+    },
   },
-  orderDate: {
-    type: Date,
-    default: Date.now,
-    required: true,
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
   },
-  deliveryStatus: {
-    type: String,
-    default: '입금대기',
-    required: true,
-  },
-});
+);
 
 export default model('Order', OrderSchema);
