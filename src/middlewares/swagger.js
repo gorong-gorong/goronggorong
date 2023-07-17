@@ -11,10 +11,11 @@ const options = {
       description: 'API 문서 사이트입니다.',
     },
     // 기본 루트 경로
-    basePath: '/api',
+    host: 'localhost:3000',
+    basePath: '/api/v1',
   },
   // 라우트 경로(API 위치)
-  apis: [path.join('/../routes/*.js')],
+  apis: ['./src/routes/*.js'],
 };
 
 const specs = swaggerJSDoc(options);
