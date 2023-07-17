@@ -1,23 +1,21 @@
 import { main } from '/layouts/main.js';
 await main();
 
+const itemImg = document.querySelectorAll('.item__img');
+const name = document.querySelectorAll('.item__name');
+const price = document.querySelectorAll('.item__price');
+const category = document.querySelector('.overview__category');
+const description = document.querySelector('.overview__description');
+const navAmount = document.querySelector('.bottom-nav__amount--count');
+const navCartBtn = document.querySelector('.bottom-nav__btn--cart');
+
 const url = window.location.search;
 const itemId = url.split('=')[1];
 
-axios({
-  method: 'get',
-  url: `/api/products?id=${itemId}`,
-})
-  .then((res) => {
+export const getItemById = async (itemId) => {
+  try {
+    const res = await axios.get(`/api/products?id=${itemId}`);
     const item = res.data.info;
-
-    const itemImg = document.querySelectorAll('.item__img');
-    const name = document.querySelectorAll('.item__name');
-    const price = document.querySelectorAll('.item__price');
-    const category = document.querySelector('.overview__category');
-    const description = document.querySelector('.overview__description');
-    const navAmount = document.querySelector('.bottom-nav__amount--count');
-    const navCartBtn = document.querySelector('.bottom-nav__btn--cart');
 
     itemImg.forEach((data) => {
       data.setAttribute('src', item.imgUrl);
@@ -65,7 +63,9 @@ axios({
       cartItem = [];
     };
     navCartBtn.addEventListener('click', addCart);
-  })
-  .catch((err) => {
+  } catch (err) {
     alert(err.response.data.message);
-  });
+  }
+};
+
+getItemById(itemId);
