@@ -39,6 +39,11 @@ const makeListItem = (id, content) => {
   const itemImg = document.createElement('img');
   itemImg.setAttribute('class', 'item-img-wrap__item-img');
   itemImg.setAttribute('src', content.imgUrl);
+  itemImg.onerror = () => {
+    itemImg.onerror = null;
+    itemImg.setAttribute('src', '/img/error.png');
+    itemImg.style.border = '1px solid #e8e8e8';
+  };
   const itemInfo = document.createElement('div');
   itemInfo.setAttribute('class', 'item-info');
   const itemName = document.createElement('span');

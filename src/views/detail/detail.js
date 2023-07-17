@@ -23,6 +23,11 @@ export const getItemById = async (itemId) => {
     itemImg.forEach((data) => {
       data.setAttribute('src', item.imgUrl);
       data.setAttribute('alt', `${item.name} 대표 이미지`);
+      data.onerror = () => {
+        data.onerror = null;
+        data.setAttribute('src', '../img/error.png');
+        data.style.border = '1px solid #e8e8e8';
+      };
     });
 
     name.forEach((data) => (data.innerText = item.name));

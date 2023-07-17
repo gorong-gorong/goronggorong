@@ -48,6 +48,12 @@ const createItem = (item) => {
   thumb.classList.add('prod__link-thumb');
   thumb.setAttribute('src', item.imgUrl);
   thumb.setAttribute('alt', `${item.name} 대표 이미지`);
+  //이미지 로드 실패 시 디폴트 이미지
+  thumb.onerror = () => {
+    thumb.onerror = null;
+    thumb.setAttribute('src', '../img/error.png');
+    thumb.style.border = '1px solid #e8e8e8';
+  };
 
   const info = document.createElement('div');
   info.classList.add('prod__info');
