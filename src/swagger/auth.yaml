@@ -1,0 +1,59 @@
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: 회원가입
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                phone:
+                  type: string
+                address:
+                  type: string
+              example:
+                name: John
+                email: test@test.com
+                password: qwerty1234
+                phone: 010-1234-5678
+                address: 서울시 강남구 ***
+      responses:
+        '201':
+          description: 사용자가 생성됐습니다.
+        '400':
+          description: 누락된 데이터가 있습니다.
+
+  /auth/signin:
+    post:
+      tags:
+        - Auth
+      summary: 로그인
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: test@test.com
+                password: qwerty1234
+      responses:
+        '200':
+          description: 로그인 성공
+        '400':
+          description: 누락된 데이터가 있습니다.
