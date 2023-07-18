@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon app",
     "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/build.yaml --type yaml",
-    "predev": "npm run api-docs",
-    "dev": "nodemon ./src/app --exec babel-node"
+    "dev": "npm run api-docs & nodemon ./src/app --exec babel-node"
   },
   "author": "",
   "license": "ISC",
