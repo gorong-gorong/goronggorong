@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: 고롱고롱
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Main server
+
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+
+paths:
+  # /auth
+  /auth/signup:
+    $ref: './paths/auth.yaml#/paths/~1auth~1signup'
+  /auth/signin:
+    $ref: './paths/auth.yaml#/paths/~1auth~1signin'
+  /auth/signin/password-reset:
+    $ref: './paths/auth.yaml#/paths/~1auth~1signin~1password-reset'
+  /auth/user-info:
+    $ref: './paths/auth.yaml#/paths/~1auth~1user-info'

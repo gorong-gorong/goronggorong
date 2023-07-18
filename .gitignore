@@ -1,6 +1,9 @@
 .DS_Store
-
-node_modules/
 .env
 
+node_modules/
+
 log/
+
+# Swagger
+build/

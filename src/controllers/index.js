@@ -1,6 +1,6 @@
-import userController from './user-controller.js';
-import productController from './product-controller.js';
-import orderController from './order-controller.js';
-import authController from './auth-controller.js';
+import userController from './user-controller';
+import productController from './product-controller';
+import orderController from './order-controller';
+import authController from './auth-controller';
 
 export { userController, productController, orderController, authController };

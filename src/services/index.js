@@ -1,7 +1,7 @@
-import userService from './user-service.js';
-import orderService from './order-service.js';
-import authService from './auth-service.js';
-import viewService from './view-service.js';
-import productService from './product-service.js';
+import userService from './user-service';
+import orderService from './order-service';
+import authService from './auth-service';
+import viewService from './view-service';
+import productService from './product-service';
 
 export { userService, orderService, authService, viewService, productService };
