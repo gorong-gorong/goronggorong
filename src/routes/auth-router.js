@@ -1,16 +1,20 @@
 import { Router } from 'express';
-import { userController, authController } from '../controllers/index.js';
-import { verifyToken } from '../middlewares/index.js';
+import { authController } from '../controllers';
+import { verifyToken } from '../middlewares';
 
 const authRouter = Router();
 
-authRouter.post('/signup', userController.createUser);
+// 회원가입
+authRouter.post('/signup', authController.createUser);
 
-authRouter.post('/signin', userController.verifyUser);
+// 로그인
+authRouter.post('/signin', authController.verifyUser);
 
-authRouter.put('/signin/find-password', userController.findPassword);
+// 비밀번호 초기화
+authRouter.put('/signin/password-reset', authController.findPassword);
 
-authRouter.get('get-user-info', verifyToken, authController.getUserInfo);
+// 토큰 기반 사용자 정보 가져오기
+authRouter.get('user-info', verifyToken, authController.getUserInfo);
 
 // router.post('/refreshToken', verifyToken, authController.refreshToken); // token 재발급하는 api 있어야 함
 
