@@ -21,7 +21,7 @@ const getUserInfo = async (userToken) => {
   try {
     const res = await axios({
       method: 'get',
-      url: '/api/auth/get-user-info',
+      url: '/api/v1/auth/get-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -46,7 +46,7 @@ const putUserInfo = async (userToken) => {
   try {
     const res = axios({
       method: 'put',
-      url: '/api/mypage/edit-user-info',
+      url: '/api/v1/mypage/edit-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -79,7 +79,7 @@ const deleteUserInfo = async (userToken) => {
   try {
     const res = axios({
       method: 'delete',
-      url: '/api/mypage/delete-user-info',
+      url: '/api/v1/mypage/delete-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },

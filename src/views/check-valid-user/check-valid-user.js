@@ -12,7 +12,7 @@ const postValidUser = async (userToken) => {
   try {
     const res = await axios({
       method: 'post',
-      url: '/api/mypage/check-valid-user',
+      url: '/api/v1/mypage/check-valid-user',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },

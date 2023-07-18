@@ -10,7 +10,7 @@ const getOrderInfo = async (userToken) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-      url: `/api/orders/${_id}`,
+      url: `/api/v1/orders/${_id}`,
     });
 
     return res.data.info;
@@ -69,7 +69,7 @@ const putCancel = async (userToken) => {
         Authorization: `Bearer ${userToken}`,
       },
 
-      url: `/api/orders/cancel/${_id}`,
+      url: `/api/v1/orders/cancel/${_id}`,
     });
     alert(res.data.message);
     window.location.href = '/mypage';

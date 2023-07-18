@@ -12,7 +12,7 @@ const postSignin = async () => {
   try {
     const res = await axios({
       method: 'post',
-      url: '/api/signin',
+      url: '/api/v1/signin',
       data: {
         email: id.value.trim(),
         password: pw.value.trim(),

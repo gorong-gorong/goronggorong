@@ -16,7 +16,7 @@ export const getItemById = async (itemId) => {
   try {
     const res = await axios({
       method: 'get',
-      url: `/api/products?id=${itemId}`,
+      url: `/api/v1/products?id=${itemId}`,
     });
     const item = res.data.info;
 

@@ -27,7 +27,7 @@ const postSignup = async () => {
   try {
     const res = await axios({
       method: 'post',
-      url: '/api/signup',
+      url: '/api/v1/signup',
       data: {
         name: userName.value,
         email: id.value,

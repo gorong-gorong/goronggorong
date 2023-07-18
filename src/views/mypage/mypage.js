@@ -26,7 +26,7 @@ const getUserInfo = async (userToken) => {
   try {
     const res = await axios({
       method: 'get',
-      url: '/api/auth/get-user-info',
+      url: '/api/v1/auth/get-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -42,7 +42,7 @@ const getOrderList = async (userToken) => {
   try {
     const res = await axios({
       method: 'get',
-      url: '/api/orders/user/order-list',
+      url: '/api/v1/orders/user/order-list',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -85,7 +85,7 @@ const getOrderList = async (userToken) => {
       });
     }
   } catch (err) {
-    console.log(err.response.data.message);
+    // console.log(err.response.data.message);
   }
 };
 

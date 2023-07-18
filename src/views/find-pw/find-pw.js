@@ -13,7 +13,7 @@ const putFindPW = async () => {
   try {
     const res = axios({
       method: 'put',
-      url: '/api/signin/find-password',
+      url: '/api/v1/signin/find-password',
       data: {
         name: userName.value,
         email: id.value,

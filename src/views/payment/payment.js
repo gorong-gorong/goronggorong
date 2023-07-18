@@ -73,7 +73,7 @@ useVirtualAccount.addEventListener('change', () => {
 
 const cardInfoWarp = {
   cardNumber: document.querySelector('.card-number'),
-  expirDate: document.querySelector('.expir-date'),
+  expireDate: document.querySelector('.expir-date'),
   cvcNumber: document.querySelector('.cvc-number'),
   company: document.querySelector('.bank'),
   nameOnCard: document.querySelector('.name-on-card'),
@@ -92,7 +92,7 @@ useCard.addEventListener('change', () => {
     });
   });
 
-  cardInfoWarp.expirDate.addEventListener('input', (e) => {
+  cardInfoWarp.expireDate.addEventListener('input', (e) => {
     inputNumberTypeCheck(e, (targetNumber) => {
       // 숫자 2자리마다 공백을 삽입
       targetNumber = targetNumber.replace(/(.{2})/g, '$1 ');
@@ -138,7 +138,7 @@ const getUserInfo = async (userToken) => {
   try {
     const res = await axios({
       method: 'GET',
-      url: '/api/auth/get-user-info',
+      url: '/api/v1/auth/get-user-info',
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -239,8 +239,8 @@ paymentBtn.addEventListener('click', (e) => {
       alert('카드번호를 확인해주세요');
       return;
     }
-    if (cardInfoWarp.expirDate.value.length === 5) {
-      setCardInfo('expiryDate', cardInfoWarp.expirDate.value.replace(/ /g, ''));
+    if (cardInfoWarp.expireDate.value.length === 5) {
+      setCardInfo('expiryDate', cardInfoWarp.expireDate.value.replace(/ /g, ''));
     } else {
       alert('카드 만료일을 확인해주세요');
       return;
@@ -283,7 +283,7 @@ const postPayment = async (userToken) => {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
-      url: '/api/orders/payment',
+      url: '/api/v1/orders/payment',
       data: reqBody.getValue(),
     });
     window.location.href = '/orders/payment/success/';

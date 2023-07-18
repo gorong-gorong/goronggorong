@@ -7,7 +7,7 @@ const getItemData = async () => {
   try {
     const res = await axios({
       method: 'get',
-      url: `/api`,
+      url: `/api/v1`,
     });
 
     const items = res.data.info;
@@ -102,7 +102,7 @@ const getCategoryItem = async (selectedCategory) => {
   try {
     const res = await axios({
       method: 'get',
-      url: `/api/products/${selectedCategory}`,
+      url: `/api/v1/products/${selectedCategory}`,
     });
 
     const items = res.data.info;
