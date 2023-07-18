@@ -1,9 +1,10 @@
 import { main } from '/layouts/main.js';
 await main();
 
-const itemImg = document.querySelectorAll('.item__img');
-const name = document.querySelectorAll('.item__name');
-const price = document.querySelectorAll('.item__price');
+const itemImgs = document.querySelectorAll('.item__img');
+const names = document.querySelectorAll('.item__name');
+const prices = document.querySelectorAll('.item__price');
+const totalPrice = document.querySelector('.item__price--total');
 const category = document.querySelector('.overview__category');
 const description = document.querySelector('.overview__description');
 const navAmount = document.querySelector('.bottom-nav__amount--count');
@@ -20,22 +21,27 @@ export const getItemById = async (itemId) => {
     });
     const item = res.data.info;
 
-    itemImg.forEach((data) => {
-      data.setAttribute('src', item.imgUrl);
-      data.setAttribute('alt', `${item.name} 대표 이미지`);
-      data.onerror = () => {
-        data.onerror = null;
-        data.setAttribute('src', '../img/error.png');
-        data.style.border = '1px solid #e8e8e8';
+    itemImgs.forEach((itemImg) => {
+      itemImg.setAttribute('src', item.imgUrl);
+      itemImg.setAttribute('alt', `${item.name} 대표 이미지`);
+      itemImg.onerror = () => {
+        itemImg.onerror = null;
+        itemImg.setAttribute('src', '../img/error.png');
+        itemImg.style.border = '1px solid #e8e8e8';
       };
     });
 
-    name.forEach((data) => (data.innerText = item.name));
+    names.forEach((name) => (name.innerText = item.name));
 
-    price.forEach((data) => (data.innerText = item.price.toLocaleString()));
+    prices.forEach((price) => (price.innerText = item.price.toLocaleString()));
 
     category.innerText = item.category;
     description.innerText = item.description;
+
+    totalPrice.innerHTML = item.price.toLocaleString();
+    navAmount.addEventListener('change', () => {
+      totalPrice.innerHTML = (navAmount.value * item.price).toLocaleString();
+    });
 
     let cartItem = [];
     const addCart = () => {
