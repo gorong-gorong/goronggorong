@@ -11,10 +11,10 @@ authRouter.post('/signup', authController.createUser);
 authRouter.post('/signin', authController.verifyUser);
 
 // 비밀번호 초기화
-authRouter.put('/signin/password-reset', authController.findPassword);
+authRouter.put('/signin/password-reset', authController.resetPassword);
 
 // 토큰 기반 사용자 정보 가져오기
-authRouter.get('user-info', verifyToken, authController.getUserInfo);
+authRouter.get('/user-info', verifyToken, authController.getUserInfo);
 
 // router.post('/refreshToken', verifyToken, authController.refreshToken); // token 재발급하는 api 있어야 함
 

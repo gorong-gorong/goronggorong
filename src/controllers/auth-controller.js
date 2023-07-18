@@ -45,7 +45,7 @@ const authController = {
     }
   },
 
-  findPassword: async (req, res, next) => {
+  resetPassword: async (req, res, next) => {
     const { name, email, phone } = req.body;
 
     try {
@@ -68,7 +68,6 @@ const authController = {
       next(err);
     }
   },
-
   getUserInfo: async (req, res, next) => {
     const authHeader = req.header('Authorization');
 
