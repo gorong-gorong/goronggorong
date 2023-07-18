@@ -91,7 +91,7 @@ paths:
       tags:
         - auth
       summary: 유저 정보 가져오기
-      securitySchemes:
+      security:
         - bearerAuth: []
       responses:
         '200':
