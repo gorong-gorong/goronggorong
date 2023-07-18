@@ -15,8 +15,8 @@ import { errorHandler } from './middlewares/index.js';
 const app = express();
 
 // ENV
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 
 process.chdir(rootDir);
@@ -54,4 +54,6 @@ app.listen(port, () => {
   console.log(`Connected to ${port}...`);
 });
 
-export { app, __dirname as srcPath };
+console.log(__dirname);
+
+export { app };
