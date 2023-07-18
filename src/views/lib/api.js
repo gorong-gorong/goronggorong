@@ -1,38 +1,52 @@
-export async function getItemData() {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: `/api/v1`,
-    });
+async function request({ endpoint, method, params = '', data = {} }) {
+  const apiUrl = params ? `${endpoint}/${params}` : endpoint;
+  const userToken = localStorage.getItem('userToken');
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: userToken ? `Bearer ${userToken}` : null,
+  };
 
-    return res.data.info;
+  try {
+    let response;
+    switch (method) {
+      case 'GET':
+        response = await axios.get(apiUrl, { headers });
+        break;
+
+      case 'POST':
+        response = await axios.post(apiUrl, data, { headers });
+        break;
+
+      case 'PUT':
+        response = await axios.put(apiUrl, data, { headers });
+        break;
+
+      case 'DELETE':
+        response = await axios.delete(apiUrl, data, { headers });
+        break;
+
+      default:
+        throw new Error('잘못된 메소드 접근입니다.');
+    }
+
+    return response.data.info;
   } catch (err) {
     alert(err.response.data.message);
   }
 }
 
-export async function getItemById(itemId) {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: `/api/v1/products?id=${itemId}`,
-    });
-
-    return res.data.info;
-  } catch (err) {
-    alert(err.response.data.message);
-  }
+export async function Get(endpoint, params = '') {
+  return await request({ endpoint, method: 'GET', params });
 }
 
-export async function getItemByCategory(category) {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: `/api/v1/products/${category}`,
-    });
+export async function Post(endpoint, params = '', data) {
+  return await request({ endpoint, method: 'POST', params, data });
+}
 
-    return res.data.info;
-  } catch (err) {
-    alert(err);
-  }
+export async function Put(endpoint, params = '', data) {
+  return await request({ endpoint, method: 'PUT', params, data });
+}
+
+export async function Delete(endpoint, params = '', data) {
+  return await request({ endpoint, method: 'DELETE', params, data });
 }
