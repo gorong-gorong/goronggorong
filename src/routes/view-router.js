@@ -51,4 +51,7 @@ viewRouter.use('/orders/:orderId/cancel-order/success', viewService.serveStatics
 // FOOTER, HEADER
 viewRouter.use('/layouts', viewService.serveStatics('layouts'));
 
+// 라이브러리
+viewRouter.use('/lib', viewService.serveStatics('lib'));
+
 export default viewRouter;

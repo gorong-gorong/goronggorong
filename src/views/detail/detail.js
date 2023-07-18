@@ -13,20 +13,21 @@ const navCartBtn = document.querySelector('.bottom-nav__btn--cart');
 const url = window.location.search;
 const itemId = url.split('=')[1];
 
-export const getItemById = async (itemId) => {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: `/api/v1/products?id=${itemId}`,
-    });
+// export const getItemById = async (itemId) => {
+//   try {
+//     const res = await axios({
+//       method: 'get',
+//       url: `/api/v1/products?id=${itemId}`,
+//     });
 
-    return res.data.info;
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};
-
+//     return res.data.info;
+//   } catch (err) {
+//     alert(err.response.data.message);
+//   }
+// };
+import { getItemById } from '/lib/api.js';
 const item = await getItemById(itemId);
+console.log('🚀 ~ file: detail.js:31 ~ item:', item);
 
 itemImgs.forEach((itemImg) => {
   itemImg.setAttribute('src', item.imgUrl);
