@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-// import { __filename, __dirname } from '../utils/index.js';
 
 const viewService = {
   serveStatics: (srcFolder) => {

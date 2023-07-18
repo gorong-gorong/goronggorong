@@ -65,9 +65,3 @@ const authService = {
 };
 
 export default authService;
-
-/*
- * BCRYPT
- * .hash: hash password 생성
- * .compare: hashpassword 비교
- */

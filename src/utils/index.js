@@ -1,4 +1,3 @@
-import httpLogStream from './logger.js';
-import { __filename, __dirname } from './find-path.js';
+import httpLogStream from './logger';
 
-export { httpLogStream, __filename, __dirname };
+export { httpLogStream };

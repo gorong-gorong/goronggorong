@@ -1,5 +1,4 @@
-import { customError, errorHandler } from './error-handler.js';
-import verifyToken from './verify-token.js';
+import verifyToken from './verify-token';
 
-export { customError, errorHandler, verifyToken };
-export * from './swagger.js';
+export { verifyToken };
+export * from './error-handler';

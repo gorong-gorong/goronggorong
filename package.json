@@ -5,7 +5,7 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "nodemon app",
-    "api-docs": "swagger-cli bundle ./src/swagger/*.yaml --outfile src/swagger/build.yaml --type yaml",
+    "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/build.yaml --type yaml",
     "predev": "npm run api-docs",
     "dev": "nodemon ./src/app --exec babel-node"
   },
