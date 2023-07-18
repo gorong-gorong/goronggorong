@@ -35,10 +35,11 @@ async function request({ endpoint, method, params = '', data = {} }) {
     return response.data.info;
   } catch (error) {
     if (error.response) {
+      alert(error.response.data.message);
       const { status } = error.response;
       throw new Error(status);
     } else {
-      alert(error.response.message);
+      alert(error.message);
     }
   }
 }
