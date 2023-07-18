@@ -39,11 +39,11 @@
   font-weight: 600;
   margin-bottom: 24px;
 }
-.overview__price--value{
+.overview__price--value {
   font-size: 32px;
   font-weight: 700;
 }
-.overview__price{
+.overview__price {
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 20px;
@@ -84,6 +84,7 @@ body footer {
 }
 .bottom-nav__img {
   border-radius: 100px;
+  aspect-ratio: 1 / 1;
 }
 .bottom-nav__info {
   flex: 1;
