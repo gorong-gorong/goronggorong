@@ -120,7 +120,7 @@ const writeCartList = () => {
   cartList.innerHTML = '';
   if (!localStorageCart || localStorageCart.length <= 0) {
     cartList.innerHTML = `<li class='empty-cart'>장바구니에 담긴 상품이 없습니다.</li>
-      <li class='empty-cart-img'><img src="/img/empty_cart.png"></li>`;
+      <li class='empty-cart-img'><img src="/img/empty-cart.png"></li>`;
   } else {
     for (let i = 0; i < localStorageCart.length; i++) {
       cartList.appendChild(makeListItem(i, localStorageCart[i]));
