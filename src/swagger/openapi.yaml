@@ -9,7 +9,7 @@ servers:
     description: Main server
 
 paths:
-  /auth/signin:
-    $ref: './auth.yaml#/paths/~1auth~1signin'
   /auth/signup:
-    $ref: './auth.yaml#/paths/~1auth~1signup'
+    $ref: './paths/auth.yaml#/paths/~1auth~1signup'
+  /auth/signin:
+    $ref: './paths/auth.yaml#/paths/~1auth~1signin'
