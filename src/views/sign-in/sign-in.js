@@ -1,29 +1,17 @@
+import { postSignin } from '../lib/Fetcher.js';
+
 const id = document.querySelector('.form__id');
 const pw = document.querySelector('.form__pw');
 const submitBtn = document.querySelector('.form__submit');
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
-  postSignin();
+  const data = {
+    email: id.value.trim(),
+    password: pw.value.trim(),
+  };
+  const userToken = await postSignin(data);
+  localStorage.setItem('userToken', userToken);
+  window.location.href = '/';
 };
 submitBtn.addEventListener('click', handleSubmit);
-
-const postSignin = async () => {
-  try {
-    const res = await axios({
-      method: 'post',
-      url: '/api/v1/signin',
-      data: {
-        email: id.value.trim(),
-        password: pw.value.trim(),
-      },
-    });
-
-    if (res.status === 200) {
-      localStorage.setItem('userToken', res.data.token);
-    }
-    window.location.href = '/';
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};

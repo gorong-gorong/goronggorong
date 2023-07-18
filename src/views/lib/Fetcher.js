@@ -22,3 +22,13 @@ export async function getItemByCategory(category) {
 export async function postValidUser(data) {
   return await Api.Post(domain, `mypage/check-valid-user`, data);
 }
+
+// 유저 정보 조회
+export async function getUserInfo() {
+  return await Api.Get(domain, `auth/get-user-info`);
+}
+
+// 유저 로그인
+export async function postSignin(data) {
+  return await Api.Post(domain, `auth/signin`, data);
+}
