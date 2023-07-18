@@ -17,3 +17,8 @@ export async function getItemById(itemId) {
 export async function getItemByCategory(category) {
   return await Api.Get(domain, `products/${category}`);
 }
+
+// 비밀번호 확인 요청
+export async function postValidUser(data) {
+  return await Api.Post(domain, `mypage/check-valid-user`, data);
+}
