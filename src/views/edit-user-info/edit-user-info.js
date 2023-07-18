@@ -15,8 +15,6 @@ const address = () => {
 const userToken = localStorage.getItem('userToken');
 
 //기존 회원정보(변경불가능 값)
-getUserInfo(userToken);
-
 const getUserInfo = async (userToken) => {
   try {
     const res = await axios({
@@ -34,6 +32,7 @@ const getUserInfo = async (userToken) => {
     alert(err.response.data.message);
   }
 };
+getUserInfo(userToken);
 
 //회원정보 업데이트
 const handleSubmit = (e) => {
