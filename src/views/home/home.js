@@ -66,7 +66,7 @@ const createItem = (item) => {
   order.classList.add('prod__order');
 
   const price = document.createElement('span');
-  price.innerHTML = `<strong class="prod__order-price">${item.price}</strong>원`;
+  price.innerHTML = `<strong class="prod__order-price">${item.price.toLocaleString()}</strong>원`;
 
   order.appendChild(price);
   info.appendChild(title);
