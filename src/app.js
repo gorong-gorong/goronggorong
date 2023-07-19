@@ -11,6 +11,16 @@ import router from './routes';
 import { errorHandler } from './middlewares';
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:80',
+  'http://localhost:5000',
+  'http://goronggorong.store:80',
+  'http://goronggorong.store:5000',
+];
+const corsOptions = {
+  origin: allowedOrigins,
+  exposeHeaders: ['Authorization'],
+};
 
 // ENV
 const rootDir = path.join(__dirname, '..');
@@ -27,7 +37,7 @@ db.on('connected', () => console.log('Connecting DB Success'));
 db.on('error', (err) => console.error(err));
 
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(rootDir + '/public')); // public 폴더 접근
@@ -41,7 +51,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(router);
 app.use(errorHandler);
 
-// app.listen(port, process.env.HOST, () => { // 배포 코드
-app.listen(port, () => {
+app.listen(port, process.env.HOST, () => {
   console.log(`Connected to ${port}...`);
 });
