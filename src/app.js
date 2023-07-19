@@ -11,12 +11,7 @@ import router from './routes';
 import { errorHandler } from './middlewares';
 
 const app = express();
-const allowedOrigins = [
-  'http://localhost:80',
-  'http://localhost:5000',
-  'http://goronggorong.store:80',
-  'http://goronggorong.store:5000',
-];
+const allowedOrigins = ['http://localhost', 'http://goronggorong.store'];
 const corsOptions = {
   origin: allowedOrigins,
   exposeHeaders: ['Authorization'],
