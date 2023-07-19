@@ -1,7 +1,7 @@
-import * as Api from './Api.js';
+import * as Api from '/lib/Api.js';
 
 const version = 'v1';
-const domain = `http://localhost:3000/api/${version}`;
+const domain = `http://localhost:5000/api/${version}`;
 
 // 모든 상품 조회
 export async function getItemData() {
