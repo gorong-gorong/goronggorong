@@ -46,7 +46,7 @@ db.on('error', (err) => console.error(err));
 app.use(router);
 app.use(errorHandler);
 
-// app.listen(port, process.env.HOST, () => {
-app.listen(port, () => {
+app.listen(port, process.env.HOST, () => {
+  // 배포 코드
   console.log(`Connected to ${port}...`);
 });
