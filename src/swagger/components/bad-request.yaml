@@ -1,0 +1,14 @@
+components:
+  examples:
+    OverlapUser:
+      summary: 사용자가 이미 있습니다.
+      value: { success: false, statusCode: 400, message: 사용자가 이미 있습니다. }
+    FailToCreateUser:
+      summary: 사용자를 생성하는데 실패했습니다.
+      value: { success: false, statusCode: 400, message: 사용자를 생성하는데 실패했습니다. }
+    WrongPassword:
+      summary: 비밀번호가 틀렸습니다.
+      value: { success: false, statusCode: 400, message: 비밀번호가 틀렸습니다. }
+    FailToUpdateToken:
+      summary: 토큰을 업데이트 하는데 실패했습니다.
+      value: { success: false, statusCode: 400, message: 토큰을 업데이트 하는데 실패했습니다. }
