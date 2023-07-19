@@ -1,38 +1,24 @@
+import { getOrderInfo, cancelOrder } from '/lib/Fetcher.js';
 import { main } from '/layouts/main.js';
 await main();
 
-const _id = location.pathname.split('/')[2];
-const userToken = localStorage.getItem('userToken');
-const getOrderInfo = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-      url: `/api/v1/orders/${_id}`,
-    });
-
-    return res.data.info;
-  } catch (err) {
-    alert(err);
-  }
-};
+const OrderId = location.pathname.split('/')[2];
 
 const { orderId, orderDate, deliveryStatus, paymentMethod, products, receiver, totalPrice } = await getOrderInfo(
-  userToken,
+  OrderId,
 );
+
 const itemInfoWrap = document.querySelector('.item-info-wrap');
 
-await products.forEach((item) => {
+await products.forEach((product) => {
   itemInfoWrap.innerHTML += `<li class="item-info">
-    <img class="item-img" src="${item.id.imgUrl}" alt="${
-    item.id.name
+    <img class="item-img" src="${product.id.imgUrl}" alt="${
+    product.id.name
   } 대표 이미지" onerror=" this.src='../../img/error.png' ;this.onerror=null;"/>
     <div>
-      <span>제품명: ${item.id.name}</span>
-      <span>수량: ${item.amount}</span>
-      <span> 금액:${(item.id.price * item.amount).toLocaleString()}</span>
+      <span>제품명: ${product.id.name}</span>
+      <span>수량: ${product.amount}</span>
+      <span> 금액:${(product.id.price * product.amount).toLocaleString()}</span>
     </div>
   </li>`;
 });
@@ -55,25 +41,13 @@ receiverAddress.innerHTML = receiver.address;
 receiverPhone.innerHTML = receiver.phone;
 receiverRequest.innerHTML = receiver.requestMessage;
 
-const cancelOrder = document.querySelector('.cancel-order');
-cancelOrder.addEventListener('click', (e) => {
-  e.preventDefault();
-  putCancel(userToken);
-});
+// 주문 취소하기
+const cancelButton = document.querySelector('.cancel-order');
 
-const putCancel = async (userToken) => {
-  try {
-    const res = axios({
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-
-      url: `/api/v1/orders/cancel/${_id}`,
-    });
-    alert(res.data.message);
+const handleCancelClick = async () => {
+  if (window.confirm(`주문을 취소할까요?`)) {
+    await cancelOrder(OrderId);
     window.location.href = '/mypage';
-  } catch (err) {
-    alert(err.message);
   }
 };
+cancelButton.addEventListener('click', handleCancelClick);

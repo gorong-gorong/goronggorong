@@ -57,3 +57,13 @@ export async function passwordReset(data) {
 export async function getOrderList() {
   return await Api.Get(domain, `orders/user/order-list`);
 }
+
+// 주문내역 상세 조회
+export async function getOrderInfo(orderId) {
+  return await Api.Get(domain, `orders/${orderId}`);
+}
+
+// 주문 취소
+export async function cancelOrder(orderId) {
+  return await Api.Put(domain, `orders/cancel/${orderId}`);
+}
