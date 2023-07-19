@@ -30,12 +30,6 @@ process.chdir(__dirname);
 
 const port = process.env.PORT || 3000;
 
-// Database
-mongoose.connect(process.env.DB_KEY);
-const db = mongoose.connection;
-db.on('connected', () => console.log('Connecting DB Success'));
-db.on('error', (err) => console.error(err));
-
 // Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -46,6 +40,12 @@ app.use(morgan('dev', { stream: httpLogStream })); // Log 생성기
 // Swagger
 const swaggerSpec = yaml.load(path.join(__dirname, '../build/build.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Database
+mongoose.connect(process.env.DB_KEY);
+const db = mongoose.connection;
+db.on('connected', () => console.log('Connecting DB Success'));
+db.on('error', (err) => console.error(err));
 
 // Routes
 app.use(router);
