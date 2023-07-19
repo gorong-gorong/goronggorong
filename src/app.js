@@ -11,12 +11,7 @@ import router from './routes';
 import { errorHandler } from './middlewares';
 
 const app = express();
-const allowedOrigins = [
-  'http://localhost:80',
-  'http://localhost:5000',
-  'http://goronggorong.store:80',
-  'http://goronggorong.store:5000',
-];
+const allowedOrigins = ['http://localhost', 'http://goronggorong.store'];
 const corsOptions = {
   origin: allowedOrigins,
   exposeHeaders: ['Authorization'],
@@ -30,12 +25,6 @@ process.chdir(__dirname);
 
 const port = process.env.PORT || 3000;
 
-// Database
-mongoose.connect(process.env.DB_KEY);
-const db = mongoose.connection;
-db.on('connected', () => console.log('Connecting DB Success'));
-db.on('error', (err) => console.error(err));
-
 // Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -46,6 +35,12 @@ app.use(morgan('dev', { stream: httpLogStream })); // Log 생성기
 // Swagger
 const swaggerSpec = yaml.load(path.join(__dirname, '../build/build.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Database
+mongoose.connect(process.env.DB_KEY);
+const db = mongoose.connection;
+db.on('connected', () => console.log('Connecting DB Success'));
+db.on('error', (err) => console.error(err));
 
 // Routes
 app.use(router);
