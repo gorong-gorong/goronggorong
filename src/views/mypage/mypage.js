@@ -1,8 +1,14 @@
+import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
 //헤더푸터 불러오기
 import { main } from '/layouts/main.js';
 await main();
 
-//로그아웃 로직
+// 회원정보
+const userInfo = await getUserInfo();
+const username = document.querySelector('.user__name');
+username.innerText = userInfo.name;
+
+// 로그아웃 로직
 const signout = document.querySelector('.user__signout');
 const handleSignoutClick = () => {
   localStorage.removeItem('userToken');
@@ -10,7 +16,7 @@ const handleSignoutClick = () => {
 };
 signout.addEventListener('click', handleSignoutClick);
 
-//배송 status 로직
+// 배송 status 로직
 const state1 = document.querySelector('.state__1');
 const state2 = document.querySelector('.state__2');
 const state3 = document.querySelector('.state__3');
@@ -20,74 +26,8 @@ const state6 = document.querySelector('.state__6');
 const state = [state1, state2, state3, state4, state5, state6];
 let status = [0, 0, 0, 0, 0, 0];
 
-const userToken = localStorage.getItem('userToken');
-
-const getUserInfo = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: '/api/v1/auth/get-user-info',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
-    const username = document.querySelector('.user__name');
-    username.innerText = res.data.info.name;
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};
-
-const getOrderList = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: '/api/v1/orders/user/order-list',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
-
-    if (res.status === 200) {
-      const orders = res.data.info;
-      if (!orders.length) {
-        for (let i = 0; i < 6; i++) {
-          status[i] = 0;
-          state[i].innerText = '0';
-        }
-      }
-      orders.forEach((order) => {
-        //배송 상태
-        if (order.deliveryStatus === '입금대기') {
-          status[0] += 1;
-        }
-        if (order.deliveryStatus === '결제완료') {
-          status[1] += 1;
-        }
-        if (order.deliveryStatus === '배송준비중') {
-          status[2] += 1;
-        }
-        if (order.deliveryStatus === '배송중') {
-          status[3] += 1;
-        }
-        if (order.deliveryStatus === '배송완료') {
-          status[4] += 1;
-        }
-        if (order.deliveryStatus === '주문취소') {
-          status[5] += 1;
-        }
-        for (let i = 0; i < 6; i++) {
-          state[i].innerText = status[i];
-        }
-        //order preview 생성
-        const orderList = document.querySelector('.order');
-        orderList.innerHTML += createOrderPreview(order);
-      });
-    }
-  } catch (err) {
-    // console.log(err.response.data.message);
-  }
-};
+// 주문 내역
+const orders = await getOrderList();
 
 const createOrderPreview = (order) => {
   const orderDate = order.orderDate;
@@ -119,5 +59,48 @@ const createOrderPreview = (order) => {
 `;
 };
 
-getUserInfo(userToken);
-getOrderList(userToken);
+// 상품 결제, 배송 상태
+if (!orders.length) {
+  for (let i = 0; i < 6; i++) {
+    status[i] = 0;
+    state[i].innerText = '0';
+  }
+}
+
+// 상품 주문 내역
+const orderList = document.querySelector('.order');
+
+if (orders.length === 0) {
+  orderList.innerHTML = `
+  <li class="order__empty">
+  <img src = '/img/empty-cart.png'>
+  <p>아직 주문 내역이 없습니다.</p>
+  </li>`;
+} else {
+  orders.forEach((order) => {
+    //배송 상태
+    if (order.deliveryStatus === '입금대기') {
+      status[0] += 1;
+    }
+    if (order.deliveryStatus === '결제완료') {
+      status[1] += 1;
+    }
+    if (order.deliveryStatus === '배송준비중') {
+      status[2] += 1;
+    }
+    if (order.deliveryStatus === '배송중') {
+      status[3] += 1;
+    }
+    if (order.deliveryStatus === '배송완료') {
+      status[4] += 1;
+    }
+    if (order.deliveryStatus === '주문취소') {
+      status[5] += 1;
+    }
+    for (let i = 0; i < 6; i++) {
+      state[i].innerText = status[i];
+    }
+    //order preview 생성
+    orderList.innerHTML += createOrderPreview(order);
+  });
+}

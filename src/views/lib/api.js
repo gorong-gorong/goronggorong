@@ -29,9 +29,18 @@ async function request({ endpoint, method, params = '', data = {} }) {
         throw new Error('잘못된 메소드 접근입니다.');
     }
 
-    return response.data.info;
-  } catch (err) {
-    alert(err.response.data.message);
+    if (params === 'auth/signin' || params === '/mypage/edit-user-info') {
+      return response.data.data.token;
+    }
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      alert(error.response.data.message);
+      const { status } = error.response;
+      throw new Error(status);
+    } else {
+      alert(error.message);
+    }
   }
 }
 

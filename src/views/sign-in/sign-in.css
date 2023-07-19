@@ -1,11 +1,22 @@
-.form__link{
+.form__link {
   display: flex;
   justify-content: flex-end;
 }
 
-.form__link--button{
+.form__link--button {
   text-decoration: 0;
   font-size: 16px;
   color: #666666;
   margin: 16px;
+}
+.form__remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.form__remember--input {
+  height: 24px;
+  width: 24px;
+  margin: 0;
 }

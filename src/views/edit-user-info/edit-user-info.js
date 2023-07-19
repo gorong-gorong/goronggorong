@@ -1,3 +1,5 @@
+import { getUserInfo, putUserInfo } from '/lib/Fetcher.js';
+
 const userName = document.querySelector('.form__name');
 const id = document.querySelector('.form__id');
 const pw = document.querySelector('.form__pw');
@@ -15,56 +17,26 @@ const address = () => {
 const userToken = localStorage.getItem('userToken');
 
 //기존 회원정보(변경불가능 값)
-const getUserInfo = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'get',
-      url: '/api/v1/auth/get-user-info',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
-    const data = res.data.info;
-    id.value = data.email;
-    phone.value = data.phone;
-    userName.value = data.name;
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};
-getUserInfo(userToken);
+const data = await getUserInfo();
+id.value = data.email;
+phone.value = data.phone;
+userName.value = data.name;
 
 //회원정보 업데이트
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
-  putUserInfo(userToken);
+  const data = {
+    name: userName.value,
+    password: pw.value,
+    phone: phone.value,
+    address: address(),
+  };
+  const userToken = await putUserInfo(data);
+  alert(`회원정보가 수정되었습니다.`);
+  window.location.href = '/mypage';
+  localStorage.setItem('userToken', userToken);
 };
 submitBtn.addEventListener('click', handleSubmit);
-
-const putUserInfo = async (userToken) => {
-  try {
-    const res = axios({
-      method: 'put',
-      url: '/api/v1/mypage/edit-user-info',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-      data: {
-        name: userName.value,
-        password: pw.value,
-        phone: phone.value,
-        address: address(),
-      },
-    });
-    if (res.status === 200) {
-      alert(`회원정보가 수정되었습니다.`);
-      window.location.href = '/mypage';
-      localStorage.setItem('userToken', res.data.token);
-    }
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};
 
 //회원탈퇴 로직
 const handleDeleteClick = () => {
