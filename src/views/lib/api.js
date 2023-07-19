@@ -30,9 +30,9 @@ async function request({ endpoint, method, params = '', data = {} }) {
     }
 
     if (params === 'auth/signin' || params === '/mypage/edit-user-info') {
-      return response.data.token;
+      return response.data.data.token;
     }
-    return response.data.info;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       alert(error.response.data.message);
