@@ -5,10 +5,10 @@ import { verifyToken } from '../middlewares';
 const authRouter = Router();
 
 // 회원가입
-authRouter.post('/signup', authController.createUser);
+authRouter.post('/signup', authController.signUp);
 
 // 로그인
-authRouter.post('/signin', authController.verifyUser);
+authRouter.post('/signin', authController.signIn);
 
 // 비밀번호 초기화
 authRouter.put('/signin/password-reset', authController.resetPassword);

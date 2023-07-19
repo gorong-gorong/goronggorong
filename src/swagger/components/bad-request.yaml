@@ -1,0 +1,8 @@
+components:
+  examples:
+    OverlapUser:
+      summary: 사용자가 이미 있습니다.
+      value: { success: false, statusCode: 400, message: 사용자가 이미 있습니다. }
+    FailToCreateUser:
+      summary: 사용자를 생성하는데 실패했습니다.
+      value: { success: false, statusCode: 400, message: 사용자를 생성하는데 실패했습니다. }
