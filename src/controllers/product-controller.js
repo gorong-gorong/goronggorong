@@ -11,7 +11,7 @@ const productController = {
       const products = await productService.checkSkipLimit(skip, limit);
       res.status(200).json({
         message: `전체 제품 목록 ${parseInt(skip) + 1} id 부터 ${parseInt(limit)} id 까지 불러왔습니다.`,
-        info: products.slice(skip, limit),
+        data: products.slice(skip, limit),
       });
     } catch (err) {
       next(err);
@@ -25,7 +25,7 @@ const productController = {
       const products = await productService.checkCategory(category);
       res.status(200).json({
         message: '선택한 카테고리에 해당하는 제품 목록을 불러왔습니다',
-        info: products,
+        data: products,
       });
     } catch (err) {
       next(err);
@@ -39,7 +39,7 @@ const productController = {
       const product = await productService.checkId(id);
       res.status(200).json({
         message: '해당 아이디 제품을 불러왔습니다',
-        info: product,
+        data: product,
       });
     } catch (err) {
       next(err);
@@ -55,7 +55,7 @@ const productController = {
       // 이런식으로 되어야 해서 imgUrl이 productInfo 가장 끝에 와야 할 듯
       res.status(200).json({
         message: '새로운 제품 등록을 완료했습니다',
-        info: newProduct,
+        data: newProduct,
       });
     } catch (err) {
       next(err);
@@ -79,7 +79,7 @@ const productController = {
       );
       res.status(200).json({
         message: '해당 제품 수정을 완료했습니다',
-        info: updatedProduct,
+        data: updatedProduct,
       });
     } catch (err) {
       next(err);
@@ -95,7 +95,7 @@ const productController = {
 
       res.status(200).json({
         message: '해당 제품 삭제를 완료했습니다',
-        info: deletedProduct,
+        data: deletedProduct,
       });
     } catch (err) {
       next(err);

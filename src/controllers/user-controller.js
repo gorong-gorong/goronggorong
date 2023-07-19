@@ -18,7 +18,7 @@ const userController = {
       }
       return res.status(200).json({
         message: '유저 확인 성공',
-        info: decoded,
+        data: decoded,
       });
     } catch (err) {
       next(err);
@@ -60,7 +60,7 @@ const userController = {
 
       return res.status(200).json({
         message: '사용자 정보 업데이트를 성공했습니다',
-        info: user,
+        data: user,
         token: refreshToken,
       });
     } catch (err) {
@@ -84,7 +84,7 @@ const userController = {
 
       return res.status(200).json({
         message: '사용자 삭제 성공',
-        info: deletedUser,
+        data: deletedUser,
       });
     } catch (err) {
       next(err);

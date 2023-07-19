@@ -15,7 +15,7 @@ const orderController = {
 
       return res.status(200).json({
         message: '주문을 완료했습니다',
-        info: order,
+        data: order,
       });
     } catch (err) {
       next(err);
@@ -36,7 +36,7 @@ const orderController = {
 
       return res.status(200).json({
         message: '주문 정보를 불러왔습니다.',
-        info: order,
+        data: order,
       });
     } catch (err) {
       next(err);
@@ -55,7 +55,7 @@ const orderController = {
 
       return res.status(200).json({
         message: '주문이 취소됐습니다.',
-        info: updatedOrder,
+        data: updatedOrder,
       });
     } catch (err) {
       next(err);
@@ -73,7 +73,7 @@ const orderController = {
 
       return res.status(200).json({
         message: '사용자의 주문 정보를 읽어왔습니다.',
-        info: orders,
+        data: orders,
       });
     } catch (err) {
       next(err);
