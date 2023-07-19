@@ -29,7 +29,7 @@ async function request({ endpoint, method, params = '', data = {} }) {
         throw new Error('잘못된 메소드 접근입니다.');
     }
 
-    if (endpoint === 'auth/signin') {
+    if (params === 'auth/signin' || params === '/mypage/edit-user-info') {
       return response.data.token;
     }
     return response.data.info;

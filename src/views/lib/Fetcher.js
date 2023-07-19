@@ -25,10 +25,30 @@ export async function postValidUser(data) {
 
 // 유저 정보 조회
 export async function getUserInfo() {
-  return await Api.Get(domain, `auth/get-user-info`);
+  return await Api.Get(domain, `auth/user-info`);
+}
+
+// 유저 정보 수정
+export async function putUserInfo(data) {
+  return await Api.Put(domain, `/mypage/edit-user-info`, data);
 }
 
 // 유저 로그인
 export async function postSignin(data) {
   return await Api.Post(domain, `auth/signin`, data);
+}
+
+// 회원가입
+export async function postSignup(data) {
+  return await Api.Post(domain, `auth/signup`, data);
+}
+
+// 비밀번호 초기화
+export async function passwordReset(data) {
+  return await Api.Put(domain, `auth/signin/password-reset`, data);
+}
+
+// 주문내역 조회
+export async function getOrderList() {
+  return await Api.Get(domain, `orders/user/order-list`);
 }
