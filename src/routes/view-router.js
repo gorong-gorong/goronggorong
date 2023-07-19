@@ -37,7 +37,7 @@ viewRouter.use('/orders/cart', viewService.serveStatics('cart'));
 viewRouter.use('/orders/payment', viewService.serveStatics('payment'));
 
 // 결제 성공
-viewRouter.use('/orders/payment/success', viewService.serveStatics('success'));
+viewRouter.use('/orders/payment/order-complete', viewService.serveStatics('order-complete'));
 
 // 주문 상세 확인
 viewRouter.use('/orders/:orderId', viewService.serveStatics('order-detail'));
