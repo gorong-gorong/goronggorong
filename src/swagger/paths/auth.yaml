@@ -47,8 +47,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '../components/error-properties.yaml#/components/schema'
+                - $ref: '../components/properties.yaml#/components/schemas/error'
               examples:
                 type1:
                   $ref: '../components/bad-request.yaml#/components/examples/OverlapUser'
@@ -91,7 +90,19 @@ paths:
                         type: string
                 example: { message: 로그인 성공, data: { token: string } }
         '400':
-          description: 누락된 데이터가 있습니다.
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '../components/properties.yaml#/components/schemas/error'
+              examples:
+                type1:
+                  $ref: '../components/bad-request.yaml#/components/examples/WrongPassword'
+                type2:
+                  $ref: '../components/bad-request.yaml#/components/examples/FailToUpdateToken'
+        '404':
+          description: 사용자가 없습니다.
 
   /auth/signin/password-reset:
     put:
@@ -128,7 +139,7 @@ paths:
                         type: string
                 example: { message: '비밀번호가 초기화 됐습니다', data: { resetPassword: string } }
         '404':
-          description: 없는 사용자 입니다.
+          description: 사용자가 없습니다.
 
   /auth/user-info:
     get:
@@ -165,6 +176,6 @@ paths:
                     data: { name: string, email: string, phone: string, address: string },
                   }
         '400':
-          description: 유효하지 않은 토큰입니다.
+          description: 잘못된 토큰입니다.
         '401':
-          description: Authorization 헤더가 없습니다.
+          description: 토큰이 없습니다.

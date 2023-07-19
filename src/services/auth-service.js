@@ -78,13 +78,13 @@ const authService = {
     const user = await userModel.findByEmail(email);
 
     if (flag === 'overlap' && user) {
-      throw new customError(400, '사용자가 이미 있습니다');
+      throw new customError(StatusCodes.BAD_REQUEST, '사용자가 이미 있습니다');
     }
     if (flag === 'valid' && !user) {
-      throw new customError(404, '사용자가 없습니다.');
+      throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
     } else if (flag === 'valid' && compareData) {
       if (user.name !== compareData.name || user.phone !== compareData.phone) {
-        throw new customError(404, '사용자가 없습니다.');
+        throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
       }
     }
 
@@ -100,7 +100,7 @@ const authService = {
     });
 
     if (!user) {
-      throw new customError(400, '사용자를 생성하는데 실패했습니다.');
+      throw new customError(StatusCodes.BAD_REQUEST, '사용자를 생성하는데 실패했습니다.');
     }
 
     return user;

@@ -1,9 +1,0 @@
-components:
-  schema:
-    properties:
-      success:
-        type: boolean
-      statusCode:
-        type: number
-      message:
-        type: string
