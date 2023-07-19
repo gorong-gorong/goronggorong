@@ -22,7 +22,7 @@ async function request({ endpoint, method, params = '', data = {} }) {
         break;
 
       case 'DELETE':
-        response = await axios.delete(apiUrl, data, { headers });
+        response = await axios.delete(apiUrl, { headers });
         break;
 
       default:

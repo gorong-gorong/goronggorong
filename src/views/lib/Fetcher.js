@@ -43,6 +43,11 @@ export async function postSignup(data) {
   return await Api.Post(domain, `auth/signup`, data);
 }
 
+// 회원탈퇴
+export async function deleteUserInfo() {
+  return await Api.Delete(domain, `mypage/delete-user-info`);
+}
+
 // 비밀번호 초기화
 export async function passwordReset(data) {
   return await Api.Put(domain, `auth/signin/password-reset`, data);
