@@ -26,7 +26,7 @@ input {
   border: 1px solid #dfdfdf;
   border-radius: 4px;
   font-size: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 input:hover {
   background-color: #c1c1c120;
@@ -40,7 +40,7 @@ input:focus {
   color: #9b9b9b;
   font-size: 12px;
   position: relative;
-  top: -24px;
+  top: -12px;
 }
 
 .form__submit {
@@ -64,15 +64,15 @@ input:focus {
   margin-bottom: 8px;
 }
 
-.find__address{
+.find__address {
   display: flex;
   justify-content: space-between;
 }
-#sample6_postcode{
+#sample6_postcode {
   flex: 2;
   width: 68%;
 }
-.change-delivery-address button{
+.change-delivery-address button {
   font-size: 16px;
   font-weight: 600;
   border: 0;
@@ -84,9 +84,9 @@ input:focus {
   padding: 0px 16px 0px 16px;
 }
 
-.change-delivery-address button:hover{
+.change-delivery-address button:hover {
   background-color: #c1c1c120;
 }
-#sample6_address{
+#sample6_address {
   width: 340px;
 }
