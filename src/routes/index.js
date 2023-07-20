@@ -1,16 +1,12 @@
 import { Router } from 'express';
 import authRouter from './auth-router';
-import userRouter from './user-router';
 import orderRouter from './order-router';
 import productRouter from './product-router';
 import viewRouter from './view-router';
 
 const router = Router();
 
-// API
 router.use('/api/v1/auth', authRouter);
-
-router.use('/api/v1', userRouter);
 
 router.use('/api/v1', productRouter);
 
