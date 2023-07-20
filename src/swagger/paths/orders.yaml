@@ -4,6 +4,8 @@ paths:
       tags:
         - /orders
       summary: 결제
+      security:
+        - bearerAuth: []
 
       requestBody:
         content:
@@ -18,14 +20,14 @@ paths:
                     'receiver':
                       {
                         'name': 'John',
-                        'phone': '01012345678',
+                        'phone': 'string',
                         'address': '서울특별시 강남구',
                         'requestMessage': '문 앞에 두고 가주세요.',
                       },
                     'products':
                       [
-                        { 'id': '6444d810c6efec47b104fc7c', 'amount': 1 },
-                        { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 },
+                        { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1 },
+                        { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2 },
                       ],
                     'totalPrice': 2000,
                     'paymentMethod':
@@ -48,14 +50,14 @@ paths:
                     'receiver':
                       {
                         'name': 'John',
-                        'phone': '01012345678',
+                        'phone': string,
                         'address': '서울특별시 강남구',
                         'requestMessage': '문 앞에 두고 가주세요.',
                       },
                     'products':
                       [
-                        { 'id': '6444d810c6efec47b104fc7c', 'amount': 1 },
-                        { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 },
+                        { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1 },
+                        { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2 },
                       ],
                     'totalPrice': 2000,
                     'paymentMethod': { 'paymentType': 'account' },
@@ -64,6 +66,58 @@ paths:
       responses:
         '200':
           description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
+
+                example:
+                  {
+                    'message': '주문을 완료했습니다',
+                    'data':
+                      {
+                        'orderId': 202307204985565900,
+                        'user': '64b785f9360823d02ef15429',
+                        'receiver':
+                          {
+                            'name': 'John',
+                            'phone': '17119607',
+                            'address': '서울특별시 강남구',
+                            'requestMessage': '문 앞에 두고 가주세요.',
+                          },
+                        'products':
+                          [
+                            { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9304c2687bf91bcbe1868' },
+                            { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9304c2687bf91bcbe1869' },
+                          ],
+                        'totalCase': 2,
+                        'totalPrice': 2000,
+                        'paymentMethod':
+                          {
+                            'paymentType': 'card',
+                            'creditInfo':
+                              {
+                                'company': '국민',
+                                'cardNumber': '123456789',
+                                'expiryDate': '01/24',
+                                'cvc': '456',
+                                'cardOwner': 'John',
+                              },
+                          },
+                        'deliveryStatus': '결제완료',
+                        '_id': '64b9304c2687bf91bcbe1867',
+                        'orderDate': '2023-07-20T13:02:04.598Z',
+                        'created_at': '2023-07-20T13:02:04.600Z',
+                        'updated_at': '2023-07-20T13:02:04.600Z',
+                        '__v': 0,
+                      },
+                  }
 
   # /orders/{id}:
   # /orders/cancel/{id}:

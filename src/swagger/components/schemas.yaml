@@ -80,3 +80,32 @@ components:
       properties:
         paymentType:
           type: string
+
+    orderMoreOptions:
+      properties:
+        orderId:
+          type: number
+        user:
+          type: string
+          description: MongoDB ObjectId. Schema.Types.ObjectId
+        totalCase:
+          type: number
+        deliveryStatus:
+          type: string
+        _id:
+          type: string
+          description: MongoDB ObjectId. Schema.Types.ObjectId
+        orderDate:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date
+        updated_at:
+          type: string
+          format: date
+
+    combinedOrder:
+      allOf:
+        - $ref: '#/components/schemas/order'
+        - $ref: '#/components/schemas/orderMoreOptions'
