@@ -1,7 +1,9 @@
 import * as Api from './Api.js';
 
 const version = 'v1';
-const domain = `http://localhost:3000/api/${version}`;
+const product = 'http://goronggorong.store';
+const dev = 'http://localhost:3000';
+const domain = `${dev}/api/${version}`;
 
 // 모든 상품 조회
 export async function getItemData() {
