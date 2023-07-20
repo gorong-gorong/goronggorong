@@ -1,5 +1,5 @@
 import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
-//헤더푸터 불러오기
+import { getDate } from '/lib/utils/get-date.js';
 import { main } from '/layouts/main.js';
 await main();
 
@@ -30,12 +30,11 @@ let status = [0, 0, 0, 0, 0, 0];
 const orders = await getOrderList();
 
 const createOrderPreview = (order) => {
-  const orderDate = order.orderDate;
-  const getDate = dayjs(orderDate).format('YYYY년 MM월 DD일 HH:mm:ss');
+  const orderDate = getDate(order.orderDate);
 
   return `<li class="order__preview">
   <div class="preview__top">
-  <p class="preview__top--date">${getDate}</p>
+  <p class="preview__top--date">${orderDate}</p>
   <p class="preview__top--orderid">주문번호: ${order.orderId}</p>
   </div>
   <div class="preview__info-container">
