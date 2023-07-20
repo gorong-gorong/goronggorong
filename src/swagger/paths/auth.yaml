@@ -23,13 +23,7 @@ paths:
                 address:
                   type: string
               example:
-                {
-                  name: John,
-                  email: test@test.com,
-                  password: qwerty1234,
-                  phone: 01024368772,
-                  address: 서울시 강남구 ***,
-                }
+                { name: John, email: test@test.com, password: qwerty1234, phone: string, address: 서울시 강남구 *** }
 
       responses:
         '201':
@@ -121,7 +115,7 @@ paths:
                   type: string
                 phone:
                   type: string
-              example: { name: John, email: test@test.com, phone: '01012345678' }
+              example: { name: John, email: test@test.com, phone: string }
 
       responses:
         '200':
