@@ -7,6 +7,8 @@ info:
 servers:
   - url: http://www.goronggorong.store/api/v1
     description: Main server
+  - url: http://localhost:5000/api/v1
+    description: Local server
 
 components:
   securitySchemes:
