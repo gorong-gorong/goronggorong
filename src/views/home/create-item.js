@@ -34,7 +34,7 @@ export function createItem(item) {
 
   // 각 이미지 요소를 관찰 대상으로 등록
   const lazyLoadThumbs = document.querySelectorAll('.prod__link-thumb');
-  lazyLoadThumbs.forEach((thumb) => lazyLoadObserver.observe(thumb));
+  lazyLoadObserver.observe(thumb);
 
   // 이미지 로드 실패 시 디폴트 이미지
   thumb.onerror = () => {
