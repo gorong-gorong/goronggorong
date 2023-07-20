@@ -7,11 +7,36 @@ export function createItem(item) {
   link.classList.add('prod__link');
   link.setAttribute('href', `/products?id=${item.id}`);
 
+  // 이미지 lazy loading 적용
   const thumb = document.createElement('img');
   thumb.classList.add('prod__link-thumb');
-  thumb.setAttribute('src', item.imgUrl);
+  thumb.setAttribute('data-src', item.imgUrl);
   thumb.setAttribute('alt', `${item.name} 대표 이미지`);
-  //이미지 로드 실패 시 디폴트 이미지
+
+  // Intersection Observer option 설정
+  const options = {
+    root: null,
+    rootMargin: '0px 0px 40px 0px',
+    threshold: 0,
+  };
+  //  Intersection Observer 등록
+  const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      // 관찰 대상이 viewport 안에 들어온 경우 image로드
+      if (entry.isIntersecting) {
+        // data-src에 저장한 정보를 실제 src 속성에 설정
+        entry.target.src = entry.target.dataset.src;
+        // 이미지가 로드되었으므로 관찰 중지
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  // 각 이미지 요소를 관찰 대상으로 등록
+  const lazyLoadThumbs = document.querySelectorAll('.prod__link-thumb');
+  lazyLoadThumbs.forEach((thumb) => lazyLoadObserver.observe(thumb));
+
+  // 이미지 로드 실패 시 디폴트 이미지
   thumb.onerror = () => {
     thumb.onerror = null;
     thumb.setAttribute('src', '../img/error.png');
