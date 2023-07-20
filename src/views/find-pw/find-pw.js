@@ -14,7 +14,7 @@ const handleSubmit = async (e) => {
   };
   const newPassword = await passwordReset(data);
   modal.classList.add('is-active');
-  newPw.value = newPassword;
+  newPw.value = newPassword.resetPassword;
 };
 submitBtn.addEventListener('click', handleSubmit);
 
