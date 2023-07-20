@@ -1,8 +1,8 @@
-import { orderModel } from '../db/index.js';
-import { customError } from '../middlewares/index.js';
-import { orderService } from '../services/index.js';
+import { orderModel } from '../db';
+import { customError } from '../middlewares';
+import { orderService } from '../services';
 
-const orderController = {
+const ordersController = {
   createOrder: async (req, res, next) => {
     const { receiver, products, totalPrice, paymentMethod } = req.body;
 
@@ -81,4 +81,4 @@ const orderController = {
   },
 };
 
-export default orderController;
+export default ordersController;
