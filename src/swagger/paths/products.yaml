@@ -1,0 +1,33 @@
+paths:
+  /:
+    get:
+      tags:
+        - products
+      summary: 모든 상품
+      description: 나중에 /products로 바뀔 예정
+
+      responses:
+        200:
+          $ref: '../components/ok.yaml#/components/schemas/product'
+
+  /products/{category}:
+    get:
+      tags:
+        - products
+      summary: 카테고리별 상품
+      description: 페이지네이션 때문에 나중에 /products?category
+
+      responses:
+        200:
+          $ref: '../components/ok.yaml#/components/schemas/product'
+
+  /products:
+    get:
+      tags:
+        - products
+      summary: 상품 상세 정보
+      description: 나중에 /products/:id
+
+      responses:
+        200:
+          $ref: '../components/ok.yaml#/components/schemas/product'

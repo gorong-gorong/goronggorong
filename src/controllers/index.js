@@ -1,5 +1,5 @@
 import authController from './auth-controller';
-import productController from './product-controller';
+import productsController from './products-controller';
 import orderController from './order-controller';
 
-export { authController, productController, orderController };
+export { authController, productsController, orderController };

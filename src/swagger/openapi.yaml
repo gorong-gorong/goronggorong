@@ -25,3 +25,11 @@ paths:
     $ref: './paths/auth.yaml#/paths/~1auth~1signin~1password-reset'
   /auth/user-info:
     $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
+
+  # /products
+  /:
+    $ref: './paths/products.yaml#/paths/~1'
+  /products/{category}:
+    $ref: './paths/products.yaml#/paths/~1products~1{category}'
+  /products:
+    $ref: './paths/products.yaml#/paths/~1products'
