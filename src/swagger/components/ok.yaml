@@ -10,4 +10,4 @@ components:
               message:
                 type: string
               data:
-                $ref: '../components/properties.yaml#/components/schemas/product'
+                $ref: '../components/schemas.yaml#/components/schemas/product'

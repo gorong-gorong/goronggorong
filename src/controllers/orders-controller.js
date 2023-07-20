@@ -1,8 +1,8 @@
-import { orderModel } from '../db/index.js';
-import { customError } from '../middlewares/index.js';
-import { orderService } from '../services/index.js';
+import { orderModel } from '../db';
+import { customError } from '../middlewares';
+import { ordersService } from '../services';
 
-const orderController = {
+const ordersController = {
   createOrder: async (req, res, next) => {
     const { receiver, products, totalPrice, paymentMethod } = req.body;
 
@@ -11,7 +11,7 @@ const orderController = {
         throw new customError(400, '누락된 데이터가 있습니다.');
       }
 
-      const order = await orderService.createOrder({ ...req.body, user: req.decoded._id });
+      const order = await ordersService.createOrder({ ...req.body, user: req.decoded._id });
 
       return res.status(200).json({
         message: '주문을 완료했습니다',
@@ -81,4 +81,4 @@ const orderController = {
   },
 };
 
-export default orderController;
+export default ordersController;

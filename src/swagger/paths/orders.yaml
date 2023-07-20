@@ -1,0 +1,159 @@
+paths:
+  /orders/payment:
+    post:
+      tags:
+        - orders
+      summary: 결제
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas.yaml#/components/schemas/order'
+            examples:
+              type1:
+                summary: 카드 결제
+                value:
+                  {
+                    'receiver':
+                      {
+                        'name': 'John',
+                        'phone': 'string',
+                        'address': '서울특별시 강남구',
+                        'requestMessage': '문 앞에 두고 가주세요.',
+                      },
+                    'products':
+                      [
+                        { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1 },
+                        { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2 },
+                      ],
+                    'totalPrice': 2000,
+                    'paymentMethod':
+                      {
+                        'paymentType': 'card',
+                        'creditInfo':
+                          {
+                            'company': '국민',
+                            'cardNumber': '123456789',
+                            'expiryDate': '01/24',
+                            'cvc': '456',
+                            'cardOwner': 'John',
+                          },
+                      },
+                  }
+              type2:
+                summary: 계좌 이체
+                value:
+                  {
+                    'receiver':
+                      {
+                        'name': 'John',
+                        'phone': string,
+                        'address': '서울특별시 강남구',
+                        'requestMessage': '문 앞에 두고 가주세요.',
+                      },
+                    'products':
+                      [
+                        { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1 },
+                        { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2 },
+                      ],
+                    'totalPrice': 2000,
+                    'paymentMethod': { 'paymentType': 'account' },
+                  }
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
+              examples:
+                cardPayment:
+                  $ref: '../components/orders-examples.yaml#/components/examples/cardPayment'
+                accountPayment:
+                  $ref: '../components/orders-examples.yaml#/components/examples/accountPayment'
+
+  /orders/{id}:
+    get:
+      tags:
+        - orders
+      summary: 주문 상세
+      security:
+        - bearerAuth: []
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
+              examples:
+                card:
+                  $ref: '../components/orders-examples.yaml#/components/examples/cardData'
+                account:
+                  $ref: '../components/orders-examples.yaml#/components/examples/accountData'
+
+  /orders/cancel/{id}:
+    put:
+      tags:
+        - orders
+      summary: 주문취소
+      description: 나중에 /orders/:id/cancellation
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 주문 ID. orderId가 아닌 _id 입력.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /orders/user/order-list:
+    get:
+      tags:
+        - orders
+      summary: 사용자별 주문 목록
+      description: 나중에 /user-orders
+      security:
+        - bearerAuth: []
+
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
+              example:
+                $ref: '../components/orders-examples.yaml#/components/examples/combinedOrderList'

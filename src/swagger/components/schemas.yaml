@@ -1,0 +1,111 @@
+components:
+  schemas:
+    error:
+      properties:
+        success:
+          type: boolean
+        statusCode:
+          type: number
+        message:
+          type: string
+
+    product:
+      type: object
+      properties:
+        _id:
+          type: string
+        id:
+          type: number
+        category:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        amount:
+          type: number
+        imgUrl:
+          type: string
+
+    order:
+      properties:
+        receiver:
+          type: object
+          properties:
+            name:
+              type: string
+            phone:
+              type: string
+            address:
+              type: string
+            requestMessage:
+              type: string
+        products:
+          type: array
+          items:
+            properties:
+              id:
+                type: string
+                description: MongoDB ObjectId. Schema.Types.ObjectId
+              amount:
+                type: number
+        totalPrice:
+          type: number
+        paymentMethod:
+          oneOf:
+            - $ref: '#/components/schemas/cardOrder'
+            - $ref: '#/components/schemas/accountOrder'
+
+    cardOrder:
+      properties:
+        paymentType:
+          type: string
+        creditInfo:
+          type: object
+          properties:
+            company:
+              type: string
+            cardNumber:
+              type: string
+            expiryDate:
+              type: string
+            cvc:
+              type: string
+            cardOwner:
+              type: string
+
+    accountOrder:
+      properties:
+        paymentType:
+          type: string
+
+    orderMoreOptions:
+      properties:
+        orderId:
+          type: number
+        user:
+          type: string
+          description: MongoDB ObjectId. Schema.Types.ObjectId
+        totalCase:
+          type: number
+        deliveryStatus:
+          type: string
+        _id:
+          type: string
+          description: MongoDB ObjectId. Schema.Types.ObjectId
+        orderDate:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date
+        updated_at:
+          type: string
+          format: date
+
+    combinedOrder:
+      allOf:
+        - $ref: '#/components/schemas/order'
+        - $ref: '#/components/schemas/orderMoreOptions'

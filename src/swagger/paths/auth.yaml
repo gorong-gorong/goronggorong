@@ -41,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../components/properties.yaml#/components/schemas/error'
+                $ref: '../components/schemas.yaml#/components/schemas/error'
               examples:
                 type1:
                   $ref: '../components/bad-request.yaml#/components/examples/OverlapUser'
@@ -89,7 +89,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '../components/properties.yaml#/components/schemas/error'
+                  - $ref: '../components/schemas.yaml#/components/schemas/error'
               examples:
                 type1:
                   $ref: '../components/bad-request.yaml#/components/examples/WrongPassword'

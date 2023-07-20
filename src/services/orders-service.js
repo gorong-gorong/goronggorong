@@ -1,7 +1,7 @@
-import { userModel, orderModel } from '../db/index.js';
-import { customError } from '../middlewares/index.js';
+import { userModel, orderModel } from '../db';
+import { customError } from '../middlewares';
 
-const orderService = {
+const ordersService = {
   createOrderId: () => {
     const now = new Date();
     let year = String(now.getFullYear());
@@ -22,7 +22,7 @@ const orderService = {
       throw new customError(400, '사용자가 없습니다.');
     }
 
-    orderInfo.orderId = orderService.createOrderId();
+    orderInfo.orderId = ordersService.createOrderId();
     orderInfo.totalCase = orderInfo.products.length;
     if (orderInfo.paymentMethod.paymentType === 'card') {
       orderInfo.deliveryStatus = '결제완료';
@@ -37,4 +37,4 @@ const orderService = {
   },
 };
 
-export default orderService;
+export default ordersService;
