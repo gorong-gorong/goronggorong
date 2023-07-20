@@ -1,0 +1,13 @@
+components:
+  schemas:
+    product:
+      description: Ok
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              data:
+                $ref: '../components/properties.yaml#/components/schemas/product'
