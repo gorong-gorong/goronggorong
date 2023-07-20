@@ -13,8 +13,14 @@ authRouter.post('/signin', authController.signIn);
 // 비밀번호 초기화
 authRouter.put('/signin/password-reset', authController.resetPassword);
 
+authRouter.post('/valid-user', verifyToken, authController.mypageVerify);
+
 // 토큰 기반 사용자 정보 가져오기
 authRouter.get('/user-info', verifyToken, authController.getUserInfo);
+
+authRouter.put('/user-info', verifyToken, authController.myPageUpdate);
+
+authRouter.delete('/user-info', verifyToken, authController.myPageDelete);
 
 // router.post('/refreshToken', verifyToken, authController.refreshToken); // token 재발급하는 api 있어야 함
 

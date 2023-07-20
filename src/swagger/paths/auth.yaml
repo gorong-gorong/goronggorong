@@ -23,13 +23,7 @@ paths:
                 address:
                   type: string
               example:
-                {
-                  name: John,
-                  email: test@test.com,
-                  password: qwerty1234,
-                  phone: 010-1234-5678,
-                  address: 서울시 강남구 ***,
-                }
+                { name: John, email: test@test.com, password: qwerty1234, phone: string, address: 서울시 강남구 *** }
 
       responses:
         '201':
@@ -47,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                - $ref: '../components/properties.yaml#/components/schemas/error'
+                $ref: '../components/properties.yaml#/components/schemas/error'
               examples:
                 type1:
                   $ref: '../components/bad-request.yaml#/components/examples/OverlapUser'
@@ -114,13 +108,14 @@ paths:
         content:
           application/json:
             schema:
-              name:
-                type: string
-              email:
-                type: string
-              phone:
-                type: string
-              example: { name: John, email: test@test.com, phone: 010-1234-5678 }
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+              example: { name: John, email: test@test.com, phone: string }
 
       responses:
         '200':
