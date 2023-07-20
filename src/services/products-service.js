@@ -1,7 +1,7 @@
-import { productModel } from '../db/index.js';
-import { customError } from '../middlewares/index.js';
+import { productModel } from '../db';
+import { customError } from '../middlewares';
 
-const productService = {
+const productsService = {
   checkSkipLimit: async (skip, limit) => {
     const products = await productModel.findAll(parseInt(skip), parseInt(limit));
     if (parseInt(skip) >= parseInt(limit) || products.slice(skip, limit).length === 0) {
@@ -101,4 +101,4 @@ const productService = {
   },
 };
 
-export default productService;
+export default productsService;

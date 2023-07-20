@@ -1,14 +1,14 @@
-import { productModel } from '../db/index.js';
-import { customError } from '../middlewares/index.js';
-import { productService } from '../services/index.js';
+import { productModel } from '../db';
+import { customError } from '../middlewares';
+import { productsService } from '../services';
 
-const productController = {
+const productsController = {
   // 모든 제품 목록 불러오기
   getProducts: async (req, res, next) => {
     try {
       // 한 페이지 기본값 설정
       const { skip, limit } = req.query; // /api/?skip=0&limit=20
-      const products = await productService.checkSkipLimit(skip, limit);
+      const products = await productsService.checkSkipLimit(skip, limit);
       res.status(200).json({
         message: `전체 제품 목록 ${parseInt(skip) + 1} id 부터 ${parseInt(limit)} id 까지 불러왔습니다.`,
         data: products.slice(skip, limit),
@@ -22,7 +22,7 @@ const productController = {
     try {
       // category 해당하는 제품 찾기
       const { category } = req.params;
-      const products = await productService.checkCategory(category);
+      const products = await productsService.checkCategory(category);
       res.status(200).json({
         message: '선택한 카테고리에 해당하는 제품 목록을 불러왔습니다',
         data: products,
@@ -36,7 +36,7 @@ const productController = {
     try {
       // 아이디로 찾아서 JSON 으로 프론트에 쏴주기
       const { id } = req.query;
-      const product = await productService.checkId(id);
+      const product = await productsService.checkId(id);
       res.status(200).json({
         message: '해당 아이디 제품을 불러왔습니다',
         data: product,
@@ -50,7 +50,7 @@ const productController = {
     try {
       // 객체 destructuring
       const { id, category, name, price, description, amount, imgUrl } = req.body;
-      const newProduct = await productService.addNewProduct(id, category, name, price, description, amount, imgUrl);
+      const newProduct = await productsService.addNewProduct(id, category, name, price, description, amount, imgUrl);
       // 이미지 추가 기능을 넣는다면 addProduct({...req.body, imgUrl: 'gcp url'})
       // 이런식으로 되어야 해서 imgUrl이 productInfo 가장 끝에 와야 할 듯
       res.status(200).json({
@@ -68,7 +68,7 @@ const productController = {
       const { id } = req.params;
       const { category, name, price, description, amount, imgUrl } = req.body;
 
-      const updatedProduct = await productService.setExistProduct(
+      const updatedProduct = await productsService.setExistProduct(
         id,
         category,
         name,
@@ -91,7 +91,7 @@ const productController = {
     try {
       const { id } = req.params;
 
-      const deletedProduct = await productService.deleteExistProduct(id);
+      const deletedProduct = await productsService.deleteExistProduct(id);
 
       res.status(200).json({
         message: '해당 제품 삭제를 완료했습니다',
@@ -103,4 +103,4 @@ const productController = {
   },
 };
 
-export default productController;
+export default productsController;
