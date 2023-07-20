@@ -16,6 +16,13 @@ paths:
         - products
       summary: 카테고리별 상품
       description: 페이지네이션 때문에 나중에 /products?category
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: 카테고리명
+          schema:
+            type: string
 
       responses:
         200:
