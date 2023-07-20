@@ -23,6 +23,7 @@ paths:
           description: 카테고리명
           schema:
             type: string
+          example: Food, Snack, Toy, Toilet, Fashion
 
       responses:
         200:
