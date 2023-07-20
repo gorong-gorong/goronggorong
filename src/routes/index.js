@@ -10,7 +10,7 @@ router.use('/api/v1/auth', authRouter);
 
 router.use('/api/v1', productsRouter);
 
-router.use('/api/v1', orderRouter);
+router.use('/api/v1/orders', orderRouter);
 
 // ViewRouter
 router.use(viewRouter);

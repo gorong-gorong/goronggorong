@@ -1,0 +1,70 @@
+paths:
+  /orders/payment:
+    post:
+      tags:
+        - /orders
+      summary: 결제
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas.yaml#/components/schemas/order'
+            examples:
+              type1:
+                summary: 카드 결제
+                value:
+                  {
+                    'receiver':
+                      {
+                        'name': 'John',
+                        'phone': '01012345678',
+                        'address': '서울특별시 강남구',
+                        'requestMessage': '문 앞에 두고 가주세요.',
+                      },
+                    'products':
+                      [
+                        { 'id': '6444d810c6efec47b104fc7c', 'amount': 1 },
+                        { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 },
+                      ],
+                    'totalPrice': 2000,
+                    'paymentMethod':
+                      {
+                        'paymentType': 'card',
+                        'creditInfo':
+                          {
+                            'company': '국민',
+                            'cardNumber': '123456789',
+                            'expiryDate': '01/24',
+                            'cvc': '456',
+                            'cardOwner': 'John',
+                          },
+                      },
+                  }
+              type2:
+                summary: 계좌 이체
+                value:
+                  {
+                    'receiver':
+                      {
+                        'name': 'John',
+                        'phone': '01012345678',
+                        'address': '서울특별시 강남구',
+                        'requestMessage': '문 앞에 두고 가주세요.',
+                      },
+                    'products':
+                      [
+                        { 'id': '6444d810c6efec47b104fc7c', 'amount': 1 },
+                        { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 },
+                      ],
+                    'totalPrice': 2000,
+                    'paymentMethod': { 'paymentType': 'account' },
+                  }
+
+      responses:
+        '200':
+          description: Ok
+
+  # /orders/{id}:
+  # /orders/cancel/{id}:
+  # /orders/user/order-list:

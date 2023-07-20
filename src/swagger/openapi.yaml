@@ -35,3 +35,10 @@ paths:
     $ref: './paths/products.yaml#/paths/~1products~1{category}'
   /products:
     $ref: './paths/products.yaml#/paths/~1products'
+
+  # /orders
+  /orders/payment:
+    $ref: './paths/orders.yaml#/paths/~1orders~1payment'
+  # /orders/{id}:
+  # /orders/cancel/{id}:
+  # /orders/user/order-list:
