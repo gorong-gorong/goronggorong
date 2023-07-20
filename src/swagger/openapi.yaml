@@ -39,6 +39,7 @@ paths:
   # /orders
   /orders/payment:
     $ref: './paths/orders.yaml#/paths/~1orders~1payment'
-  # /orders/{id}:
+  /orders/{id}:
+    $ref: './paths/orders.yaml#/paths/~1orders~1{id}'
   # /orders/cancel/{id}:
   # /orders/user/order-list:
