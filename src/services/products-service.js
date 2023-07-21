@@ -1,23 +1,35 @@
+import { StatusCodes } from 'http-status-codes';
 import { productModel } from '../db';
 import { customError } from '../middlewares';
 
 const productsService = {
-  checkSkipLimit: async (skip, limit) => {
-    const products = await productModel.findAll(parseInt(skip), parseInt(limit));
-    if (parseInt(skip) >= parseInt(limit) || products.slice(skip, limit).length === 0) {
-      throw new customError(400, '잘못된 목록 설정입니다');
+  // 페이지네이션(모든 상품, 카테고리별)
+  pagination: async (category, page, perPage) => {
+    [page, perPage] = [Number(page), Number(perPage)];
+    let products;
+
+    if (category) {
+      products = await productModel.findByCategory(category, page, perPage); // page, perPage 매개변수로 추가해야만
+    } else {
+      products = await productModel.findAll(page, perPage);
     }
+
+    if (!products) {
+      throw new customError(StatusCodes.BAD_REQUEST, '상품을 불러오는데 실패했습니다.');
+    }
+
     return products;
   },
-  checkCategory: async (category) => {
-    if (!['Food', 'Snack', 'Toy', 'Toilet', 'Fashion'].includes(category)) {
-      throw new customError(400, '잘못된 카테고리 입니다');
+
+  // 모든 상품과,
+  calculateMaxPage: async function (category) {
+    let maxPage = 0;
+
+    if (category) {
+    } else {
     }
-    const products = await productModel.findByCategory(category);
-    if (!products) {
-      throw new customError(400, '해당 상품이 존재하지 않습니다');
-    }
-    return products;
+
+    return this.calculateMaxPage;
   },
 
   checkId: async (id) => {

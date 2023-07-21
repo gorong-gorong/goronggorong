@@ -35,7 +35,7 @@ const authController = {
     }
   },
 
-  // password-reset
+  // /password-reset
   resetPassword: async (req, res, next) => {
     try {
       const { name, email, phone } = req.body;

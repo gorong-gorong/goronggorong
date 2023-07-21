@@ -1,14 +1,41 @@
 paths:
-  /:
+  /products:
     get:
       tags:
         - products
-      summary: 모든 상품
-      description: 나중에 /products로 바뀔 예정
+      summary: 페이지네이션
+      description: 구 / router
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: number
+        - name: perPage
+          in: query
+          schema:
+            type: number
 
       responses:
         200:
-          $ref: '../components/ok.yaml#/components/schemas/product'
+          description: ${page}페이지의 ${perPage}개의 상품을 불러왔습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      products:
+                        $ref: '../components/schemas.yaml#/components/schemas/product'
+                      maxPage:
+                        type: number
 
   /products/{category}:
     get:
@@ -16,6 +43,8 @@ paths:
         - products
       summary: 카테고리별 상품
       description: 페이지네이션 때문에 나중에 /products?category
+      deprecated: true
+
       parameters:
         - name: category
           in: path
@@ -28,12 +57,12 @@ paths:
         200:
           $ref: '../components/ok.yaml#/components/schemas/product'
 
-  /products:
+  /products/{id}:
     get:
       tags:
         - products
       summary: 상품 상세 정보
-      description: 나중에 /products/:id
+      description: 이전 /products
       parameters:
         - name: id
           in: query
