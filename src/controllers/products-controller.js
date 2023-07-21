@@ -9,14 +9,16 @@ const productsController = {
     try {
       // /api/v1?page=number&perPage=number
       // /api/v1?category=string&page=number&perPage=number
-      // maxPage 만들어야 함
       const { category, page, perPage } = req.query;
-      const products = await productsService.pagination(category, page, perPage);
+      const productList = await productsService.pagination(category, page, perPage);
+      const productAmount = productList.length;
+      const maxPage = await productsService.calculateMaximumPage(category);
 
       res.status(StatusCodes.OK).json({
-        message: `${page}페이지의 ${perPage}개의 상품을 불러왔습니다.`,
+        message: `${page}페이지의 ${productAmount}개의 상품을 불러왔습니다.`,
         data: {
-          products,
+          productList,
+          maxPage,
         },
       });
     } catch (err) {
@@ -24,20 +26,6 @@ const productsController = {
     }
   },
 
-  // 카테고리에 해당하는 모든 제품 불러오기
-  getProductsByCategory: async (req, res, next) => {
-    try {
-      // category 해당하는 제품 찾기
-      const { category } = req.params;
-      const products = await productsService.checkCategory(category);
-      res.status(200).json({
-        message: '선택한 카테고리에 해당하는 제품 목록을 불러왔습니다',
-        data: products,
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
   // id 에 해당하는 제품 불러오기
   getProductById: async (req, res, next) => {
     try {

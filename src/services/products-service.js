@@ -6,30 +6,32 @@ const productsService = {
   // 페이지네이션(모든 상품, 카테고리별)
   pagination: async (category, page, perPage) => {
     [page, perPage] = [Number(page), Number(perPage)];
-    let products;
+    let productList;
 
     if (category) {
-      products = await productModel.findByCategory(category, page, perPage); // page, perPage 매개변수로 추가해야만
+      productList = await productModel.findCategoryProductsWithLimit(category, page, perPage);
     } else {
-      products = await productModel.findAll(page, perPage);
+      productList = await productModel.findProductsWithLimit(page, perPage);
     }
 
-    if (!products) {
+    if (!productList) {
       throw new customError(StatusCodes.BAD_REQUEST, '상품을 불러오는데 실패했습니다.');
     }
 
-    return products;
+    return productList;
   },
 
-  // 모든 상품과,
-  calculateMaxPage: async function (category) {
+  // 총 상품 수량 계산
+  calculateMaximumPage: async function (category) {
     let maxPage = 0;
 
     if (category) {
+      maxPage = productModel.countCategoryProducts(category);
     } else {
+      maxPage = productModel.countProducts();
     }
 
-    return this.calculateMaxPage;
+    return maxPage;
   },
 
   checkId: async (id) => {
