@@ -34,7 +34,7 @@ paths:
   /products/{category}:
     $ref: './paths/products.yaml#/paths/~1products~1{category}'
   /products/{id}:
-    $ref: './paths/products.yaml#/paths/~1products'
+    $ref: './paths/products.yaml#/paths/~1products~1{id}'
 
   # /orders
   /orders/payment:

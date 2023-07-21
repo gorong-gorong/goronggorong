@@ -40,6 +40,7 @@ const productsController = {
       next(err);
     }
   },
+
   // 새로운 상품 등록하기
   addProduct: async (req, res, next) => {
     try {
