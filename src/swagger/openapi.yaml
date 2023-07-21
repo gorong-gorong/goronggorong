@@ -29,12 +29,12 @@ paths:
     $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
 
   # /products
-  /:
-    $ref: './paths/products.yaml#/paths/~1'
-  /products/{category}:
-    $ref: './paths/products.yaml#/paths/~1products~1{category}'
   /products:
     $ref: './paths/products.yaml#/paths/~1products'
+  /products/{category}:
+    $ref: './paths/products.yaml#/paths/~1products~1{category}'
+  /products/{id}:
+    $ref: './paths/products.yaml#/paths/~1products~1{id}'
 
   # /orders
   /orders/payment:

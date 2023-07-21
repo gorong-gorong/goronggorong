@@ -1,22 +1,31 @@
 import { Product } from '../schemas/index.js';
 
 const productModel = {
+  // 상품 Document 생성
   create: async (productInfo) => {
     const newProduct = await Product.create(productInfo);
 
     return newProduct;
   },
 
-  findAll: async () => {
-    const allProducts = await Product.find({});
+  // 페이지네이션에 해당하는 상품
+  findProductsWithLimit: async function (page, perPage) {
+    const productList = await Product.find({})
+      .skip((page - 1) * perPage)
+      .limit(perPage);
 
-    return allProducts;
+    return productList;
   },
 
-  findByCategory: async (category) => {
-    const foundProduct = await Product.find({ category });
+  // 페이지네이션에 해당하는 카테고리별 상품
+  findCategoryProductsWithLimit: async (category, page, perPage) => {
+    const categoryProductList = await Product.find({
+      category,
+    })
+      .skip((page - 1) * perPage)
+      .limit(perPage);
 
-    return foundProduct;
+    return categoryProductList;
   },
 
   findById: async (id) => {
@@ -41,6 +50,18 @@ const productModel = {
     const deletedProduct = await Product.findOneAndDelete({ id: id }, { returnOriginal: false });
 
     return deletedProduct;
+  },
+
+  countProducts: async function () {
+    const amount = await Product.countDocuments({});
+
+    return amount;
+  },
+
+  countCategoryProducts: async function (category) {
+    const amount = await Product.countDocuments({ category });
+
+    return amount;
   },
 };
 

@@ -1,36 +1,31 @@
+import { StatusCodes } from 'http-status-codes';
 import { productModel } from '../db';
 import { customError } from '../middlewares';
 import { productsService } from '../services';
 
 const productsController = {
-  // 모든 제품 목록 불러오기
+  // /products
   getProducts: async (req, res, next) => {
     try {
-      // 한 페이지 기본값 설정
-      const { skip, limit } = req.query; // /api/?skip=0&limit=20
-      const products = await productsService.checkSkipLimit(skip, limit);
-      res.status(200).json({
-        message: `전체 제품 목록 ${parseInt(skip) + 1} id 부터 ${parseInt(limit)} id 까지 불러왔습니다.`,
-        data: products.slice(skip, limit),
+      // /api/v1?page=number&perPage=number
+      // /api/v1?category=string&page=number&perPage=number
+      const { category, page, perPage } = req.query;
+      const productList = await productsService.pagination(category, page, perPage);
+      const productAmount = productList.length;
+      const maxPage = await productsService.calculateMaximumPage(category);
+
+      res.status(StatusCodes.OK).json({
+        message: `${page}페이지의 ${productAmount}개의 상품을 불러왔습니다.`,
+        data: {
+          productList,
+          maxPage,
+        },
       });
     } catch (err) {
       next(err);
     }
   },
-  // 카테고리에 해당하는 모든 제품 불러오기
-  getProductsByCategory: async (req, res, next) => {
-    try {
-      // category 해당하는 제품 찾기
-      const { category } = req.params;
-      const products = await productsService.checkCategory(category);
-      res.status(200).json({
-        message: '선택한 카테고리에 해당하는 제품 목록을 불러왔습니다',
-        data: products,
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
+
   // id 에 해당하는 제품 불러오기
   getProductById: async (req, res, next) => {
     try {
@@ -45,6 +40,7 @@ const productsController = {
       next(err);
     }
   },
+
   // 새로운 상품 등록하기
   addProduct: async (req, res, next) => {
     try {
