@@ -10,7 +10,6 @@ const submitBtn = document.querySelector('.form__submit');
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log(getJoinedAddress());
   if (pw.value !== pwCheck.value) {
     alert('비밀번호가 일치하지 않습니다.');
     return;
