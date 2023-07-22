@@ -11,13 +11,16 @@ let state = {
   category: '',
   page: 1,
   perPage: 12,
+  maxPage: 1,
 };
 
 const renderItemList = async () => {
   // 아이템 데이터 요청
   const itemData = await getItemData(state.category, state.page, state.perPage);
   const items = itemData.productList;
+  state.maxPage = Math.ceil(itemData.maxPage / state.perPage);
   amountAll.innerText = itemData.maxPage;
+
   // 아이템 리스트 렌더링
   prodList.innerHTML = ''; // 기존 아이템 삭제
   items.forEach((item) => {
@@ -25,36 +28,51 @@ const renderItemList = async () => {
     prodList.appendChild(itemElement);
   });
 
-  createPagination(itemData.maxPage);
+  // 페이지네이션
+  leftButton.disabled = state.page === 1;
+  rightButton.disabled = state.page === state.maxPage || state.maxPage === 1;
+
+  createPagination(state.maxPage);
 };
 
-// 페이지네이션
+// 페이지네이션 - 왼쪽, 오른쪽 버튼
+const leftButton = document.querySelector('.pagination__button-left');
+const rightButton = document.querySelector('.pagination__button-right');
+leftButton.addEventListener('click', async () => {
+  state.page = Math.max(state.page - 1, 1);
+  await renderItemList();
+});
+rightButton.addEventListener('click', async () => {
+  state.page = Math.min(state.page + 1, state.maxPage);
+  await renderItemList();
+});
+
+// 페이지네이션 - 페이지 숫자 버튼
 const createPagination = (itemMaxPage) => {
   const pagination = document.querySelector('.pagination__count');
   pagination.innerHTML = '';
-  const maxPage = Math.ceil(itemMaxPage / state.perPage);
-  for (let i = 1; i <= maxPage; i++) {
+
+  for (let i = 1; i <= itemMaxPage; i++) {
     const pageCount = document.createElement('button');
     pageCount.innerText = `${i}`;
-    console.log(state.page);
     if (i === state.page) {
       pageCount.classList.add('pagination__button-active');
     }
+
     pagination.appendChild(pageCount);
-
-    const paginationButtons = pagination.querySelectorAll('button');
-    paginationButtons.forEach((pageButton) => {
-      pageButton.addEventListener('click', async (e) => {
-        state.page = Number(e.target.innerText);
-        const activeButton = document.querySelector('.pagination__button-active');
-        activeButton.classList.remove('pagination__button-active');
-        e.target.classList.add('pagination__button-active');
-        await renderItemList();
-      });
-    });
   }
-};
 
+  const paginationButtons = pagination.querySelectorAll('button');
+  paginationButtons.forEach((pageButton) => {
+    pageButton.addEventListener('click', async (e) => {
+      state.page = Number(e.target.innerText);
+      const prevActiveButton = document.querySelector('.pagination__button-active');
+      prevActiveButton.classList.remove('pagination__button-active');
+      e.target.classList.add('pagination__button-active');
+      await renderItemList();
+    });
+  });
+};
 // 처음 페이지 연결 시 전체 아이템 리스트 렌더링
 renderItemList();
 
@@ -74,10 +92,8 @@ const handleCategoryClick = async (e) => {
     state.category = selectedCategory;
   }
 
-  if (state.page !== 1) {
-    state.page = 1; // 페이지 초기화
-    await renderItemList();
-  }
+  state.page = 1; // 페이지 초기화
+  await renderItemList();
 };
 
 // 각 카테고리에 이벤트 등록
