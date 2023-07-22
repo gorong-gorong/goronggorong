@@ -4,22 +4,33 @@ import { getItemData } from '/lib/Fetcher.js';
 import { createItem } from './create-item.js';
 
 const amountAll = document.querySelector('.prod__item--amount');
+const itemViewCount = document.querySelector('.prod__item--view');
 const prodList = document.querySelector('.prod__list');
 
 // 카테고리, 페이지 초깃값
 let state = {
   category: '',
   page: 1,
-  perPage: 12,
+  perPage: 20,
   maxPage: 1,
+  totalItemCount: 0,
 };
+itemViewCount.addEventListener('change', (e) => {
+  if (e.target.value === 'all') {
+    state.perPage = state.totalItemCount;
+  } else {
+    state.perPage = Number(e.target.value);
+  }
+  renderItemList();
+});
 
 const renderItemList = async () => {
   // 아이템 데이터 요청
   const itemData = await getItemData(state.category, state.page, state.perPage);
   const items = itemData.productList;
   state.maxPage = Math.ceil(itemData.maxPage / state.perPage);
-  amountAll.innerText = itemData.maxPage;
+  state.totalItemCount = itemData.maxPage;
+  amountAll.innerText = state.totalItemCount;
 
   // 아이템 리스트 렌더링
   prodList.innerHTML = ''; // 기존 아이템 삭제
@@ -38,13 +49,13 @@ const renderItemList = async () => {
 // 페이지네이션 - 왼쪽, 오른쪽 버튼
 const leftButton = document.querySelector('.pagination__button-left');
 const rightButton = document.querySelector('.pagination__button-right');
-leftButton.addEventListener('click', async () => {
+leftButton.addEventListener('click', () => {
   state.page = Math.max(state.page - 1, 1);
-  await renderItemList();
+  renderItemList();
 });
-rightButton.addEventListener('click', async () => {
+rightButton.addEventListener('click', () => {
   state.page = Math.min(state.page + 1, state.maxPage);
-  await renderItemList();
+  renderItemList();
 });
 
 // 페이지네이션 - 페이지 숫자 버튼
@@ -64,19 +75,19 @@ const createPagination = (itemMaxPage) => {
 
   const paginationButtons = pagination.querySelectorAll('button');
   paginationButtons.forEach((pageButton) => {
-    pageButton.addEventListener('click', async (e) => {
+    pageButton.addEventListener('click', (e) => {
       state.page = Number(e.target.innerText);
       const prevActiveButton = document.querySelector('.pagination__button-active');
       prevActiveButton.classList.remove('pagination__button-active');
       e.target.classList.add('pagination__button-active');
-      await renderItemList();
+      renderItemList();
     });
   });
 };
 // 처음 페이지 연결 시 전체 아이템 리스트 렌더링
 renderItemList();
 
-const handleCategoryClick = async (e) => {
+const handleCategoryClick = (e) => {
   //클릭한 카테고리에 on 클래스 추가
   document.querySelector('.nav__cate--on').classList.remove('nav__cate--on');
   if (e.target.tagName === 'A') {
@@ -93,7 +104,7 @@ const handleCategoryClick = async (e) => {
   }
 
   state.page = 1; // 페이지 초기화
-  await renderItemList();
+  renderItemList();
 };
 
 // 각 카테고리에 이벤트 등록
