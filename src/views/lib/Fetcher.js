@@ -4,18 +4,13 @@ const version = 'v1';
 const domain = `/api/${version}`;
 
 // 모든 상품 조회
-export async function getItemData() {
-  return await Api.Get('http://localhost:3000', 'mock-products.json');
+export async function getItemData(category, page, perPage) {
+  return await Api.Get(domain, `products?category=${category}&page=${page}&perPage=${perPage}`);
 }
 
 // Id별 상품 조회
 export async function getItemById(itemId) {
   return await Api.Get(domain, `products?id=${itemId}`);
-}
-
-// 카테고리별 상품 조회
-export async function getItemByCategory(category) {
-  return await Api.Get(domain, `products/${category}`);
 }
 
 // 비밀번호 확인 요청
