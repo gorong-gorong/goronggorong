@@ -1,21 +1,16 @@
 import { postSignup } from '../lib/Fetcher.js';
+import { getJoinedAddress } from '../lib/utils/get-joined-address.js';
 
 const userName = document.querySelector('.form__name');
 const id = document.querySelector('.form__id');
 const pw = document.querySelector('.form__pw');
 const pwCheck = document.querySelector('.form__pw-check');
 const phone = document.querySelector('.form__phone');
-const addressWrap = document.querySelector('.change-delivery-address');
-const address = () => {
-  return [...addressWrap.children]
-    .filter((item) => item.tagName === 'INPUT')
-    .map((item) => item.value)
-    .join(' ');
-};
 const submitBtn = document.querySelector('.form__submit');
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  console.log(getJoinedAddress());
   if (pw.value !== pwCheck.value) {
     alert('비밀번호가 일치하지 않습니다.');
     return;
@@ -25,7 +20,7 @@ const handleSubmit = async (e) => {
       email: id.value,
       password: pw.value,
       phone: phone.value,
-      address: address(),
+      address: getJoinedAddress(),
     };
     await postSignup(data);
     alert(`

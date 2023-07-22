@@ -5,7 +5,7 @@ const domain = `/api/${version}`;
 
 // 모든 상품 조회
 export async function getItemData() {
-  return await Api.Get(domain);
+  return await Api.Get('http://localhost:3000', 'mock-products.json');
 }
 
 // Id별 상품 조회

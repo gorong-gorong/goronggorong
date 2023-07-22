@@ -26,7 +26,10 @@
 
 .prod__link-thumb {
   width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
   border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .prod__title {
