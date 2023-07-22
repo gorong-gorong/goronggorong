@@ -12,15 +12,23 @@ let state = {
   page: 1,
   perPage: 10,
 };
-// const itemData = await getItemData(state.category, state.page, state.perPage);
-// const items = itemData.productList;
-// amountAll.innerText = itemData.maxPage;
-// // 아이템 리스트 렌더링
-// prodList.innerHTML = ''; // 기존 아이템 삭제
-// items.forEach((item) => {
-//   const itemElement = createItem(item);
-//   prodList.appendChild(itemElement);
-// });
+
+const renderItemList = async () => {
+  // 아이템 데이터 요청
+  const itemData = await getItemData(state.category, state.page, state.perPage);
+  const items = itemData.productList;
+  amountAll.innerText = itemData.maxPage;
+  // 아이템 리스트 렌더링
+  prodList.innerHTML = ''; // 기존 아이템 삭제
+  items.forEach((item) => {
+    const itemElement = createItem(item);
+    prodList.appendChild(itemElement);
+  });
+};
+
+// 처음 페이지 연결 시 전체 아이템 리스트 렌더링
+renderItemList();
+
 const handleCategoryClick = async (e) => {
   //클릭한 카테고리에 on 클래스 추가
   document.querySelector('.nav__cate--on').classList.remove('nav__cate--on');
@@ -37,17 +45,7 @@ const handleCategoryClick = async (e) => {
     state.category = selectedCategory;
   }
 
-  // 아이템 데이터 요청
-  const itemData = await getItemData(state.category, state.page, state.perPage);
-  const items = itemData.productList;
-  amountAll.innerText = itemData.maxPage;
-
-  // 아이템 리스트 렌더링
-  prodList.innerHTML = ''; // 기존 아이템 삭제
-  items.forEach((item) => {
-    const itemElement = createItem(item);
-    prodList.appendChild(itemElement);
-  });
+  renderItemList();
 };
 
 // 각 카테고리에 이벤트 등록
