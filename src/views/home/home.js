@@ -8,7 +8,7 @@ const itemViewCount = document.querySelector('.prod__item--view');
 const prodList = document.querySelector('.prod__list');
 
 // 카테고리, 페이지 초깃값
-let state = {
+let pageState = {
   category: '',
   page: 1,
   perPage: 20,
@@ -17,20 +17,20 @@ let state = {
 };
 itemViewCount.addEventListener('change', (e) => {
   if (e.target.value === 'all') {
-    state.perPage = state.totalItemCount;
+    pageState.perPage = pageState.totalItemCount;
   } else {
-    state.perPage = Number(e.target.value);
+    pageState.perPage = Number(e.target.value);
   }
   renderItemList();
 });
 
 const renderItemList = async () => {
   // 아이템 데이터 요청
-  const itemData = await getItemData(state.category, state.page, state.perPage);
+  const itemData = await getItemData(pageState.category, pageState.page, pageState.perPage);
   const items = itemData.productList;
-  state.maxPage = Math.ceil(itemData.maxPage / state.perPage);
-  state.totalItemCount = itemData.maxPage;
-  amountAll.innerText = state.totalItemCount;
+  pageState.maxPage = Math.ceil(itemData.maxPage / pageState.perPage);
+  pageState.totalItemCount = itemData.maxPage;
+  amountAll.innerText = pageState.totalItemCount;
 
   // 아이템 리스트 렌더링
   prodList.innerHTML = ''; // 기존 아이템 삭제
@@ -40,21 +40,21 @@ const renderItemList = async () => {
   });
 
   // 페이지네이션
-  leftButton.disabled = state.page === 1;
-  rightButton.disabled = state.page === state.maxPage || state.maxPage === 1;
+  leftButton.disabled = pageState.page === 1;
+  rightButton.disabled = pageState.page === pageState.maxPage || pageState.maxPage === 1;
 
-  createPagination(state.maxPage);
+  createPagination(pageState.maxPage);
 };
 
 // 페이지네이션 - 왼쪽, 오른쪽 버튼
 const leftButton = document.querySelector('.pagination__button-left');
 const rightButton = document.querySelector('.pagination__button-right');
 leftButton.addEventListener('click', () => {
-  state.page = Math.max(state.page - 1, 1);
+  pageState.page = Math.max(pageState.page - 1, 1);
   renderItemList();
 });
 rightButton.addEventListener('click', () => {
-  state.page = Math.min(state.page + 1, state.maxPage);
+  pageState.page = Math.min(pageState.page + 1, pageState.maxPage);
   renderItemList();
 });
 
@@ -66,7 +66,7 @@ const createPagination = (itemMaxPage) => {
   for (let i = 1; i <= itemMaxPage; i++) {
     const pageCount = document.createElement('button');
     pageCount.innerText = `${i}`;
-    if (i === state.page) {
+    if (i === pageState.page) {
       pageCount.classList.add('pagination__button-active');
     }
 
@@ -76,7 +76,7 @@ const createPagination = (itemMaxPage) => {
   const paginationButtons = pagination.querySelectorAll('button');
   paginationButtons.forEach((pageButton) => {
     pageButton.addEventListener('click', (e) => {
-      state.page = Number(e.target.innerText);
+      pageState.page = Number(e.target.innerText);
       const prevActiveButton = document.querySelector('.pagination__button-active');
       prevActiveButton.classList.remove('pagination__button-active');
       e.target.classList.add('pagination__button-active');
@@ -98,12 +98,12 @@ const handleCategoryClick = (e) => {
 
   const selectedCategory = e.target.dataset.category;
   if (selectedCategory === 'All') {
-    state.category = '';
+    pageState.category = '';
   } else {
-    state.category = selectedCategory;
+    pageState.category = selectedCategory;
   }
 
-  state.page = 1; // 페이지 초기화
+  pageState.page = 1; // 페이지 초기화
   renderItemList();
 };
 
