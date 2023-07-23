@@ -46,34 +46,11 @@
   margin-right: 2px;
 }
 
-/* .pagination-list {
+.pagination {
   display: flex;
   justify-content: center;
-}
-.pagination-list li {
-  border: 1px solid black;
-  border-radius: 100px;
-  padding: 10px;
-  margin: 4px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.pagination-list li:hover {
-  background-color: #ffb904;
-}
-.pagination-list li:focus {
-  background-color: #ffb904;
 }
 
-.pagination-list .pagination__disabled {
-  border: 1px solid gray;
-  color: rgb(172, 172, 172);
+.pagination__button-active {
+  background-color: blue;
 }
-.pagination-list .pagination__disabled:hover {
-  border: 1px solid gray;
-  color: lightgray;
-  background-color: gray;
-} */

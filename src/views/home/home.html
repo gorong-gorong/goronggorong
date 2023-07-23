@@ -17,22 +17,22 @@
     <nav class="navbar">
       <ul class="nav__cate">
         <li data-category="All" class="nav__cate--on">
-          <a href="/">All</a>
+          <a data-category="All" href="/">All</a>
         </li>
         <li data-category="Food">
-          <a>Food</a>
+          <a data-category="Food">Food</a>
         </li>
         <li data-category="Snack">
-          <a>Snack</a>
+          <a data-category="Snack">Snack</a>
         </li>
         <li data-category="Toy">
-          <a>Toy</a>
+          <a data-category="Toy">Toy</a>
         </li>
         <li data-category="Toilet">
-          <a>Toilet</a>
+          <a data-category="Toilet">Toilet</a>
         </li>
         <li data-category="Fashion">
-          <a>Fashion</a>
+          <a data-category="Fashion">Fashion</a>
         </li>
       </ul>
     </nav>
@@ -40,19 +40,20 @@
       <section class="prod">
         <div class="prod__page-size">
           <p>총 <span class="prod__item--amount"></span>개의 상품</p>
+          <select class="prod__item--view">
+            <option value="20" selected>20개씩 보기</option>
+            <option value="40">40개씩 보기</option>
+            <option value="all">전체 보기</option>
+          </select>
         </div>
         <!-- 상품 리스트 불러오는 부분 -->
         <ul class="prod__list"></ul>
-        <!-- 페이지네이션
-        <nav class="pagination" role="navigation" aria-label="pagination">
-          <ul class="pagination-list">
-            <li>1</li>
-            <li>2</li>
-            <li class="pagination__disabled">3</li>
-            <li class="pagination__disabled">4</li>
-            <li class="pagination__disabled">5</li>
-          </ul>
-        </nav> -->
+        <!-- 페이지네이션 -->
+        <nav class="pagination">
+          <button class="pagination__button-left"><</button>
+          <div class="pagination__count"></div>
+          <button class="pagination__button-right">></button>
+        </nav>
       </section>
     </main>
 
