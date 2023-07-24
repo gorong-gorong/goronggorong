@@ -29,7 +29,7 @@ const productsController = {
       const product = await productsService.searchProduct(id);
 
       res.status(StatusCodes.OK).json({
-        message: '해당 아이디 제품을 불러왔습니다',
+        message: '해당 아이디 상품을 불러왔습니다.',
         data: { product },
       });
     } catch (err) {

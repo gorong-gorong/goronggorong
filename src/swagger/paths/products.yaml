@@ -74,4 +74,17 @@ paths:
 
       responses:
         200:
-          $ref: '../components/ok.yaml#/components/schemas/product'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 해당 아이디 상품을 불러왔습니다.
+                  data:
+                    type: object
+                    properties:
+                      products:
+                        $ref: '../components/schemas.yaml#/components/schemas/product'
