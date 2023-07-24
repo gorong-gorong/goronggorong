@@ -1,8 +1,8 @@
-import { StatusCodes } from 'http-status-codes';
 import bcrypt from 'bcrypt';
+import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 
-const userService = {
+const usersService = {
   // 유효/중복 사용자 확인
   checkUserStatus: async (email, flag, compareData = undefined) => {
     const user = await userModel.findByEmail(email);
@@ -23,7 +23,7 @@ const userService = {
 
   // 사용자 생성
   createUser: async (userInfo) => {
-    const hashedPassword = await userService.createHashPassword(userInfo.password);
+    const hashedPassword = await usersService.createHashPassword(userInfo.password);
     const user = await userModel.createUser({
       ...userInfo,
       password: hashedPassword,
@@ -60,4 +60,4 @@ const userService = {
   },
 };
 
-export default userService;
+export default usersService;

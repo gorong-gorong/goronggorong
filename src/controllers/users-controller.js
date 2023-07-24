@@ -1,14 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
-import { authService } from '../services';
+import { usersService } from '../services';
 import { userModel } from '../db';
 
-const userController = {
+const usersController = {
   // post /user
   createUser: async (req, res, next) => {
     try {
       const { name, email, password, phone, address } = req.body;
-      await userService.checkUserStatus(email, 'overlap');
-      await userService.createUser({ name, email, password, phone, address });
+      await usersService.checkUserStatus(email, 'overlap');
+      await usersService.createUser({ name, email, password, phone, address });
 
       return res.status(StatusCodes.CREATED).json({
         message: '사용자가 생성됐습니다.',
@@ -22,7 +22,7 @@ const userController = {
   getUser: async (req, res, next) => {
     try {
       const authHeader = req.header('Authorization');
-      const decodedInfo = userService.decodeToken(authHeader);
+      const decodedInfo = usersService.decodeToken(authHeader);
       const user = await userModel.findById(decodedInfo._id);
 
       return res.status(StatusCodes.OK).json({
@@ -40,7 +40,7 @@ const userController = {
       const { name, password, phone, address } = req.body;
       const authHeader = req.header('Authorization');
       const decoded = authService.decodeToken(authHeader);
-      let user = await userService.checkUserExist(decoded.email, true);
+      let user = await usersService.checkUserExist(decoded.email, true);
       const hashedPassword = await authService.createHashPassword(password);
       const refreshToken = await authService.signToken(user);
       const updatedResult = await userModel.updateUser(user._id, {
@@ -53,7 +53,7 @@ const userController = {
         refreshToken,
       });
 
-      user = await userService.checkUserExist(user.email, true);
+      user = await usersService.checkUserExist(user.email, true);
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보 업데이트를 성공했습니다',
@@ -70,7 +70,7 @@ const userController = {
       const authHeader = req.header('Authorization');
       // 사용자가 있는지 확인
       const decoded = await authService.decodeToken(authHeader);
-      const user = await userService.checkUserExist(decoded.email, true);
+      const user = await usersService.checkUserExist(decoded.email, true);
 
       const deletedUser = await userModel.deleteUser({ _id: user._id });
 
@@ -87,4 +87,4 @@ const userController = {
   },
 };
 
-export default userController;
+export default usersController;

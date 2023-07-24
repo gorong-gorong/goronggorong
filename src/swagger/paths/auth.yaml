@@ -4,6 +4,8 @@ paths:
       tags:
         - auth
       summary: 회원가입
+      description: post /users로 수정
+      deprecated: true
 
       requestBody:
         required: true
@@ -141,8 +143,10 @@ paths:
       tags:
         - auth
       summary: 유저 정보 가져오기
+      description: get /users로 수정
       security:
         - bearerAuth: []
+      deprecated: true
 
       responses:
         '200':

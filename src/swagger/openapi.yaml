@@ -18,6 +18,10 @@ components:
       bearerFormat: JWT
 
 paths:
+  # /users
+  /users:
+    $ref: './paths/user.yaml#/paths/~1users'
+
   # /auth
   /auth/signup:
     $ref: './paths/auth.yaml#/paths/~1auth~1signup'
