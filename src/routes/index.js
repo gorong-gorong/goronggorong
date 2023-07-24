@@ -7,7 +7,7 @@ import viewRouter from './view-router';
 
 const router = Router();
 
-router.use('api/v1/user', usersRouter);
+router.use('/api/v1/users', usersRouter);
 
 router.use('/api/v1/auth', authRouter);
 

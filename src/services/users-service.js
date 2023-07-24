@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 
@@ -49,14 +48,6 @@ const usersService = {
     }
 
     return decodedInfo;
-  },
-
-  // 해시된 비밀번호 생성
-  createHashPassword: async (password) => {
-    const salt = 12;
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    return hashedPassword;
   },
 };
 

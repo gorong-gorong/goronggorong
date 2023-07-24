@@ -1,16 +1,17 @@
-import { customError } from './index.js';
-import { authService } from '../services/index.js';
+import { StatusCodes } from 'http-status-codes';
+import { customError } from '.';
+import { jwtUtils } from '../utils';
 
-const verifyToken = (req, res, next) => {
-  const authHeader = req.header('Authorization');
-
+const verifyToken = function (req, res, next) {
   try {
-    if (!authHeader) {
-      throw new customError(401, 'Authorization 헤더가 없습니다.');
+    const authHeader = req.header('Authorization');
+    const token = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+    if (!token) {
+      throw new customError(StatusCodes.UNAUTHORIZED, '토큰이 없습니다.');
     }
 
-    req.decoded = authService.decodeToken(authHeader);
-
+    req.decoded = jwtUtils.decodeToken(token);
     console.log('🪙  Token has been verified!');
 
     next();

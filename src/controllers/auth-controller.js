@@ -3,15 +3,15 @@ import { authService } from '../services';
 
 const authController = {
   // post /signin
-  signIn: async (req, res, next) => {
+  signIn: async function (req, res, next) {
     try {
       const { email, password } = req.body;
-      const user = await authService.checkUserStatus(email, 'valid');
+      const user = await authService.checkUserStatus(email);
       await authService.verifyPassword(password, user.password);
       const token = await authService.signToken(user);
 
       return res.status(StatusCodes.OK).json({
-        message: '로그인 성공',
+        message: '로그인에 성공했습니다.',
         data: { token },
       });
     } catch (err) {
@@ -20,10 +20,10 @@ const authController = {
   },
 
   // post /password-reset
-  resetPassword: async (req, res, next) => {
+  resetPassword: async function (req, res, next) {
     try {
       const { name, email, phone } = req.body;
-      const user = await authService.checkUserStatus(email, 'valid', { name, phone });
+      const user = await authService.checkUserStatus(email, { name, phone });
       const resetPassword = await authService.resetPassword(user);
 
       return res.status(StatusCodes.OK).json({
@@ -36,41 +36,20 @@ const authController = {
   },
 
   // post /validation
-  checkUserValidation: async (req, res, next) => {
-    const { password } = req.body;
-    const authHeader = req.header('Authorization');
+  checkUserValidation: async function (req, res, next) {
     try {
-      const decoded = authService.decodeToken(authHeader);
-      const user = await userService.checkUserExist(decoded.email, true);
-      const isMatch = await authService.verifyPassword(password, user.password);
+      const { password } = req.body;
+      const decodedToken = req.decoded;
+      const user = await authService.checkUserStatus(decodedToken.email);
+      await authService.verifyPassword(password, user.password);
 
       return res.status(StatusCodes.OK).json({
-        message: '유저 확인 성공',
-        data: { decoded },
+        message: '비밀번호가 확인됐습니다.',
       });
     } catch (err) {
       next(err);
     }
   },
-
-  /* refreshToken: async (req, res, next) => {
-    const authHeader = req.header('Authorization');
-
-    if (authHeader) {
-      throw new customError(400, '유효하지 않은 토큰입니다.');
-    }
-    const token = authHeader ? authHeader.replace('Bearer ', '') : null;
-    if (!token) {
-      throw new customError(400, '토큰이 없습니다.');
-    }
-
-    const decoded = authService.signToken(token);
-
-    return res.status(200).json({
-      message: '토큰이 확인됐습니다',
-      info: decoded,
-    });
-  }, */
 };
 
 export default authController;

@@ -13,7 +13,4 @@ authRouter.put('/signin/password-reset', authController.resetPassword);
 // 유효한 사용자인지 확인
 authRouter.post('/validation', verifyToken, authController.checkUserValidation);
 
-// 토큰 재생성
-// router.post('/refreshToken', verifyToken, authController.refreshToken); // token 재발급하는 api 있어야 함
-
 export default authRouter;
