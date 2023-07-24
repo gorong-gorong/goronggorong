@@ -1,5 +1,6 @@
 components:
   schemas:
+    # Error
     error:
       properties:
         success:
@@ -9,6 +10,7 @@ components:
         message:
           type: string
 
+    # Product
     product:
       type: object
       properties:
@@ -29,6 +31,7 @@ components:
         imgUrl:
           type: string
 
+    # Order
     order:
       properties:
         receiver:
