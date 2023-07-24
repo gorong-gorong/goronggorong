@@ -52,5 +52,11 @@
 }
 
 .pagination__button-active {
-  background-color: blue;
+  background-color: yellow;
+}
+
+.bottom {
+  width: 100%;
+  height: 20px;
+  bottom: 0;
 }
