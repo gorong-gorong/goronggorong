@@ -27,14 +27,6 @@ const authService = {
     return newToken;
   },
 
-  // 해시된 비밀번호 생성
-  createHashPassword: async (password) => {
-    const salt = 12;
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    return hashedPassword;
-  },
-
   // 비밀번호 확인
   verifyPassword: async (password, original) => {
     const result = await bcrypt.compare(password, original);
@@ -73,7 +65,16 @@ const authService = {
     return decodedInfo;
   },
 
-  // 유효/중복 사용자 확인
+  // 비밀번호 초기화
+  resetPassword: async (user) => {
+    const resetPassword = authService.createRandomPassword();
+    const hashedPassword = await authService.createHashPassword(resetPassword);
+    await userModel.updateUser(user._id, { password: hashedPassword });
+
+    return resetPassword;
+  },
+
+  // 유효한 사용자 확인 valid만
   checkUserStatus: async (email, flag, compareData = undefined) => {
     const user = await userModel.findByEmail(email);
 
@@ -89,30 +90,6 @@ const authService = {
     }
 
     return user;
-  },
-
-  // 사용자 생성
-  createUser: async (userInfo) => {
-    const hashedPassword = await authService.createHashPassword(userInfo.password);
-    const user = await userModel.createUser({
-      ...userInfo,
-      password: hashedPassword,
-    });
-
-    if (!user) {
-      throw new customError(StatusCodes.BAD_REQUEST, '사용자를 생성하는데 실패했습니다.');
-    }
-
-    return user;
-  },
-
-  // 비밀번호 초기화
-  resetPassword: async (user) => {
-    const resetPassword = authService.createRandomPassword();
-    const hashedPassword = await authService.createHashPassword(resetPassword);
-    await userModel.updateUser(user._id, { password: hashedPassword });
-
-    return resetPassword;
   },
 };
 

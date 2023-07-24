@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { productsService } from '../services';
 
 const productsController = {
-  // /products
+  // get /products
   getProducts: async function (req, res, next) {
     try {
       const { category, page, perPage } = req.query;
@@ -22,7 +22,7 @@ const productsController = {
     }
   },
 
-  // /products/:id
+  // get /products/:id
   getProductById: async function (req, res, next) {
     try {
       const { id } = req.params;
