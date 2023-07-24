@@ -7,7 +7,6 @@ const amountAll = document.querySelector('.prod__item--amount');
 const prodList = document.querySelector('.prod__list');
 const bottom = document.querySelector('.bottom');
 
-// 카테고리, 페이지 초깃값
 let pageState = {
   category: '',
   page: 1,
@@ -17,6 +16,8 @@ let pageState = {
 };
 
 const renderInfiniteItemList = async (initPageState) => {
+  // pageState 업데이트
+  pageState = initPageState;
   // 아이템 데이터 요청
   const itemData = await getItemData(pageState.category, pageState.page, pageState.perPage);
   const items = itemData.productList;
