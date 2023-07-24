@@ -21,7 +21,7 @@ paths:
 
       responses:
         200:
-          description: ${page}페이지의 ${perPage}개의 상품을 불러왔습니다.
+          description: Ok
           content:
             application/json:
               schema:
@@ -29,11 +29,14 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: ${page}페이지의 ${perPage}개의 상품을 불러왔습니다.
                   data:
                     type: object
                     properties:
                       products:
-                        $ref: '../components/schemas.yaml#/components/schemas/product'
+                        type: array
+                        items:
+                          $ref: '../components/schemas.yaml#/components/schemas/product'
                       totalProductsAmount:
                         type: number
 
@@ -86,5 +89,5 @@ paths:
                   data:
                     type: object
                     properties:
-                      products:
+                      product:
                         $ref: '../components/schemas.yaml#/components/schemas/product'
