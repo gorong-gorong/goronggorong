@@ -10,7 +10,7 @@ export async function getItemData(category, page, perPage) {
 
 // Id별 상품 조회
 export async function getItemById(itemId) {
-  return await Api.Get(domain, `products?id=${itemId}`);
+  return await Api.Get(domain, `products/${itemId}`);
 }
 
 // 비밀번호 확인 요청

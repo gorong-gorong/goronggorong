@@ -27,6 +27,7 @@
     "@babel/node": "^7.22.6",
     "@babel/plugin-transform-runtime": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
+    "bcrypt": "^5.1.0",
     "http-status-codes": "^2.2.0",
     "nodemon": "^3.0.1",
     "prettier": "^2.8.8",

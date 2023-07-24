@@ -13,11 +13,11 @@ let pageState = {
   page: 1,
   perPage: 20,
   maxPage: 1,
-  totalItemCount: 0,
+  totalProductsAmount: 0,
 };
 itemViewCount.addEventListener('change', (e) => {
   if (e.target.value === 'all') {
-    pageState.perPage = pageState.totalItemCount;
+    pageState.perPage = pageState.totalProductsAmount;
   } else {
     pageState.perPage = Number(e.target.value);
   }
@@ -28,9 +28,9 @@ const renderItemList = async () => {
   // 아이템 데이터 요청
   const itemData = await getItemData(pageState.category, pageState.page, pageState.perPage);
   const items = itemData.productList;
-  pageState.maxPage = Math.ceil(itemData.maxPage / pageState.perPage);
-  pageState.totalItemCount = itemData.maxPage;
-  amountAll.innerText = pageState.totalItemCount;
+  pageState.maxPage = Math.ceil(itemData.totalProductsAmount / pageState.perPage);
+  pageState.totalProductsAmount = itemData.totalProductsAmount;
+  amountAll.innerText = pageState.totalProductsAmount;
 
   // 아이템 리스트 렌더링
   prodList.innerHTML = ''; // 기존 아이템 삭제

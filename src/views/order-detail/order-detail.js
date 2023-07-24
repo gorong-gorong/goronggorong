@@ -5,9 +5,15 @@ await main();
 
 const OrderId = location.pathname.split('/')[2];
 
-const { orderId, orderDate, deliveryStatus, paymentMethod, products, receiver, totalPrice } = await getOrderInfo(
-  OrderId,
-);
+const {
+  orderId,
+  orderDate: created_at,
+  deliveryStatus,
+  paymentMethod,
+  products,
+  receiver,
+  totalPrice,
+} = await getOrderInfo(OrderId);
 
 const itemInfoWrap = document.querySelector('.item-info-wrap');
 
@@ -27,7 +33,7 @@ const orderIdEl = document.querySelector('.order-id');
 orderIdEl.innerHTML = `주문번호: ${orderId}`;
 const orderDateEl = document.querySelector('.order-date');
 const orderStatusEl = document.querySelector('.order-status');
-orderDateEl.innerHTML = `주문일자: ${getDate(orderDate)}`;
+orderDateEl.innerHTML = `주문일자: ${getDate(created_at)}`;
 orderStatusEl.innerHTML = `주문상태: ${deliveryStatus}`;
 const totalPriceNumber = document.querySelector('.total-price');
 totalPriceNumber.innerHTML = totalPrice.toLocaleString();
