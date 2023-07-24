@@ -12,13 +12,13 @@ const productsController = {
       const { category, page, perPage } = req.query;
       const productList = await productsService.pagination(category, page, perPage);
       const productAmount = productList.length;
-      const maxPage = await productsService.calculateMaximumPage(category);
+      const totalProductsAmount = await productsService.calculateMaximumPage(category);
 
       res.status(StatusCodes.OK).json({
         message: `${page}페이지의 ${productAmount}개의 상품을 불러왔습니다.`,
         data: {
           productList,
-          maxPage,
+          totalProductsAmount,
         },
       });
     } catch (err) {
@@ -30,7 +30,7 @@ const productsController = {
   getProductById: async (req, res, next) => {
     try {
       // 아이디로 찾아서 JSON 으로 프론트에 쏴주기
-      const { id } = req.query;
+      const { id } = req.params;
       const product = await productsService.checkId(id);
       res.status(200).json({
         message: '해당 아이디 제품을 불러왔습니다',

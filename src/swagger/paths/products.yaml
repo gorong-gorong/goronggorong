@@ -34,7 +34,7 @@ paths:
                     properties:
                       products:
                         $ref: '../components/schemas.yaml#/components/schemas/product'
-                      maxPage:
+                      totalProductsAmount:
                         type: number
 
   /products/{category}:
@@ -65,7 +65,7 @@ paths:
       description: 이전 /products
       parameters:
         - name: id
-          in: query
+          in: path
           required: true
           description: 상품 ID
           schema:
