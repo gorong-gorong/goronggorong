@@ -1,28 +1,23 @@
 import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
+import { bcryptUtils } from '../utils';
+import { customError } from '../middlewares';
 
 const usersService = {
-  // 유효/중복 사용자 확인
-  checkUserStatus: async (email, flag, compareData = undefined) => {
+  // 중복된 사용자인지 확인
+  checkUserOverlap: async function (email) {
     const user = await userModel.findByEmail(email);
 
-    if (flag === 'overlap' && user) {
+    if (user) {
       throw new customError(StatusCodes.BAD_REQUEST, '사용자가 이미 있습니다');
-    }
-    if (flag === 'valid' && !user) {
-      throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
-    } else if (flag === 'valid' && compareData) {
-      if (user.name !== compareData.name || user.phone !== compareData.phone) {
-        throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
-      }
     }
 
     return user;
   },
 
   // 사용자 생성
-  createUser: async (userInfo) => {
-    const hashedPassword = await usersService.createHashPassword(userInfo.password);
+  createUser: async function (userInfo) {
+    const hashedPassword = await bcryptUtils.createHashPassword(userInfo.password);
     const user = await userModel.createUser({
       ...userInfo,
       password: hashedPassword,
@@ -35,19 +30,38 @@ const usersService = {
     return user;
   },
 
-  // 토큰 Decoding
-  decodeToken: (authHeader) => {
-    const token = authHeader ? authHeader.replace('Bearer ', '') : null;
-    if (!token) {
-      throw new customError(StatusCodes.NOT_FOUND, '토큰이 없습니다.');
+  // 사용자 정보 수정
+  updateUser: async function (_id, updateInfo) {
+    const user = await userModel.findById(_id);
+    const hashedPassword = await bcryptUtils.createHashPassword(updateInfo.password);
+    const result = await userModel.updateUser(user._id, {
+      password: hashedPassword,
+      address: updateInfo.address,
+    });
+
+    if (!result) {
+      throw new customError(StatusCodes.BAD_REQUEST, '사용자 정보를 수정하는데 실패했습니다.');
+    }
+  },
+
+  // 회원탈퇴
+  deleteUser: async function (_id) {
+    const result = await userModel.deleteUser({ _id });
+
+    if (!result) {
+      throw new customError(StatusCodes.BAD_REQUEST, '사용자 삭제에 실패했습니다.');
+    }
+  },
+
+  // 사용자 정보 가져오기
+  getUser: async function (_id) {
+    const user = await userModel.findById(decodedToken._id);
+
+    if (!user) {
+      throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
     }
 
-    const decodedInfo = jwt.verify(token, process.env.SECRET_KEY);
-    if (!decodedInfo) {
-      throw new customError(StatusCodes.BAD_REQUEST, '잘못된 토큰입니다.');
-    }
-
-    return decodedInfo;
+    return user;
   },
 };
 

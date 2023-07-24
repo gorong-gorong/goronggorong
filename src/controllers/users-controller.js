@@ -1,13 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import { usersService } from '../services';
-import { userModel } from '../db';
 
 const usersController = {
-  // post /user
-  createUser: async (req, res, next) => {
+  // post /users
+  createUser: async function (req, res, next) {
     try {
       const { name, email, password, phone, address } = req.body;
-      await usersService.checkUserStatus(email, 'overlap');
+      await usersService.checkUserOverlap(email);
       await usersService.createUser({ name, email, password, phone, address });
 
       return res.status(StatusCodes.CREATED).json({
@@ -18,12 +17,11 @@ const usersController = {
     }
   },
 
-  // get /user
-  getUser: async (req, res, next) => {
+  // get /users
+  getUser: async function (req, res, next) {
     try {
-      const authHeader = req.header('Authorization');
-      const decodedInfo = usersService.decodeToken(authHeader);
-      const user = await userModel.findById(decodedInfo._id);
+      const decodedToken = req.decoded;
+      const user = await usersService.getUser(decodedToken._id);
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보를 불러왔습니다.',
@@ -34,52 +32,30 @@ const usersController = {
     }
   },
 
-  // put /user
-  updateUser: async (req, res, next) => {
+  // put /users
+  updateUser: async function (req, res, next) {
     try {
-      const { name, password, phone, address } = req.body;
-      const authHeader = req.header('Authorization');
-      const decoded = authService.decodeToken(authHeader);
-      let user = await usersService.checkUserExist(decoded.email, true);
-      const hashedPassword = await authService.createHashPassword(password);
-      const refreshToken = await authService.signToken(user);
-      const updatedResult = await userModel.updateUser(user._id, {
-        name: name,
-        email: user.email,
-        password: password,
-        phone: phone,
-        address: address,
-        password: hashedPassword,
-        refreshToken,
-      });
-
-      user = await usersService.checkUserExist(user.email, true);
+      // email, name, phone 수정 불가능
+      const { password, address } = req.body;
+      const decodedToken = req.decoded;
+      await usersService.updateUser(decodedToken._id, { password, address });
 
       return res.status(StatusCodes.OK).json({
-        message: '사용자 정보 업데이트를 성공했습니다',
-        data: { user, refreshToken },
+        message: '사용자 정보를 수정했습니다.',
       });
     } catch (err) {
       next(err);
     }
   },
 
-  // delete /user
-  deleteUser: async (req, res, next) => {
+  // delete /users
+  deleteUser: async function (req, res, next) {
     try {
-      const authHeader = req.header('Authorization');
-      // 사용자가 있는지 확인
-      const decoded = await authService.decodeToken(authHeader);
-      const user = await usersService.checkUserExist(decoded.email, true);
-
-      const deletedUser = await userModel.deleteUser({ _id: user._id });
-
-      if (!deletedUser) {
-        throw new customError(400, '사용자 삭제에 실패했습니다.');
-      }
+      const decodedToken = req.decoded;
+      await usersService.deleteUser(decodedToken._id);
 
       return res.status(StatusCodes.OK).json({
-        message: '사용자 삭제 성공',
+        message: '회원 탈퇴했습니다.',
       });
     } catch (err) {
       next(err);
