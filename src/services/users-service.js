@@ -46,7 +46,7 @@ const usersService = {
 
   // 회원탈퇴
   deleteUser: async function (_id) {
-    const result = await userModel.deleteUser({ _id });
+    const result = await userModel.deleteUser(_id);
 
     if (!result) {
       throw new customError(StatusCodes.BAD_REQUEST, '사용자 삭제에 실패했습니다.');
@@ -55,7 +55,7 @@ const usersService = {
 
   // 사용자 정보 가져오기
   getUser: async function (_id) {
-    const user = await userModel.findById(decodedToken._id);
+    const user = await userModel.findById(_id);
 
     if (!user) {
       throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');
