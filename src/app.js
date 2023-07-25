@@ -1,7 +1,6 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import dotenv from 'dotenv/config';
 import path from 'path';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
@@ -11,42 +10,30 @@ import router from './routes';
 import { errorHandler } from './middlewares';
 
 const app = express();
-const allowedOrigins = ['http://localhost', 'http://goronggorong.store', 'http://goronggorong.store/api-docs'];
+
+const port = process.env.PORT || 3000;
+
+// Middlewares
+const allowedOrigins = ['http://localhost', 'http://goronggorong.store'];
 const corsOptions = {
   origin: allowedOrigins,
   exposeHeaders: ['Authorization'],
 };
 
-// ENV
-const rootDir = path.join(__dirname, '..');
-process.chdir(rootDir);
-dotenv.config();
-process.chdir(__dirname);
-
-const port = process.env.PORT || 3000;
-
-// Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(rootDir + '/public')); // public 폴더 접근
-app.use(morgan('dev', { stream: httpLogStream })); // Log 생성기
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(morgan('dev', { stream: httpLogStream }));
 
 // Swagger
 const swaggerSpec = yaml.load(path.join(__dirname, '../build/build.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// Database
-mongoose.connect(process.env.DB_KEY);
-const db = mongoose.connection;
-db.on('connected', () => console.log('Connecting DB Success'));
-db.on('error', (err) => console.error(err));
 
 // Routes
 app.use(router);
 app.use(errorHandler);
 
 app.listen(port, process.env.HOST, () => {
-  // 배포 코드
   console.log(`Connected to ${port}...`);
 });
