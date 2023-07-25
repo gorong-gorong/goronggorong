@@ -1,15 +1,13 @@
-const passwordUtils = {
-  // 랜덤 비밀번호 생성
-  createRandomPassword: function () {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-    let password = '';
+// 랜덤 비밀번호 생성
+const createRandomPassword = function () {
+  const character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+  let password = '';
 
-    for (let i = 0; i < 10; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+  for (let i = 0; i < 10; i++) {
+    password += character.charAt(Math.floor(Math.random() * character.length));
+  }
 
-    return password;
-  },
+  return password;
 };
 
-export default passwordUtils;
+export { createRandomPassword };
