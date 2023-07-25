@@ -30,7 +30,7 @@ let status = [0, 0, 0, 0, 0, 0];
 const orders = await getOrderList();
 
 const createOrderPreview = (order) => {
-  const orderDate = getDate(order.orderDate);
+  const orderDate = getDate(order.created_at);
 
   return `<li class="order__preview">
   <div class="preview__top">

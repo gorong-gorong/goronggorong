@@ -1,92 +1,35 @@
 import { main } from '/layouts/main.js';
 await main();
-import { getItemData } from '/lib/Fetcher.js';
-import { createItem } from './create-item.js';
+import { renderInfiniteItemList } from './render-infinite.js';
+import { renderPaginatedItemList } from './render-pagination.js';
 
-const amountAll = document.querySelector('.prod__item--amount');
 const itemViewCount = document.querySelector('.prod__item--view');
-const prodList = document.querySelector('.prod__list');
+const pagination = document.querySelector('.pagination');
 
-// 카테고리, 페이지 초깃값
-let pageState = {
+// 초기 페이지 설정
+let initPageState = {
   category: '',
   page: 1,
   perPage: 20,
-  maxPage: 1,
-  totalItemCount: 0,
 };
-itemViewCount.addEventListener('change', (e) => {
+
+// 처음 페이지 연결 시 아이템 리스트 렌더링
+renderPaginatedItemList(initPageState);
+
+// 페이지당 표시 할 아이템 수 선택
+const handleSelectViewCount = (e) => {
   if (e.target.value === 'all') {
-    pageState.perPage = pageState.totalItemCount;
+    pagination.style.display = 'none';
+    renderInfiniteItemList(initPageState);
   } else {
-    pageState.perPage = Number(e.target.value);
+    initPageState.page = 1;
+    initPageState.perPage = Number(e.target.value);
+    renderPaginatedItemList(initPageState);
   }
-  renderItemList();
-});
-
-const renderItemList = async () => {
-  // 아이템 데이터 요청
-  const itemData = await getItemData(pageState.category, pageState.page, pageState.perPage);
-  const items = itemData.productList;
-  pageState.maxPage = Math.ceil(itemData.maxPage / pageState.perPage);
-  pageState.totalItemCount = itemData.maxPage;
-  amountAll.innerText = pageState.totalItemCount;
-
-  // 아이템 리스트 렌더링
-  prodList.innerHTML = ''; // 기존 아이템 삭제
-  items.forEach((item) => {
-    const itemElement = createItem(item);
-    prodList.appendChild(itemElement);
-  });
-
-  // 페이지네이션
-  leftButton.disabled = pageState.page === 1;
-  rightButton.disabled = pageState.page === pageState.maxPage || pageState.maxPage === 1;
-
-  createPagination(pageState.maxPage);
 };
+itemViewCount.addEventListener('change', handleSelectViewCount);
 
-// 페이지네이션 - 왼쪽, 오른쪽 버튼
-const leftButton = document.querySelector('.pagination__button-left');
-const rightButton = document.querySelector('.pagination__button-right');
-leftButton.addEventListener('click', () => {
-  pageState.page = Math.max(pageState.page - 1, 1);
-  renderItemList();
-});
-rightButton.addEventListener('click', () => {
-  pageState.page = Math.min(pageState.page + 1, pageState.maxPage);
-  renderItemList();
-});
-
-// 페이지네이션 - 페이지 숫자 버튼
-const createPagination = (itemMaxPage) => {
-  const pagination = document.querySelector('.pagination__count');
-  pagination.innerHTML = '';
-
-  for (let i = 1; i <= itemMaxPage; i++) {
-    const pageCount = document.createElement('button');
-    pageCount.innerText = `${i}`;
-    if (i === pageState.page) {
-      pageCount.classList.add('pagination__button-active');
-    }
-
-    pagination.appendChild(pageCount);
-  }
-
-  const paginationButtons = pagination.querySelectorAll('button');
-  paginationButtons.forEach((pageButton) => {
-    pageButton.addEventListener('click', (e) => {
-      pageState.page = Number(e.target.innerText);
-      const prevActiveButton = document.querySelector('.pagination__button-active');
-      prevActiveButton.classList.remove('pagination__button-active');
-      e.target.classList.add('pagination__button-active');
-      renderItemList();
-    });
-  });
-};
-// 처음 페이지 연결 시 전체 아이템 리스트 렌더링
-renderItemList();
-
+// 카테고리 선택
 const handleCategoryClick = (e) => {
   //클릭한 카테고리에 on 클래스 추가
   document.querySelector('.nav__cate--on').classList.remove('nav__cate--on');
@@ -98,13 +41,13 @@ const handleCategoryClick = (e) => {
 
   const selectedCategory = e.target.dataset.category;
   if (selectedCategory === 'All') {
-    pageState.category = '';
+    initPageState.category = '';
   } else {
-    pageState.category = selectedCategory;
+    initPageState.category = selectedCategory;
   }
 
-  pageState.page = 1; // 페이지 초기화
-  renderItemList();
+  initPageState.page = 1; // 페이지 초기화
+  renderPaginatedItemList(initPageState);
 };
 
 // 각 카테고리에 이벤트 등록
