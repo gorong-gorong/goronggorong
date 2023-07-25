@@ -4,16 +4,16 @@ import { verifyToken } from '../middlewares';
 
 const ordersRouter = Router();
 
-// 결제
-ordersRouter.post('/payment', verifyToken, ordersController.createOrder);
+// 사용자별 주문 목록
+ordersRouter.get('/', verifyToken, ordersController.getUserOrders);
 
 // 주문 상세
 ordersRouter.get('/:_id', verifyToken, ordersController.getSelectedOrder);
 
-// 주문취소 -> 나중에 /:id/cancellation
-ordersRouter.put('/cancel/:_id', verifyToken, ordersController.cancelSelectedOrder); // 주문취소
+// 주문 취소
+ordersRouter.put('/:_id/cancellation', verifyToken, ordersController.cancelSelectedOrder);
 
-// 사용자별 주문 목록 -> 나중에 /user-orders
-ordersRouter.get('/user/order-list', verifyToken, ordersController.getUserOrders);
+// 결제
+ordersRouter.post('/payment', verifyToken, ordersController.createOrder);
 
 export default ordersRouter;
