@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 import { customError } from '../middlewares';
-import { bcryptUtils, jwtUtils, passwordUtils } from '../utils';
+import { bcryptUtils, jwtUtils, createRandomPassword } from '../utils';
 
 const authService = {
   // 토큰 생성
@@ -18,7 +18,7 @@ const authService = {
 
   // 비밀번호 초기화
   resetPassword: async function (user) {
-    const resetPassword = passwordUtils.createRandomPassword();
+    const resetPassword = createRandomPassword();
     const hashedPassword = await bcryptUtils.createHashPassword(resetPassword);
     await userModel.updateUser(user._id, { password: hashedPassword });
 

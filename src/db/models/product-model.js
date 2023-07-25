@@ -1,4 +1,4 @@
-import { Product } from '../schemas/index.js';
+import { Product } from '../schemas';
 
 const productModel = {
   // 페이지네이션에 해당하는 상품

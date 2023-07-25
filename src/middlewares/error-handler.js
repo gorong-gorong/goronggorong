@@ -7,7 +7,7 @@ class customError extends Error {
   }
 }
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = function (err, req, res, next) {
   const { statusCode, message } = err;
 
   res.status(statusCode).json({

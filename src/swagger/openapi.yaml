@@ -41,11 +41,11 @@ paths:
     $ref: './paths/products.yaml#/paths/~1products~1{id}'
 
   # /orders
-  /orders/payment:
-    $ref: './paths/orders.yaml#/paths/~1orders~1payment'
+  /orders:
+    $ref: './paths/orders.yaml#/paths/~1orders'
   /orders/{id}:
     $ref: './paths/orders.yaml#/paths/~1orders~1{id}'
-  /orders/cancel/{id}:
-    $ref: './paths/orders.yaml#/paths/~1orders~1cancel~1{id}'
-  /orders/user/order-list:
-    $ref: './paths/orders.yaml#/paths/~1orders~1user~1order-list'
+  /orders/{id}/cancellation:
+    $ref: './paths/orders.yaml#/paths/~1orders~1{id}~1cancellation'
+  /orders/payment:
+    $ref: './paths/orders.yaml#/paths/~1orders~1payment'
