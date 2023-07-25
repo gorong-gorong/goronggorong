@@ -17,11 +17,12 @@ const ordersController = {
     }
   },
 
-  // get /orders/:_id
+  // get /orders/:id
   getSelectedOrder: async function (req, res, next) {
     try {
-      const { _id } = req.params;
-      const order = await ordersService.getSelectedOrder(_id);
+      const { id } = req.params;
+      console.log(id);
+      const order = await ordersService.getSelectedOrder(id);
 
       return res.status(StatusCodes.OK).json({
         message: '주문 내역을 불러왔습니다.',
@@ -35,8 +36,8 @@ const ordersController = {
   // get /orders/:_id/cancellation
   cancelSelectedOrder: async function (req, res, next) {
     try {
-      const { _id } = req.params;
-      await ordersService.cancelSelectedOrder(_id);
+      const { id } = req.params;
+      await ordersService.cancelSelectedOrder(id);
 
       return res.status(StatusCodes.OK).json({
         message: '주문이 취소됐습니다.',

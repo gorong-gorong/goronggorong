@@ -8,10 +8,10 @@ const ordersRouter = Router();
 ordersRouter.get('/', verifyToken, ordersController.getUserOrders);
 
 // 주문 상세
-ordersRouter.get('/:_id', verifyToken, ordersController.getSelectedOrder);
+ordersRouter.get('/:id', verifyToken, ordersController.getSelectedOrder);
 
 // 주문 취소
-ordersRouter.put('/:_id/cancellation', verifyToken, ordersController.cancelSelectedOrder);
+ordersRouter.put('/:id/cancellation', verifyToken, ordersController.cancelSelectedOrder);
 
 // 결제
 ordersRouter.post('/payment', verifyToken, ordersController.createOrder);
