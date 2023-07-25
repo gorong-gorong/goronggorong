@@ -35,10 +35,11 @@ const usersController = {
   // put /users
   updateUser: async function (req, res, next) {
     try {
-      // email, name, phone 수정 불가능
-      const { password, address } = req.body;
+      // email 수정 불가능
+      // phone, name, password, address 수정가능하게
+      const { name, phone, password, address } = req.body;
       const decodedToken = req.decoded;
-      await usersService.updateUser(decodedToken._id, { password, address });
+      await usersService.updateUser(decodedToken._id, { name, phone, password, address });
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보를 수정했습니다.',
