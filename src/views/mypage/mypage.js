@@ -1,5 +1,5 @@
 import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
-import { getDate } from '/lib/utils/get-date.js';
+import { formatDate } from '/lib/utils/format-date.js';
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { main } from '/layouts/main.js';
 await main();
@@ -43,7 +43,7 @@ let status = [0, 0, 0, 0, 0, 0];
 const orders = await getOrderList();
 
 const createOrderPreview = (order) => {
-  const orderDate = getDate(order.created_at);
+  const orderDate = formatDate(order.created_at);
 
   return `<li class="order__preview">
   <div class="preview__top">
