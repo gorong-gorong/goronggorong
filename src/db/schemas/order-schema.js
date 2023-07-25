@@ -74,11 +74,6 @@ const OrderSchema = new Schema(
         },
       },
     },
-    orderDate: {
-      type: Date,
-      default: Date.now,
-      required: true,
-    },
     deliveryStatus: {
       type: String,
       default: '입금대기',
