@@ -123,7 +123,7 @@ const changeDeliveryInfoWrap = {
   info: document.querySelector('.change-delivery-info'),
   name: document.querySelector('.change-delivery-target-name'),
   phone: document.querySelector('.change-delivery-target-phone'),
-  addressWrap: document.querySelector('.change-delivery-address'),
+  addressWrap: document.querySelector('.form__address-data'),
   address() {
     return [...this.addressWrap.children]
       .filter((item) => item.tagName === 'INPUT')

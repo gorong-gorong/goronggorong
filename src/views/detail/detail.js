@@ -14,7 +14,8 @@ const navCartBtn = document.querySelector('.bottom-nav__btn--cart');
 const url = window.location.search;
 const itemId = url.split('=')[1];
 
-const item = await getItemById(itemId);
+const data = await getItemById(itemId);
+const item = data.product;
 
 itemImgs.forEach((itemImg) => {
   itemImg.setAttribute('src', item.imgUrl);

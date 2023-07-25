@@ -1,5 +1,5 @@
 import { getOrderInfo, cancelOrder } from '/lib/Fetcher.js';
-import { getDate } from '/lib/utils/get-date.js';
+import { formatDate } from '/lib/utils/format-date.js';
 import { main } from '/layouts/main.js';
 await main();
 
@@ -33,7 +33,7 @@ const orderIdEl = document.querySelector('.order-id');
 orderIdEl.innerHTML = `주문번호: ${orderId}`;
 const orderDateEl = document.querySelector('.order-date');
 const orderStatusEl = document.querySelector('.order-status');
-orderDateEl.innerHTML = `주문일자: ${getDate(created_at)}`;
+orderDateEl.innerHTML = `주문일자: ${formatDate(created_at)}`;
 orderStatusEl.innerHTML = `주문상태: ${deliveryStatus}`;
 const totalPriceNumber = document.querySelector('.total-price');
 totalPriceNumber.innerHTML = totalPrice.toLocaleString();

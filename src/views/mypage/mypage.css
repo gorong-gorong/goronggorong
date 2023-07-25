@@ -19,14 +19,12 @@
 }
 .user {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   background-color: #f7f7f7;
-  height: 140px;
   border-radius: 8px;
   padding: 40px;
 }
-.user__container {
+.user__info {
   display: flex;
   flex-direction: column;
 }
@@ -34,18 +32,37 @@
   flex: 1;
   font-size: 20px;
   margin-bottom: 24px;
+  cursor: pointer;
+}
+.user__greeting:hover {
+  text-decoration: underline;
 }
 .user__name {
   font-weight: 500;
   margin-right: 2px;
 }
+.user__detail {
+  color: #666666;
+  font-size: 14px;
+  margin: 0 0 16px 4px;
+  line-height: 1.2rem;
+}
+.user__detail-invisible {
+  display: none;
+}
 
-.user__signout,
-.user__edit {
+.user__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.user__buttons a {
   text-decoration: 0;
   color: #666666;
   font-size: 14px;
-  align-self: flex-end;
+  margin-left: 4px;
+}
+.user__buttons a:hover {
+  text-decoration: underline;
 }
 
 /* status */

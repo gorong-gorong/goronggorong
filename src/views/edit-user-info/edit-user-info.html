@@ -25,7 +25,7 @@
           <input id="form__name" class="form__name" name="form__name" type="text" placeholder="이름" />
 
           <label for="form__id">아이디</label>
-          <input id="form__id" class="form__id" name="form__id" type="email" placeholder="아이디" />
+          <input id="form__id" class="form__id" name="form__id" type="email" placeholder="아이디" disabled />
 
           <label for="form__pw">비밀번호 변경</label>
           <input
@@ -64,7 +64,7 @@
           <p class="form__help">숫자만 입력해 주세요.</p>
 
           <label for="form__address">주소</label>
-          <div class="change-delivery-address">
+          <div class="form__address-data">
             <input type="text" id="sample6_postcode" placeholder="우편번호" readonly />
             <button onclick="sample6_execDaumPostcode()">주소 찾기</button> <br />
             <input type="text" id="sample6_address" placeholder="주소" readonly /><br />

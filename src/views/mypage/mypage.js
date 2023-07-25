@@ -1,13 +1,26 @@
 import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
-import { getDate } from '/lib/utils/get-date.js';
+import { formatDate } from '/lib/utils/format-date.js';
+import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { main } from '/layouts/main.js';
 await main();
 
 // 회원정보
-const userInfo = await getUserInfo();
-const username = document.querySelector('.user__name');
-username.innerText = userInfo.name;
+const userName = document.querySelector('.user__name');
+const userGreeting = document.querySelector('.user__greeting');
+const userDetail = document.querySelector('.user__detail');
 
+const userData = await getUserInfo();
+const { name, email, phone, address } = userData;
+
+userGreeting.addEventListener('click', () => {
+  userDetail.classList.toggle('user__detail-invisible');
+});
+
+userName.innerText = name;
+userDetail.innerText = `${email}
+${formatPhoneNumber(phone)}
+${address}
+`;
 // 로그아웃 로직
 const signout = document.querySelector('.user__signout');
 const handleSignoutClick = () => {
@@ -30,7 +43,7 @@ let status = [0, 0, 0, 0, 0, 0];
 const orders = await getOrderList();
 
 const createOrderPreview = (order) => {
-  const orderDate = getDate(order.created_at);
+  const orderDate = formatDate(order.created_at);
 
   return `<li class="order__preview">
   <div class="preview__top">
