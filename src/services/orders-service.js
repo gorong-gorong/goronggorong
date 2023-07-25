@@ -12,6 +12,8 @@ const ordersService = {
       orderInfo.deliveryStatus = '결제완료';
     }
 
+    console.log(orderInfo);
+
     const order = await orderModel.createOrder(orderInfo);
     if (!order) {
       throw new customError(StatusCodes.BAD_REQUEST, '주문을 실패했습니다.');
