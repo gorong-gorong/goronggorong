@@ -59,7 +59,7 @@ input:focus {
 }
 
 /* 주소api */
-.change-delivery-address input {
+.form__address-data input {
   width: 340px;
   margin-bottom: 8px;
 }
@@ -72,7 +72,7 @@ input:focus {
   flex: 2;
   width: 68%;
 }
-.change-delivery-address button {
+.form__address-data button {
   font-size: 16px;
   font-weight: 600;
   border: 0;
@@ -84,7 +84,7 @@ input:focus {
   padding: 0px 16px 0px 16px;
 }
 
-.change-delivery-address button:hover {
+.form__address-data button:hover {
   background-color: #c1c1c120;
 }
 #sample6_address {

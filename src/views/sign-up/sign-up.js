@@ -1,5 +1,5 @@
 import { postSignup } from '../lib/Fetcher.js';
-import { getJoinedAddress } from '../lib/utils/get-joined-address.js';
+import { formatAddress } from '../lib/utils/format-address.js';
 
 const userName = document.querySelector('.form__name');
 const id = document.querySelector('.form__id');
@@ -19,7 +19,7 @@ const handleSubmit = async (e) => {
       email: id.value,
       password: pw.value,
       phone: phone.value,
-      address: getJoinedAddress(),
+      address: formatAddress(),
     };
     await postSignup(data);
     alert(`

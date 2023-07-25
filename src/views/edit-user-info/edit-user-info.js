@@ -1,5 +1,5 @@
 import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
-import { getJoinedAddress } from '/lib/utils/get-joined-address.js';
+import { formatAddress } from '/lib/utils/format-address.js';
 
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');
@@ -8,7 +8,7 @@ const passwordCheckInput = document.querySelector('.form__pw-check');
 const phoneInput = document.querySelector('.form__phone');
 const submitButton = document.querySelector('.form__submit');
 const deleteButton = document.querySelector('.delete-btn');
-const addressInputs = document.querySelectorAll('.change-delivery-address input');
+const addressInputs = document.querySelectorAll('.form__address-data input');
 
 // 기존 회원정보
 const data = await getUserInfo();
@@ -28,7 +28,7 @@ const handleSubmit = async (e) => {
     name: nameInput.value,
     password: passwordInput.value,
     phone: phoneInput.value,
-    address: getJoinedAddress(),
+    address: formatAddress(),
   };
   const userToken = await putUserInfo(data);
   alert(`회원정보가 수정되었습니다.`);
