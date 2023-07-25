@@ -1,5 +1,5 @@
 import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
-import { getJoinedAddress } from '../lib/utils/get-joined-address.js';
+import { getJoinedAddress } from '/lib/utils/get-joined-address.js';
 
 const userName = document.querySelector('.form__name');
 const id = document.querySelector('.form__id');
