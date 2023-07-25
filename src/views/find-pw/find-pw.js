@@ -30,7 +30,17 @@ const handleExitClick = () => {
   modal.classList.remove('is-active');
 };
 const handleCopyClick = () => {
-  navigator.clipboard.writeText(newPw.value);
+  //clipboard api를 지원하지 않는 브라우저의 경우 execCommand를 사용
+  if (navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(newPw.value);
+    alert(`비밀번호가 복사되었습니다.
+로그인 후 비밀번호를 변경해주세요!`);
+  } else {
+    newPw.select();
+    document.execCommand('copy');
+    alert(`비밀번호가 복사되었습니다.
+로그인 후 비밀번호를 변경해주세요!`);
+  }
 };
 const handleSigninClick = () => {
   window.location.href = '/signin';
