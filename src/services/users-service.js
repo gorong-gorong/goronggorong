@@ -35,8 +35,8 @@ const usersService = {
     const user = await userModel.findById(_id);
     const hashedPassword = await bcryptUtils.createHashPassword(updateInfo.password);
     const result = await userModel.updateUser(user._id, {
+      ...updateInfo,
       password: hashedPassword,
-      address: updateInfo.address,
     });
 
     if (!result) {
