@@ -1,14 +1,13 @@
+import { ObjectId } from 'mongodb';
+
+// YYYYMMDD + ObjectId(Incrementing Counter, 3-byte)
 const createOrderId = function () {
   const now = new Date();
-  let year = String(now.getFullYear());
-  const month = String(now.getMonth() + 1);
-  const date = String(now.getDate());
-  if (month.length === 1) year += '0';
-  let orderId = year + month + date;
-
-  for (let i = 0; i < 10; i++) {
-    orderId += Math.floor(Math.random() * 10);
-  }
+  const year = String(now.getFullYear());
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const date = String(now.getDate()).padStart(2, '0');
+  const counter = new ObjectId().toString('hex').slice(-6);
+  const orderId = year + month + date + counter;
 
   return orderId;
 };

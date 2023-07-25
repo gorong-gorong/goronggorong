@@ -3,7 +3,7 @@ import { Order } from '../schemas';
 const orderModel = {
   // 주문 상세 내역 검색
   findOneById: async function (orderId) {
-    const order = await Order.findOne({ _id: orderId }).populate('user', 'name email').populate('products.id');
+    const order = await Order.findOne({ orderId }).populate('user', 'name email').populate('products.id');
 
     return order;
   },
@@ -27,7 +27,7 @@ const orderModel = {
 
   // 주문 수정
   updateOrder: async function (orderId) {
-    const updatedOrder = await Order.updateOne({ _id: orderId }, { deliveryStatus: '주문취소' });
+    const updatedOrder = await Order.updateOne({ orderId }, { deliveryStatus: '주문취소' });
 
     return updatedOrder;
   },

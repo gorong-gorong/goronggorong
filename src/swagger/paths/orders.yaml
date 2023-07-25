@@ -124,7 +124,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: 주문 ID. orderId가 아닌 _id 입력.
+          description: 주문 ID. orderId
           schema:
             type: string
 
@@ -162,7 +162,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: 주문 ID. orderId가 아닌 _id 입력.
+          description: 주문 ID. orderId
           schema:
             type: string
       responses:
