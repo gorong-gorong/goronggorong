@@ -1,6 +1,7 @@
-import ordersService from './orders-service';
+import usersService from './users-service';
 import authService from './auth-service';
-import viewService from './view-service';
 import productsService from './products-service';
+import ordersService from './orders-service';
+import viewService from './view-service';
 
-export { authService, productsService, ordersService, viewService };
+export { usersService, authService, productsService, ordersService, viewService };

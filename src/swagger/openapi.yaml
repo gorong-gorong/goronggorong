@@ -18,21 +18,25 @@ components:
       bearerFormat: JWT
 
 paths:
+  # /users
+  /users:
+    $ref: './paths/user.yaml#/paths/~1users'
+
   # /auth
-  /auth/signup:
+  /auth/signup: # deprecated
     $ref: './paths/auth.yaml#/paths/~1auth~1signup'
   /auth/signin:
     $ref: './paths/auth.yaml#/paths/~1auth~1signin'
   /auth/signin/password-reset:
     $ref: './paths/auth.yaml#/paths/~1auth~1signin~1password-reset'
-  /auth/user-info:
+  /auth/user-info: # deprecated
     $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
+  /auth/validation:
+    $ref: './paths/auth.yaml#/paths/~1auth~1validation'
 
   # /products
   /products:
     $ref: './paths/products.yaml#/paths/~1products'
-  /products/{category}:
-    $ref: './paths/products.yaml#/paths/~1products~1{category}'
   /products/{id}:
     $ref: './paths/products.yaml#/paths/~1products~1{id}'
 

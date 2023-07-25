@@ -21,7 +21,7 @@ paths:
 
       responses:
         200:
-          description: ${page}페이지의 ${perPage}개의 상품을 불러왔습니다.
+          description: Ok
           content:
             application/json:
               schema:
@@ -29,33 +29,16 @@ paths:
                 properties:
                   message:
                     type: string
+                    example: ${page}페이지의 ${perPage}개의 상품을 불러왔습니다.
                   data:
                     type: object
                     properties:
                       products:
-                        $ref: '../components/schemas.yaml#/components/schemas/product'
+                        type: array
+                        items:
+                          $ref: '../components/schemas.yaml#/components/schemas/product'
                       totalProductsAmount:
                         type: number
-
-  /products/{category}:
-    get:
-      tags:
-        - products
-      summary: 카테고리별 상품
-      description: 페이지네이션 때문에 나중에 /products?category
-      deprecated: true
-
-      parameters:
-        - name: category
-          in: path
-          required: true
-          description: 카테고리명(Food, Snack, Toy, Toilet, Fashion)
-          schema:
-            type: string
-
-      responses:
-        200:
-          $ref: '../components/ok.yaml#/components/schemas/product'
 
   /products/{id}:
     get:
@@ -74,4 +57,17 @@ paths:
 
       responses:
         200:
-          $ref: '../components/ok.yaml#/components/schemas/product'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 해당 아이디 상품을 불러왔습니다.
+                  data:
+                    type: object
+                    properties:
+                      product:
+                        $ref: '../components/schemas.yaml#/components/schemas/product'
