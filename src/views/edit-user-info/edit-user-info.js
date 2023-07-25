@@ -27,6 +27,7 @@ const handleSubmit = async (e) => {
   const userToken = await putUserInfo(data);
   alert(`회원정보가 수정되었습니다.`);
   window.location.href = '/mypage';
+  // 토큰 업데이트
   localStorage.setItem('userToken', userToken);
 };
 submitBtn.addEventListener('click', handleSubmit);
