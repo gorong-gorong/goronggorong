@@ -1,23 +1,23 @@
 import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
 import { getJoinedAddress } from '/lib/utils/get-joined-address.js';
 
-const userName = document.querySelector('.form__name');
-const id = document.querySelector('.form__id');
-const password = document.querySelector('.form__pw');
-const passwordCheck = document.querySelector('.form__pw-check');
-const phone = document.querySelector('.form__phone');
-const submitBtn = document.querySelector('.form__submit');
-const deleteBtn = document.querySelector('.delete-btn');
-const addressForm = document.querySelectorAll('.change-delivery-address input');
-console.log('🚀 ~ file: edit-user-info.js:12 ~ address:', addressForm);
+const nameInput = document.querySelector('.form__name');
+const idInput = document.querySelector('.form__id');
+const passwordInput = document.querySelector('.form__pw');
+const passwordCheckInput = document.querySelector('.form__pw-check');
+const phoneInput = document.querySelector('.form__phone');
+const submitButton = document.querySelector('.form__submit');
+const deleteButton = document.querySelector('.delete-btn');
+const addressInputs = document.querySelectorAll('.change-delivery-address input');
 
 // 기존 회원정보
 const data = await getUserInfo();
-id.value = data.email;
-phone.value = data.phone;
-userName.value = data.name;
-addressForm.forEach((addressInput, index) => {
-  const addressValue = data.address.split(',')[index];
+const { email, phone, name, address } = data;
+idInput.value = email;
+phoneInput.value = phone;
+nameInput.value = name;
+addressInputs.forEach((addressInput, index) => {
+  const addressValue = address.split(',')[index];
   addressInput.value = addressValue;
 });
 
@@ -25,9 +25,9 @@ addressForm.forEach((addressInput, index) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   const data = {
-    name: userName.value,
-    password: password.value,
-    phone: phone.value,
+    name: nameInput.value,
+    password: passwordInput.value,
+    phone: phoneInput.value,
     address: getJoinedAddress(),
   };
   const userToken = await putUserInfo(data);
@@ -36,13 +36,13 @@ const handleSubmit = async (e) => {
   // 토큰 업데이트
   // localStorage.setItem('userToken', userToken);
 };
-submitBtn.addEventListener('click', handleSubmit);
+submitButton.addEventListener('click', handleSubmit);
 
 // 회원탈퇴 로직
 const handleDeleteClick = async () => {
-  if (!password.value || !passwordCheck.value) {
+  if (!passwordInput.value || !passwordCheckInput.value) {
     alert('비밀번호를 입력 해 주세요');
-  } else if (passwordCheck.value !== password.value) {
+  } else if (passwordCheckInput.value !== passwordInput.value) {
     alert('입력하신 비밀번호가 일치하지 않습니다.');
   } else if (confirm('탈퇴하시겠습니까?')) {
     await deleteUserInfo();
@@ -51,4 +51,4 @@ const handleDeleteClick = async () => {
     window.location.href = '/';
   }
 };
-deleteBtn.addEventListener('click', handleDeleteClick);
+deleteButton.addEventListener('click', handleDeleteClick);

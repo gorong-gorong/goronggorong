@@ -1,4 +1,4 @@
-const addressForm = document.querySelector('.change-delivery-address input');
+const addressForm = document.querySelector('.change-delivery-address');
 
 export function getJoinedAddress() {
   return [...addressForm.children]
