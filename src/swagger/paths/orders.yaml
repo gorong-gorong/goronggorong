@@ -107,12 +107,12 @@ paths:
                 account:
                   $ref: '../components/orders-examples.yaml#/components/examples/accountData'
 
-  /orders/cancel/{id}:
+  /orders/{id}/cancellation:
     put:
       tags:
         - orders
       summary: 주문취소
-      description: 나중에 /orders/:id/cancellation
+      description: 전 /orders/cancel/{id}
       security:
         - bearerAuth: []
 
@@ -134,12 +134,12 @@ paths:
                   message:
                     type: string
 
-  /orders/user/order-list:
+  /orders:
     get:
       tags:
         - orders
       summary: 사용자별 주문 목록
-      description: 나중에 /user-orders
+      description: 전 /orders/user/order-list
       security:
         - bearerAuth: []
 

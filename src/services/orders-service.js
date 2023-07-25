@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { userModel, orderModel } from '../db';
 import { customError } from '../middlewares';
 
@@ -16,6 +17,7 @@ const ordersService = {
 
     return orderId;
   },
+
   createOrder: async (orderInfo) => {
     const checkUser = await userModel.findById(orderInfo.user);
     if (!checkUser) {
@@ -34,6 +36,24 @@ const ordersService = {
     }
 
     return order;
+  },
+
+  // 사용자 주문 내역
+  getUserOrders: async function (userId) {
+    const orders = await orderModel.findAllById({ _id: userId });
+
+    return orders;
+  },
+
+  // 주문 상세 내역
+  getSelectedOrder: async function (orderId) {
+    const orders = await orderModel.findOneById({ _id: orderId });
+
+    if (!orders) {
+      throw new customError(StatusCodes.NOT_FOUND, '주문 내역을 찾지 못했습니다.');
+    }
+
+    return orders;
   },
 };
 
