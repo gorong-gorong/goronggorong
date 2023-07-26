@@ -28,9 +28,9 @@ const OrderSchema = new Schema(
         type: String,
       },
     },
-    products: [
+    productList: [
       {
-        id: {
+        product: {
           type: Schema.Types.ObjectId,
           ref: 'Product',
           required: true,
@@ -51,7 +51,6 @@ const OrderSchema = new Schema(
     },
     paymentMethod: {
       paymentType: {
-        // credit, account
         // "card", "account"
         type: String,
         required: true,

@@ -25,8 +25,8 @@ const productsController = {
   // get /products/:id
   getProductById: async function (req, res, next) {
     try {
-      const { id } = req.params;
-      const product = await productsService.searchProduct(id);
+      const productId = req.params.id;
+      const product = await productsService.searchProduct(productId);
 
       res.status(StatusCodes.OK).json({
         message: '해당 아이디 상품을 불러왔습니다.',

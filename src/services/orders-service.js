@@ -7,12 +7,10 @@ const ordersService = {
   // 주문 생성
   createOrder: async function (orderInfo) {
     orderInfo.orderId = createOrderId();
-    orderInfo.totalCase = orderInfo.products.length;
+    orderInfo.totalCase = orderInfo.productList.length;
     if (orderInfo.paymentMethod.paymentType === 'card') {
       orderInfo.deliveryStatus = '결제완료';
     }
-
-    console.log(orderInfo);
 
     const order = await orderModel.createOrder(orderInfo);
     if (!order) {

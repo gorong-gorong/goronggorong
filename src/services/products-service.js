@@ -35,8 +35,8 @@ const productsService = {
   },
 
   // 상품 검색
-  searchProduct: async function (id) {
-    const product = await productModel.findById(id);
+  searchProduct: async function (productId) {
+    const product = await productModel.findById(productId);
 
     return product;
   },
