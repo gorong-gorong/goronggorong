@@ -16,7 +16,7 @@ components:
       properties:
         _id:
           type: string
-        id:
+        productId:
           type: number
         category:
           type: string
@@ -26,8 +26,6 @@ components:
           type: number
         description:
           type: string
-        amount:
-          type: number
         imgUrl:
           type: string
 

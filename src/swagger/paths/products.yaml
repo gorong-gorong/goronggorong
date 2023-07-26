@@ -33,7 +33,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      products:
+                      productList:
                         type: array
                         items:
                           $ref: '../components/schemas.yaml#/components/schemas/product'
@@ -50,7 +50,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: 상품 ID
+          description: productId
           schema:
             type: string
           example: 1

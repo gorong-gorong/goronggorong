@@ -69,8 +69,8 @@ components:
                 },
               'products':
                 [
-                  { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9300f2687bf91bcbe1863' },
-                  { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9300f2687bf91bcbe1864' },
+                  { 'product': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9300f2687bf91bcbe1863' },
+                  { 'product': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9300f2687bf91bcbe1864' },
                 ],
               'totalCase': 2,
               'totalPrice': 2000,
@@ -142,8 +142,36 @@ components:
               },
             'products':
               [
-                { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9304c2687bf91bcbe1868' },
-                { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9304c2687bf91bcbe1869' },
+                {
+                  'product':
+                    {
+                      '_id': '64be06d382839922c636c359',
+                      'id': 1,
+                      'category': 'Food',
+                      'name': '고롱 사료 1',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'amount': 100,
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                    },
+                  'amount': 1,
+                  '_id': '64bf89964880df019eab376e',
+                },
+                {
+                  'product':
+                    {
+                      '_id': '64be06d382839922c636c35a',
+                      'id': 2,
+                      'category': 'Food',
+                      'name': '고롱 사료 2',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'amount': 100,
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                    },
+                  'amount': 2,
+                  '_id': '64bf89964880df019eab376f',
+                },
               ],
             'totalCase': 2,
             'totalPrice': 2000,
@@ -177,8 +205,36 @@ components:
               },
             'products':
               [
-                { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9300f2687bf91bcbe1863' },
-                { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9300f2687bf91bcbe1864' },
+                {
+                  'product':
+                    {
+                      '_id': '64be06d382839922c636c359',
+                      'id': 1,
+                      'category': 'Food',
+                      'name': '고롱 사료 1',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'amount': 100,
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                    },
+                  'amount': 1,
+                  '_id': '64bf89964880df019eab376e',
+                },
+                {
+                  'product':
+                    {
+                      '_id': '64be06d382839922c636c35a',
+                      'id': 2,
+                      'category': 'Food',
+                      'name': '고롱 사료 2',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'amount': 100,
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                    },
+                  'amount': 2,
+                  '_id': '64bf89964880df019eab376f',
+                },
               ],
             'totalCase': 2,
             'totalPrice': 2000,

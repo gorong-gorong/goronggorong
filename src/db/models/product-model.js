@@ -22,8 +22,8 @@ const productModel = {
   },
 
   // ID로 상품 검색
-  findById: async function (id) {
-    const foundProduct = await Product.findOne({ id });
+  findById: async function (productId) {
+    const foundProduct = await Product.findOne({ productId });
 
     return foundProduct;
   },
