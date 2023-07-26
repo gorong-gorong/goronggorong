@@ -126,7 +126,7 @@ paths:
     delete:
       tags:
         - users
-      summary: 회원 탈퇴
+      summary: 회원 탈퇴. 사용자의 주문내역도 삭제
       description: 전 /mypage/delete-user-info
       security:
         - bearerAuth: []
