@@ -7,17 +7,28 @@ components:
         data:
           order:
             {
+              'orderId': '20230726547c94',
+              'user': '64b6586aa8aeb67622cfcf9f',
               'receiver':
                 {
                   'name': 'John',
-                  'phone': '01012345678',
+                  'phone': 'string',
                   'address': '서울특별시 강남구',
                   'requestMessage': '문 앞에 두고 가주세요.',
                 },
-              'products':
-                [{ 'id': '6444d810c6efec47b104fc7c', 'amount': 1 }, { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 }],
+              'productList':
+                [
+                  { 'product': '64be06d382839922c636c359', 'amount': 1, '_id': '64c09ef2098e510e65547c96' },
+                  { 'product': '64be06d382839922c636c35a', 'amount': 2, '_id': '64c09ef2098e510e65547c97' },
+                ],
+              'totalCase': 2,
               'totalPrice': 2000,
               'paymentMethod': { 'paymentType': 'account' },
+              'deliveryStatus': '입금대기',
+              '_id': '64c09ef2098e510e65547c95',
+              'created_at': '2023-07-26T04:20:02.268Z',
+              'updated_at': '2023-07-26T04:20:02.268Z',
+              '__v': 0,
             }
 
     cardPayment:
@@ -27,15 +38,21 @@ components:
         data:
           order:
             {
+              'orderId': '20230726838a56',
+              'user': '64b6586aa8aeb67622cfcf9f',
               'receiver':
                 {
                   'name': 'John',
-                  'phone': '01012345678',
+                  'phone': 'string',
                   'address': '서울특별시 강남구',
                   'requestMessage': '문 앞에 두고 가주세요.',
                 },
-              'products':
-                [{ 'id': '6444d810c6efec47b104fc7c', 'amount': 1 }, { 'id': '6444d810c6efec47b104fc7d', 'amount': 2 }],
+              'productList':
+                [
+                  { 'product': '64be06d382839922c636c359', 'amount': 1, '_id': '64c0a05efaedb9e3a1838a58' },
+                  { 'product': '64be06d382839922c636c35a', 'amount': 2, '_id': '64c0a05efaedb9e3a1838a59' },
+                ],
+              'totalCase': 2,
               'totalPrice': 2000,
               'paymentMethod':
                 {
@@ -43,12 +60,17 @@ components:
                   'creditInfo':
                     {
                       'company': '국민',
-                      'cardNumber': '123456789',
+                      'cardNumber': '1234123412341234',
                       'expiryDate': '01/24',
                       'cvc': '456',
                       'cardOwner': 'John',
                     },
                 },
+              'deliveryStatus': '결제완료',
+              '_id': '64c0a05efaedb9e3a1838a57',
+              'created_at': '2023-07-26T04:26:06.177Z',
+              'updated_at': '2023-07-26T04:26:06.177Z',
+              '__v': 0,
             }
 
     accountData:
@@ -58,28 +80,57 @@ components:
           'message': '주문 내역을 불러왔습니다.',
           'data':
             {
-              'orderId': 202307207282599330,
-              'user': '64b785f9360823d02ef15429',
-              'receiver':
+              'order':
                 {
-                  'name': 'John',
-                  'phone': '17119607',
-                  'address': '서울특별시 강남구',
-                  'requestMessage': '문 앞에 두고 가주세요.',
+                  'receiver':
+                    {
+                      'name': 'John',
+                      'phone': 'string',
+                      'address': '서울특별시 강남구',
+                      'requestMessage': '문 앞에 두고 가주세요.',
+                    },
+                  'paymentMethod': { 'paymentType': 'account' },
+                  '_id': '64c0a30a62591d0f400df4ab',
+                  'orderId': '202307260df4aa',
+                  'user': { '_id': '64b6586aa8aeb67622cfcf9f', 'name': 'John', 'email': 'test@test.com' },
+                  'productList':
+                    [
+                      {
+                        'product':
+                          {
+                            '_id': '64c099f93d37ea5c5c5efedf',
+                            'productId': 1,
+                            'category': 'Food',
+                            'name': '고롱 사료 1',
+                            'price': 12900,
+                            'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                            'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                          },
+                        'amount': 1,
+                        '_id': '64c0a30a62591d0f400df4ac',
+                      },
+                      {
+                        'product':
+                          {
+                            '_id': '64c099f93d37ea5c5c5efee0',
+                            'productId': 2,
+                            'category': 'Food',
+                            'name': '고롱 사료 2',
+                            'price': 12900,
+                            'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                            'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                          },
+                        'amount': 2,
+                        '_id': '64c0a30a62591d0f400df4ad',
+                      },
+                    ],
+                  'totalCase': 2,
+                  'totalPrice': 2000,
+                  'deliveryStatus': '입금대기',
+                  'created_at': '2023-07-26T04:37:30.689Z',
+                  'updated_at': '2023-07-26T04:37:30.689Z',
+                  '__v': 0,
                 },
-              'products':
-                [
-                  { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9300f2687bf91bcbe1863' },
-                  { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9300f2687bf91bcbe1864' },
-                ],
-              'totalCase': 2,
-              'totalPrice': 2000,
-              'paymentMethod': { 'paymentType': 'account' },
-              'deliveryStatus': '입금대기',
-              '_id': '64b9300f2687bf91bcbe1862',
-              'created_at': '2023-07-20T13:01:04.000Z',
-              'updated_at': '2023-07-20T13:01:04.000Z',
-              '__v': 0,
             },
         }
 
@@ -90,103 +141,184 @@ components:
           'message': '주문 내역을 불러왔습니다.',
           'data':
             {
-              'orderId': 202307204985565900,
-              'user': '64b785f9360823d02ef15429',
-              'receiver':
+              'order':
                 {
-                  'name': 'John',
-                  'phone': '17119607',
-                  'address': '서울특별시 강남구',
-                  'requestMessage': '문 앞에 두고 가주세요.',
-                },
-              'products':
-                [
-                  { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9304c2687bf91bcbe1868' },
-                  { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9304c2687bf91bcbe1869' },
-                ],
-              'totalCase': 2,
-              'totalPrice': 2000,
-              'paymentMethod':
-                {
-                  'paymentType': 'card',
-                  'creditInfo':
+                  'receiver':
                     {
-                      'company': '국민',
-                      'cardNumber': '123456789',
-                      'expiryDate': '01/24',
-                      'cvc': '456',
-                      'cardOwner': 'John',
+                      'name': 'John',
+                      'phone': 'string',
+                      'address': '서울특별시 강남구',
+                      'requestMessage': '문 앞에 두고 가주세요.',
                     },
+                  'paymentMethod':
+                    {
+                      'creditInfo':
+                        {
+                          'company': '국민',
+                          'cardNumber': '1234123412341234',
+                          'expiryDate': '01/24',
+                          'cvc': '456',
+                          'cardOwner': 'John',
+                        },
+                      'paymentType': 'card',
+                    },
+                  '_id': '64c0a30862591d0f400df4a6',
+                  'orderId': '202307260df4a5',
+                  'user': { '_id': '64b6586aa8aeb67622cfcf9f', 'name': 'John', 'email': 'test@test.com' },
+                  'productList':
+                    [
+                      {
+                        'product':
+                          {
+                            '_id': '64c099f93d37ea5c5c5efedf',
+                            'productId': 1,
+                            'category': 'Food',
+                            'name': '고롱 사료 1',
+                            'price': 12900,
+                            'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                            'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                          },
+                        'amount': 1,
+                        '_id': '64c0a30862591d0f400df4a7',
+                      },
+                      {
+                        'product':
+                          {
+                            '_id': '64c099f93d37ea5c5c5efee0',
+                            'productId': 2,
+                            'category': 'Food',
+                            'name': '고롱 사료 2',
+                            'price': 12900,
+                            'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                            'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                          },
+                        'amount': 2,
+                        '_id': '64c0a30862591d0f400df4a8',
+                      },
+                    ],
+                  'totalCase': 2,
+                  'totalPrice': 2000,
+                  'deliveryStatus': '결제완료',
+                  'created_at': '2023-07-26T04:37:28.658Z',
+                  'updated_at': '2023-07-26T04:37:28.658Z',
+                  '__v': 0,
                 },
-              'deliveryStatus': '결제완료',
-              '_id': '64b9304c2687bf91bcbe1867',
-              'created_at': '2023-07-20T13:02:04.600Z',
-              'updated_at': '2023-07-20T13:02:04.600Z',
-              '__v': 0,
             },
         }
 
     combinedOrderList:
       message: 사용자의 주문 정보를 읽어왔습니다.
-      orders:
-        [
-          {
-            'orderId': 202307204985565900,
-            'user': '64b785f9360823d02ef15429',
+      data:
+        orders:
+          [
+            {
+              'receiver':
+                {
+                  'name': 'John',
+                  'phone': 'string',
+                  'address': '서울특별시 강남구',
+                  'requestMessage': '문 앞에 두고 가주세요.',
+                },
+              'paymentMethod': { 'paymentType': 'account' },
+              '_id': '64c0a30a62591d0f400df4ab',
+              'orderId': '202307260df4aa',
+              'user': { '_id': '64b6586aa8aeb67622cfcf9f', 'name': 'John', 'email': 'test@test.com' },
+              'productList':
+                [
+                  {
+                    'product':
+                      {
+                        '_id': '64c099f93d37ea5c5c5efedf',
+                        'productId': 1,
+                        'category': 'Food',
+                        'name': '고롱 사료 1',
+                        'price': 12900,
+                        'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                        'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                      },
+                    'amount': 1,
+                    '_id': '64c0a30a62591d0f400df4ac',
+                  },
+                  {
+                    'product':
+                      {
+                        '_id': '64c099f93d37ea5c5c5efee0',
+                        'productId': 2,
+                        'category': 'Food',
+                        'name': '고롱 사료 2',
+                        'price': 12900,
+                        'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                        'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                      },
+                    'amount': 2,
+                    '_id': '64c0a30a62591d0f400df4ad',
+                  },
+                ],
+              'totalCase': 2,
+              'totalPrice': 2000,
+              'deliveryStatus': '입금대기',
+              'created_at': '2023-07-26T04:37:30.689Z',
+              'updated_at': '2023-07-26T04:37:30.689Z',
+              '__v': 0,
+            },
+
             'receiver':
               {
                 'name': 'John',
-                'phone': '17119607',
+                'phone': 'string',
                 'address': '서울특별시 강남구',
                 'requestMessage': '문 앞에 두고 가주세요.',
               },
-            'products':
-              [
-                { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9304c2687bf91bcbe1868' },
-                { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9304c2687bf91bcbe1869' },
-              ],
-            'totalCase': 2,
-            'totalPrice': 2000,
             'paymentMethod':
               {
-                'paymentType': 'card',
                 'creditInfo':
                   {
                     'company': '국민',
-                    'cardNumber': '123456789',
+                    'cardNumber': '1234123412341234',
                     'expiryDate': '01/24',
                     'cvc': '456',
                     'cardOwner': 'John',
                   },
+                'paymentType': 'card',
               },
-            'deliveryStatus': '결제완료',
-            '_id': '64b9304c2687bf91bcbe1867',
-            'created_at': '2023-07-20T13:02:04.600Z',
-            'updated_at': '2023-07-20T13:02:04.600Z',
-            '__v': 0,
-          },
-          {
-            'orderId': 202307207282599330,
-            'user': '64b785f9360823d02ef15429',
-            'receiver':
-              {
-                'name': 'John',
-                'phone': '17119607',
-                'address': '서울특별시 강남구',
-                'requestMessage': '문 앞에 두고 가주세요.',
-              },
-            'products':
+            '_id': '64c0a30862591d0f400df4a6',
+            'orderId': '202307260df4a5',
+            'user': { '_id': '64b6586aa8aeb67622cfcf9f', 'name': 'John', 'email': 'test@test.com' },
+            'productList':
               [
-                { 'id': '64b4b341e6e8d4c17eee53a9', 'amount': 1, '_id': '64b9300f2687bf91bcbe1863' },
-                { 'id': '64b4b341e6e8d4c17eee5396', 'amount': 2, '_id': '64b9300f2687bf91bcbe1864' },
+                {
+                  'product':
+                    {
+                      '_id': '64c099f93d37ea5c5c5efedf',
+                      'productId': 1,
+                      'category': 'Food',
+                      'name': '고롱 사료 1',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=1',
+                    },
+                  'amount': 1,
+                  '_id': '64c0a30862591d0f400df4a7',
+                },
+                {
+                  'product':
+                    {
+                      '_id': '64c099f93d37ea5c5c5efee0',
+                      'productId': 2,
+                      'category': 'Food',
+                      'name': '고롱 사료 2',
+                      'price': 12900,
+                      'description': '남녀노소견묘 모두가 좋아하는 고롱고롱의 시그니처 사료!',
+                      'imgUrl': 'https://source.unsplash.com/random/?kitty&t=2',
+                    },
+                  'amount': 2,
+                  '_id': '64c0a30862591d0f400df4a8',
+                },
               ],
             'totalCase': 2,
             'totalPrice': 2000,
-            'paymentMethod': { 'paymentType': 'account' },
-            'deliveryStatus': '입금대기',
-            '_id': '64b9300f2687bf91bcbe1862',
-            'created_at': '2023-07-20T13:01:04.000Z',
-            'updated_at': '2023-07-20T13:01:04.000Z',
+            'deliveryStatus': '결제완료',
+            'created_at': '2023-07-26T04:37:28.658Z',
+            'updated_at': '2023-07-26T04:37:28.658Z',
             '__v': 0,
-          },
-        ]
+          ]

@@ -24,10 +24,10 @@ paths:
                         'address': '서울특별시 강남구',
                         'requestMessage': '문 앞에 두고 가주세요.',
                       },
-                    'products':
+                    'productList':
                       [
-                        { 'id': '64be06d382839922c636c359', 'amount': 1 },
-                        { 'id': '64be06d382839922c636c35a', 'amount': 2 },
+                        { 'product': '64c099f93d37ea5c5c5efedf', 'amount': 1 },
+                        { 'product': '64c099f93d37ea5c5c5efee0', 'amount': 2 },
                       ],
                     'totalPrice': 2000,
                     'paymentMethod':
@@ -54,10 +54,10 @@ paths:
                         'address': '서울특별시 강남구',
                         'requestMessage': '문 앞에 두고 가주세요.',
                       },
-                    'products':
+                    'productList':
                       [
-                        { 'id': '64be06d382839922c636c359', 'amount': 1 },
-                        { 'id': '64be06d382839922c636c35a', 'amount': 2 },
+                        { 'product': '64c099f93d37ea5c5c5efedf', 'amount': 1 },
+                        { 'product': '64c099f93d37ea5c5c5efee0', 'amount': 2 },
                       ],
                     'totalPrice': 2000,
                     'paymentMethod': { 'paymentType': 'account' },

@@ -5,8 +5,8 @@ const ordersController = {
   // get /orders
   getUserOrders: async function (req, res, next) {
     try {
-      const { _id } = req.decoded;
-      const orders = await ordersService.getUserOrders(_id);
+      const userId = req.decoded._id;
+      const orders = await ordersService.getUserOrders(userId);
 
       return res.status(StatusCodes.OK).json({
         message: '사용자의 주문 정보를 읽어왔습니다.',
@@ -20,9 +20,8 @@ const ordersController = {
   // get /orders/:id
   getSelectedOrder: async function (req, res, next) {
     try {
-      const { id } = req.params;
-      console.log(id);
-      const order = await ordersService.getSelectedOrder(id);
+      const orderId = req.params.id;
+      const order = await ordersService.getSelectedOrder(orderId);
 
       return res.status(StatusCodes.OK).json({
         message: '주문 내역을 불러왔습니다.',
@@ -36,8 +35,8 @@ const ordersController = {
   // get /orders/:_id/cancellation
   cancelSelectedOrder: async function (req, res, next) {
     try {
-      const { id } = req.params;
-      await ordersService.cancelSelectedOrder(id);
+      const orderId = req.params.id;
+      await ordersService.cancelSelectedOrder(orderId);
 
       return res.status(StatusCodes.OK).json({
         message: '주문이 취소됐습니다.',
@@ -50,9 +49,10 @@ const ordersController = {
   // post /orders/payment
   createOrder: async function (req, res, next) {
     try {
-      const { receiver, products, totalPrice, paymentMethod } = req.body;
+      const { receiver, productList, totalPrice, paymentMethod } = req.body;
       const user = req.decoded._id;
-      const order = await ordersService.createOrder({ receiver, products, totalPrice, paymentMethod, user });
+      console.log({ receiver, productList, totalPrice, paymentMethod, user });
+      const order = await ordersService.createOrder({ receiver, productList, totalPrice, paymentMethod, user });
 
       return res.status(StatusCodes.OK).json({
         message: '주문을 완료했습니다.',
