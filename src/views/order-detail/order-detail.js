@@ -5,27 +5,20 @@ await main();
 
 const OrderId = location.pathname.split('/')[2];
 
-const {
-  orderId,
-  orderDate: created_at,
-  deliveryStatus,
-  paymentMethod,
-  products,
-  receiver,
-  totalPrice,
-} = await getOrderInfo(OrderId);
+const orderData = await getOrderInfo(OrderId);
+const { orderId, created_at, deliveryStatus, paymentMethod, productList, receiver, totalPrice } = orderData.order;
 
 const itemInfoWrap = document.querySelector('.item-info-wrap');
 
-await products.forEach((product) => {
+await productList.forEach((product) => {
   itemInfoWrap.innerHTML += `<li class="item-info">
-    <img class="item-img" src="${product.id.imgUrl}" alt="${
-    product.id.name
+    <img class="item-img" src="${product.product.imgUrl}" alt="${
+    product.product.name
   } 대표 이미지" onerror=" this.src='../../img/error.png' ;this.onerror=null;"/>
     <div>
-      <span>제품명: ${product.id.name}</span>
+      <span>제품명: ${product.product.name}</span>
       <span>수량: ${product.amount}</span>
-      <span> 금액:${(product.id.price * product.amount).toLocaleString()}</span>
+      <span> 금액:${(product.product.price * product.amount).toLocaleString()}</span>
     </div>
   </li>`;
 });
@@ -54,6 +47,7 @@ const cancelButton = document.querySelector('.cancel-order');
 const handleCancelClick = async () => {
   if (window.confirm(`주문을 취소할까요?`)) {
     await cancelOrder(OrderId);
+    alert('주문을 취소했습니다.');
     window.location.href = '/mypage';
   }
 };

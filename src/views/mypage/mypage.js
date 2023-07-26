@@ -40,7 +40,8 @@ const state = [state1, state2, state3, state4, state5, state6];
 let status = [0, 0, 0, 0, 0, 0];
 
 // 주문 내역
-const orders = await getOrderList();
+const ordersData = await getOrderList();
+const orders = ordersData.orders;
 
 const createOrderPreview = (order) => {
   const orderDate = formatDate(order.created_at);
@@ -52,20 +53,22 @@ const createOrderPreview = (order) => {
   </div>
   <div class="preview__info-container">
     <div class="preview__info-wrap">
-      <img width="100px" class="preview__info--img" src="${order.products[0].id.imgUrl}" alt="${
-    order.products[0].id.name
+      <img width="100px" class="preview__info--img" src="${order.productList[0].product.imgUrl}" alt="${
+    order.productList[0].product.name
   } 대표 이미지" onerror="this.src='../img/error.png'" />
       <div class="preview__info">
       <p class="preview__state">${order.deliveryStatus}</p>
         <p class="preview__info--title">
-          ${order.products[0].id.name} <span class="preview__info--other">외 <strong class="preview__info--others">${
+          ${
+            order.productList[0].product.name
+          } <span class="preview__info--other">외 <strong class="preview__info--others">${
     order.totalCase - 1
   }</strong>건</span>
         </p>
         <p><strong class="preview__info--price">${order.totalPrice.toLocaleString()}</strong>원</p>
       </div>
     </div>
-    <a class="preview__btn--detail" href="/orders/${order._id}">주문 상세</a>
+    <a class="preview__btn--detail" href="/orders/${order.orderId}">주문 상세</a>
   </div>
 </li>
 `;

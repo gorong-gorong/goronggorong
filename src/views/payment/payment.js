@@ -1,5 +1,6 @@
 import { main } from '/layouts/main.js';
 await main();
+import { postPayment, getUserInfo } from '/lib/Fetcher.js';
 
 // 결제완료 시 서버에 보낼 데이터
 const reqBody = (() => {
@@ -10,7 +11,7 @@ const reqBody = (() => {
       address: {},
       requestMessage: {},
     },
-    products: [],
+    productList: [],
     totalPrice: {},
     paymentMethod: {
       paymentType: {
@@ -41,7 +42,7 @@ reqBody.setValue('totalPrice', Number(localStorageOrders[1].replace(',', '')));
 totalPrice[0].innerHTML = localStorageOrders[1];
 totalPrice[1].innerHTML = localStorageOrders[1];
 [...localStorageOrders[0]].forEach((item) => {
-  reqBody.setValue('products', [...reqBody.getValue().products, { id: item.id, amount: item.amount }]);
+  reqBody.setValue('productList', [...reqBody.getValue().productList, { product: item.id, amount: item.amount }]);
 });
 
 const inputNumberTypeCheck = (event, middleFnc) => {
@@ -65,10 +66,8 @@ useVirtualAccount.addEventListener('change', () => {
   virtualAccountInfo.classList.add('open');
   cardInfoWrap.classList.remove('open');
   reqBody.setValue('paymentMethod', { ...reqBody.getValue().paymentMethod, paymentType: 'account' });
-  reqBody.setValue('paymentMethod', {
-    ...reqBody.getValue().paymentMethod,
-    creditInfo: {},
-  });
+  // 어카운트 선택 시 크레딧 인포 삭제
+  delete reqBody.getValue().paymentMethod.creditInfo;
 });
 
 const cardInfoWarp = {
@@ -132,30 +131,15 @@ const changeDeliveryInfoWrap = {
   },
 };
 
-// 주문정보의 기본 배송지 설정
-const userToken = localStorage.getItem('userToken');
-const getUserInfo = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'GET',
-      url: '/api/v1/auth/get-user-info',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
-    const userName = document.querySelector('.user-name');
-    const userPhone = document.querySelector('.user-phone');
-    const { address, name, phone } = res.data.info;
-    deliveryInfoWrap.address.innerHTML = address;
-    deliveryInfoWrap.name.innerHTML = name;
-    deliveryInfoWrap.phone.innerHTML = phone;
-    userName.innerHTML = name;
-    userPhone.innerHTML = phone;
-  } catch (err) {
-    console.log(err);
-  }
-};
-getUserInfo(userToken);
+const userName = document.querySelector('.user-name');
+const userPhone = document.querySelector('.user-phone');
+const userData = await getUserInfo();
+const { address, name, phone } = userData;
+deliveryInfoWrap.address.innerHTML = address;
+deliveryInfoWrap.name.innerHTML = name;
+deliveryInfoWrap.phone.innerHTML = phone;
+userName.innerHTML = name;
+userPhone.innerHTML = phone;
 
 changeDeliveryInfoWrap.phone.addEventListener('input', (e) => {
   inputNumberTypeCheck(e, (targetNumber) => {
@@ -201,7 +185,7 @@ changeDeliveryInfoBtn.addEventListener('click', (e) => {
 });
 
 const paymentBtn = document.querySelector('.payment-btn');
-paymentBtn.addEventListener('click', (e) => {
+paymentBtn.addEventListener('click', async (e) => {
   e.preventDefault();
 
   if (
@@ -273,22 +257,9 @@ paymentBtn.addEventListener('click', (e) => {
     }),
   );
   localStorage.removeItem('orders');
-  postPayment(userToken);
+  const data = reqBody.getValue();
+  const PaymentData = await postPayment(data);
+  const orderId = PaymentData.order.orderId;
+  alert('결제성공');
+  window.location.href = `/orders/${orderId}`;
 });
-
-const postPayment = async (userToken) => {
-  try {
-    const res = await axios({
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-      url: '/api/v1/orders/payment',
-      data: reqBody.getValue(),
-    });
-    window.location.href = '/orders/payment/success/';
-  } catch (err) {
-    alert(err.status);
-    if (err.status === 500) window.location.href = '/signin';
-  }
-};

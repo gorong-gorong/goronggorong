@@ -58,7 +58,7 @@ export async function postValidUser(data) {
 
 // 사용자별 주문내역 조회
 export async function getOrderList() {
-  return await Api.Get(domain, `orders/user/order-list`);
+  return await Api.Get(domain, `orders`);
 }
 
 // 주문내역 상세 조회
@@ -72,6 +72,6 @@ export async function cancelOrder(orderId) {
 }
 
 // 결제
-export async function postPayment() {
-  return await Api.post(domain, `orders/payment`);
+export async function postPayment(data) {
+  return await Api.Post(domain, `orders/payment`, data);
 }

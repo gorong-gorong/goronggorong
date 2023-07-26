@@ -5,7 +5,7 @@ export function createItem(item) {
 
   const link = document.createElement('a');
   link.classList.add('prod__link');
-  link.setAttribute('href', `/products?id=${item.id}`);
+  link.setAttribute('href', `/products?id=${item.productId}`);
 
   // 이미지 lazy loading 적용
   const thumb = document.createElement('img');

@@ -54,4 +54,7 @@ viewsRouter.use('/layouts', serveStatics('layouts'));
 // 라이브러리
 viewsRouter.use('/lib', serveStatics('lib'));
 
+// 404 페이지
+viewsRouter.use('/error', serveStatics('404'));
+
 export default viewsRouter;
