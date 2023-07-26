@@ -1,0 +1,32 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  gap: 20px;
+}
+.error__title {
+  font-weight: bold;
+}
+.error__sub-title {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.2rem;
+}
+.error__redirect button {
+  font-size: 16px;
+  font-weight: 600;
+  border: 0;
+  width: 200px;
+  height: 56px;
+  border-radius: 100px;
+  padding: 0px 16px 0px 16px;
+  border: #c1c1c1 solid 1px;
+  background-color: #ffffff;
+}
+
+/* footer {
+  position: absolute;
+  bottom: 0;
+} */
