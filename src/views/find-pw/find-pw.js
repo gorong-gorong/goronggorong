@@ -29,21 +29,28 @@ const newPw = document.querySelector('.new-pw--value');
 const handleExitClick = () => {
   modal.classList.remove('is-active');
 };
+
 const handleCopyClick = async () => {
-  //clipboard api를 지원하지 않는 브라우저의 경우 execCommand를 사용
-  try {
-    if (navigator.clipboard.writeText) {
+  const newPw = document.querySelector('.new-pw--value');
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
       await navigator.clipboard.writeText(newPw.value);
-    } else {
-      newPw.select();
-      document.execCommand('copy');
+      alert(`비밀번호가 복사되었습니다.
+      로그인 후 비밀번호를 변경해주세요!`);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      alert('비밀번호 복사에 실패했습니다.');
     }
+  } else {
+    //clipboard api를 지원하지 않는 브라우저의 경우 execCommand를 사용
+    newPw.select();
+    document.execCommand('copy');
     alert(`비밀번호가 복사되었습니다.
     로그인 후 비밀번호를 변경해주세요!`);
-  } catch (error) {
-    console.error('복사 실패 : ', error);
   }
 };
+
 const handleSigninClick = () => {
   window.location.href = '/signin';
 };
