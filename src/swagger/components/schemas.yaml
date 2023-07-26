@@ -43,11 +43,11 @@ components:
               type: string
             requestMessage:
               type: string
-        products:
+        productList:
           type: array
           items:
             properties:
-              id:
+              product:
                 type: string
                 description: MongoDB ObjectId. Schema.Types.ObjectId
               amount:

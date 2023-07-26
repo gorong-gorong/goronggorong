@@ -28,7 +28,7 @@ const OrderSchema = new Schema(
         type: String,
       },
     },
-    products: [
+    productList: [
       {
         product: {
           type: Schema.Types.ObjectId,
