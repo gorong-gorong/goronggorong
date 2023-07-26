@@ -31,6 +31,13 @@ const orderModel = {
 
     return updatedOrder;
   },
+
+  // 사용자 주문 삭제
+  deleteUserOrders: async function (userId) {
+    const deleteResult = await Order.deleteMany({ user: userId });
+
+    return deleteResult;
+  },
 };
 
 export default orderModel;

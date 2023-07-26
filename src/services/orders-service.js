@@ -46,6 +46,15 @@ const ordersService = {
       throw new customError(StatusCodes.BAD_REQUEST, '주문 취소를 실패했습니다.');
     }
   },
+
+  // 탈퇴할 사용자의 주문 삭제
+  deleteUserOrders: async function (userId) {
+    const deleteResult = await orderModel.deleteUserOrders(userId);
+
+    if (!deleteResult) {
+      throw new customError(StatusCodes.BAD_REQUEST, '주문 삭제를 실패했습니다.');
+    }
+  },
 };
 
 export default ordersService;
