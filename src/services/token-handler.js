@@ -13,9 +13,9 @@ const tokenHandler = {
         throw new customError(StatusCodes.UNAUTHORIZED, '토큰이 없습니다.');
       }
 
-      const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_SECRET_KEY);
+      const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET_KEY);
       const currentTime = Math.floor(Date.now() / 1000);
-      if (decodedAccessToken.exp >= currentTime) {
+      if (decodedAccessToken.exp <= currentTime) {
         throw new customError(StatusCodes.UNAUTHORIZED, '토큰을 새로 발급받아주세요.', true);
       }
 
