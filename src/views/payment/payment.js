@@ -1,7 +1,8 @@
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
+import { formatAddress } from '/lib/utils/format-address.js';
+import { postPayment, getUserInfo } from '/lib/Fetcher.js';
 import { main } from '/layouts/main.js';
 await main();
-import { postPayment, getUserInfo } from '/lib/Fetcher.js';
 
 // 결제완료 시 서버에 보낼 데이터
 const reqBody = (() => {
@@ -123,13 +124,6 @@ const changeDeliveryInfoWrap = {
   info: document.querySelector('.change-delivery-info'),
   name: document.querySelector('.change-delivery-target-name'),
   phone: document.querySelector('.change-delivery-target-phone'),
-  addressWrap: document.querySelector('.form__address-data'),
-  address() {
-    return [...this.addressWrap.children]
-      .filter((item) => item.tagName === 'INPUT')
-      .map((item) => item.value)
-      .join(' ');
-  },
 };
 
 const userName = document.querySelector('.user-name');
@@ -138,7 +132,7 @@ const userData = await getUserInfo();
 const { address, name, phone } = userData;
 deliveryInfoWrap.address.innerHTML = address;
 deliveryInfoWrap.name.innerHTML = name;
-deliveryInfoWrap.phone.innerHTML = phone;
+deliveryInfoWrap.phone.innerHTML = formatPhoneNumber(phone);
 userName.innerHTML = name;
 userPhone.innerHTML = formatPhoneNumber(phone);
 
@@ -163,7 +157,7 @@ changeDeliveryInfoBtn.addEventListener('click', (e) => {
     changeDeliveryInfoWrap.info.classList.remove('close');
     e.currentTarget.innerHTML = '완료';
   } else {
-    if (changeDeliveryInfoWrap.address().length <= 3) {
+    if (formatAddress().length <= 3) {
       alert('주소를 확인해주세요');
       return;
     }
@@ -179,9 +173,10 @@ changeDeliveryInfoBtn.addEventListener('click', (e) => {
     changeDeliveryInfoWrap.info.classList.add('close');
     e.currentTarget.innerHTML = '배송지 변경';
 
-    deliveryInfoWrap.address.innerHTML = changeDeliveryInfoWrap.address();
+    deliveryInfoWrap.address.innerHTML = formatAddress();
     deliveryInfoWrap.name.innerHTML = changeDeliveryInfoWrap.name.value;
-    deliveryInfoWrap.phone.innerHTML = changeDeliveryInfoWrap.phone.value;
+    const formattedPhoneNumber = formatPhoneNumber(changeDeliveryInfoWrap.phone.value);
+    deliveryInfoWrap.phone.innerHTML = formattedPhoneNumber;
   }
 });
 
@@ -191,7 +186,7 @@ paymentBtn.addEventListener('click', async (e) => {
 
   if (
     deliveryInfoWrap.name.innerHTML.length > 0 &&
-    deliveryInfoWrap.phone.innerHTML.length === 11 &&
+    deliveryInfoWrap.phone.innerHTML.length === 13 &&
     deliveryInfoWrap.address.innerHTML.length > 0
   ) {
     reqBody.setValue('receiver', { ...reqBody.getValue().receiver, name: deliveryInfoWrap.name.innerHTML });
