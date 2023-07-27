@@ -48,7 +48,7 @@ const addCart = () => {
     price: item.price.toLocaleString(),
     amount: navAmount.value,
   };
-  const CART_PAGE = 'http://localhost:3000/orders/cart/';
+  const CART_PAGE = '/orders/cart/';
   //스토리지에 기존 아이템이 있는 경우
   if (localStorage.getItem('cart')) {
     cartItem = JSON.parse(localStorage.getItem('cart'));
