@@ -22,9 +22,9 @@ const ordersService = {
 
   // 사용자 주문 내역
   getUserOrders: async function (userId) {
-    const orders = await orderModel.findAllById(userId);
+    const orderList = await orderModel.findAllById(userId);
 
-    return orders;
+    return orderList;
   },
 
   // 주문 상세 내역
