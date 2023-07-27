@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { serveStatics } from '../utils';
-
+import path from 'path';
 const viewsRouter = Router();
 
 // 메인페이지
@@ -55,6 +55,8 @@ viewsRouter.use('/layouts', serveStatics('layouts'));
 viewsRouter.use('/lib', serveStatics('lib'));
 
 // 404 페이지
-viewsRouter.use('/error', serveStatics('404'));
+viewsRouter.use(function (req, res, next) {
+  res.status(404).sendFile(path.join(__dirname, '../views/404/404.html'));
+});
 
 export default viewsRouter;
