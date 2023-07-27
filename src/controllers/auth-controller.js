@@ -1,30 +1,32 @@
 import { StatusCodes } from 'http-status-codes';
-import { authService } from '../services';
+import { authService, tokenHandler } from '../services';
 
 const authController = {
-  // post /signin
+  // post /auth/signin
   signIn: async function (req, res, next) {
     try {
       const { email, password } = req.body;
-      const user = await authService.checkUserStatus(email);
+      const user = await authService.checkUserValidation(email);
       await authService.verifyPassword(password, user.password);
-      const token = await authService.signToken(user);
+      const { refreshToken, accessToken } = tokenHandler.signToken(user.email);
+
+      res.header('X-Refresh-Token', `Bearer ${refreshToken}`);
+      res.header('Authorization', `Bearer ${accessToken}`);
 
       return res.status(StatusCodes.OK).json({
         message: '로그인에 성공했습니다.',
-        data: { token },
       });
     } catch (err) {
       next(err);
     }
   },
 
-  // post /password-reset
+  // post /auth/password-reset
   resetPassword: async function (req, res, next) {
     try {
       const { name, email, phone } = req.body;
-      const user = await authService.checkUserStatus(email, { name, phone });
-      const resetPassword = await authService.resetPassword(user);
+      const user = await authService.checkUserValidation(email, { name, phone });
+      const resetPassword = await authService.resetPassword(user.email);
 
       return res.status(StatusCodes.OK).json({
         message: '비밀번호가 초기화 됐습니다.',
@@ -35,12 +37,12 @@ const authController = {
     }
   },
 
-  // post /validation
+  // post /auth/validation
   checkUserValidation: async function (req, res, next) {
     try {
       const { password } = req.body;
-      const decodedToken = req.decoded;
-      const user = await authService.checkUserStatus(decodedToken.email);
+      const userEmail = req.decoded.email;
+      const user = await authService.checkUserValidation(userEmail);
       await authService.verifyPassword(password, user.password);
 
       return res.status(StatusCodes.OK).json({

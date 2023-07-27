@@ -5,7 +5,7 @@ paths:
         - orders
       summary: 결제
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       requestBody:
         content:
@@ -76,14 +76,8 @@ paths:
                   data:
                     type: object
                     properties:
-                      order:
-                        type: object
-                        $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
-              examples:
-                cardPayment:
-                  $ref: '../components/orders-examples.yaml#/components/examples/cardPayment'
-                accountPayment:
-                  $ref: '../components/orders-examples.yaml#/components/examples/accountPayment'
+                      orderId:
+                        type: string
 
   /orders:
     get:
@@ -92,7 +86,7 @@ paths:
       summary: 사용자별 주문 목록
       description: 전 /orders/user/order-list
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       responses:
         '200':
@@ -107,7 +101,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      orders:
+                      orderList:
                         $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
               example:
                 $ref: '../components/orders-examples.yaml#/components/examples/combinedOrderList'
@@ -118,7 +112,7 @@ paths:
         - orders
       summary: 주문 상세
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       parameters:
         - name: id
@@ -156,7 +150,7 @@ paths:
       summary: 주문취소
       description: 전 /orders/cancel/{id}
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       parameters:
         - name: id

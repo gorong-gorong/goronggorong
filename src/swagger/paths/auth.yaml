@@ -72,6 +72,15 @@ paths:
       responses:
         '200':
           description: 로그인에 성공했습니다.
+          headers:
+            X-Refresh-Token:
+              schema:
+                type: string
+              description: Refresh Token
+            Authorization:
+              schema:
+                type: string
+              description: Access Token
           content:
             application/json:
               schema:
@@ -79,26 +88,7 @@ paths:
                 properties:
                   message:
                     type: string
-                  data:
-                    type: object
-                    properties:
-                      token:
-                        type: string
-                example: { message: 로그인 성공, data: { token: string } }
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '../components/schemas.yaml#/components/schemas/error'
-              examples:
-                type1:
-                  $ref: '../components/bad-request.yaml#/components/examples/WrongPassword'
-                type2:
-                  $ref: '../components/bad-request.yaml#/components/examples/FailToUpdateToken'
-        '404':
-          description: 사용자가 없습니다.
+                example: { message: 로그인 성공 }
 
   /auth/signin/password-reset:
     put:
@@ -145,7 +135,7 @@ paths:
       summary: 유저 정보 가져오기
       description: get /users로 수정
       security:
-        - bearerAuth: []
+        - AccessToken: []
       deprecated: true
 
       responses:
@@ -174,10 +164,6 @@ paths:
                     message: 사용자 정보를 불러왔습니다.,
                     data: { name: string, email: string, phone: string, address: string },
                   }
-        '400':
-          description: 잘못된 토큰입니다.
-        '401':
-          description: 토큰이 없습니다.
 
   /auth/validation:
     post:
@@ -186,7 +172,7 @@ paths:
       summary: 비밀번호 확인
       description: 구 mypage/check-valid-user
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       requestBody:
         content:
@@ -208,3 +194,22 @@ paths:
                   message:
                     type: string
                     example: 비밀번호가 확인됐습니다.
+
+  /auth/tokens:
+    post:
+      tags:
+        - auth
+      summary: Access Token 재발급
+      description: 만료된 Access Token 재발급(Refresh, Access Token 필요)
+      security:
+        - AccessToken: []
+        - RefreshToken: []
+
+      responses:
+        200:
+          description: Ok
+          headers:
+            Authorization:
+              schema:
+                type: string
+              description: 새로운 Access Token

@@ -1,16 +1,17 @@
 import { StatusCodes } from 'http-status-codes';
-import { ordersService } from '../services';
+import { ordersService, usersService } from '../services';
 
 const ordersController = {
   // get /orders
   getUserOrders: async function (req, res, next) {
     try {
-      const userId = req.decoded._id;
-      const orders = await ordersService.getUserOrders(userId);
+      const userEmail = req.decoded.email;
+      const { _id: userId } = await usersService.getUser(userEmail);
+      const orderList = await ordersService.getUserOrders(userId);
 
       return res.status(StatusCodes.OK).json({
         message: '사용자의 주문 정보를 읽어왔습니다.',
-        data: { orders },
+        data: { orderList },
       });
     } catch (err) {
       next(err);
@@ -50,13 +51,19 @@ const ordersController = {
   createOrder: async function (req, res, next) {
     try {
       const { receiver, productList, totalPrice, paymentMethod } = req.body;
-      const user = req.decoded._id;
-      console.log({ receiver, productList, totalPrice, paymentMethod, user });
-      const order = await ordersService.createOrder({ receiver, productList, totalPrice, paymentMethod, user });
+      const userEmail = req.decoded.email;
+      const { _id: userId } = await usersService.getUser(userEmail);
+      const { orderId } = await ordersService.createOrder({
+        receiver,
+        productList,
+        totalPrice,
+        paymentMethod,
+        user: userId,
+      });
 
       return res.status(StatusCodes.OK).json({
         message: '주문을 완료했습니다.',
-        data: { order },
+        data: { orderId },
       });
     } catch (err) {
       next(err);

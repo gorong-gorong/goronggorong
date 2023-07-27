@@ -4,7 +4,7 @@
   "description": "<p> \t<img src=\"https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=Babel&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white\"> </p>",
   "main": "./src/app.js",
   "scripts": {
-    "start": "nodemon app",
+    "start": "node app",
     "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/build.yaml --type yaml",
     "dev": "npm run api-docs & nodemon ./src/app --exec babel-node"
   },
@@ -20,6 +20,7 @@
     "mongoose": "^7.0.4",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
+    "redis": "^4.6.7",
     "winston": "^3.8.2"
   },
   "devDependencies": {

@@ -1,32 +1,21 @@
 import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 import { customError } from '../middlewares';
-import { bcryptUtils, jwtUtils, createRandomPassword } from '../utils';
+import { bcryptUtils, createRandomPassword } from '../utils';
+import { tokenHandler } from '.';
 
 const authService = {
-  // 토큰 생성
-  signToken: async function (user) {
-    const refreshToken = jwtUtils.createToken(user);
-    const updateResult = await userModel.updateUser(user.id, { refreshToken });
-
-    if (!updateResult) {
-      throw new customError(StatusCodes.BAD_REQUEST, '토큰을 업데이트 하는데 실패했습니다.');
-    }
-
-    return refreshToken;
-  },
-
   // 비밀번호 초기화
-  resetPassword: async function (user) {
+  resetPassword: async function (userEmail) {
     const resetPassword = createRandomPassword();
     const hashedPassword = await bcryptUtils.createHashPassword(resetPassword);
-    await userModel.updateUser(user._id, { password: hashedPassword });
+    await userModel.updateUser(userEmail, { password: hashedPassword });
 
     return resetPassword;
   },
 
   // 유효한 사용자 확인 valid만
-  checkUserStatus: async function (email, compareData = undefined) {
+  checkUserValidation: async function (email, compareData = undefined) {
     const user = await userModel.findByEmail(email);
 
     if (!user) {

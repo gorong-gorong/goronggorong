@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { usersController } from '../controllers';
-import { verifyToken } from '../middlewares';
+import { tokenHandler } from '../services';
 
 const usersRouter = Router();
 
@@ -8,12 +8,12 @@ const usersRouter = Router();
 usersRouter.post('/', usersController.createUser);
 
 // 사용자 정보 가져오기
-usersRouter.get('/', verifyToken, usersController.getUser);
+usersRouter.get('/', tokenHandler.verifyAccessToken, usersController.getUser);
 
 // 사용자 정보 수정
-usersRouter.put('/', verifyToken, usersController.updateUser);
+usersRouter.put('/', tokenHandler.verifyAccessToken, usersController.updateUser);
 
 // 회원탈퇴
-usersRouter.delete('/', verifyToken, usersController.deleteUser);
+usersRouter.delete('/', tokenHandler.verifyAccessToken, usersController.deleteUser);
 
 export default usersRouter;

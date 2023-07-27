@@ -22,9 +22,9 @@ const ordersService = {
 
   // 사용자 주문 내역
   getUserOrders: async function (userId) {
-    const orders = await orderModel.findAllById(userId);
+    const orderList = await orderModel.findAllById(userId);
 
-    return orders;
+    return orderList;
   },
 
   // 주문 상세 내역
@@ -48,8 +48,8 @@ const ordersService = {
   },
 
   // 탈퇴할 사용자의 주문 삭제
-  deleteUserOrders: async function (userId) {
-    const deleteResult = await orderModel.deleteUserOrders(userId);
+  deleteUserOrders: async function (userEmail) {
+    const deleteResult = await orderModel.deleteUserOrders(userEmail);
 
     if (!deleteResult) {
       throw new customError(StatusCodes.BAD_REQUEST, '주문 삭제를 실패했습니다.');

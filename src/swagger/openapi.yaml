@@ -11,8 +11,14 @@ servers:
     description: Local server
 
 components:
+  # arbitrary name for the security scheme
   securitySchemes:
-    bearerAuth: # arbitrary name for the security scheme
+    RefreshToken:
+      type: apiKey
+      in: header
+      name: X-Refresh-Token
+      description: 앞에 bearer를 추가해주세요.
+    AccessToken:
       type: http
       scheme: bearer
       bearerFormat: JWT
@@ -23,16 +29,19 @@ paths:
     $ref: './paths/user.yaml#/paths/~1users'
 
   # /auth
-  /auth/signup: # deprecated
-    $ref: './paths/auth.yaml#/paths/~1auth~1signup'
+
   /auth/signin:
     $ref: './paths/auth.yaml#/paths/~1auth~1signin'
   /auth/signin/password-reset:
     $ref: './paths/auth.yaml#/paths/~1auth~1signin~1password-reset'
-  /auth/user-info: # deprecated
-    $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
   /auth/validation:
     $ref: './paths/auth.yaml#/paths/~1auth~1validation'
+  /auth/tokens:
+    $ref: './paths/auth.yaml#/paths/~1auth~1tokens'
+  /auth/user-info: # deprecated
+    $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
+  /auth/signup: # deprecated
+    $ref: './paths/auth.yaml#/paths/~1auth~1signup'
 
   # /products
   /products:
