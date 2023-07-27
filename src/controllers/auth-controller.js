@@ -8,8 +8,7 @@ const authController = {
       const { email, password } = req.body;
       const user = await authService.checkUserValidation(email);
       await authService.verifyPassword(password, user.password);
-      const { refreshToken, accessToken } = await authService.signToken(user);
-      // const accessToken = await authService.signToken(user);
+      const { refreshToken, accessToken } = tokenHandler.signToken(user.email);
 
       res.header('X-Refresh-Token', `Bearer ${refreshToken}`);
       res.header('Authorization', `Bearer ${accessToken}`);
@@ -48,25 +47,6 @@ const authController = {
 
       return res.status(StatusCodes.OK).json({
         message: '비밀번호가 확인됐습니다.',
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
-
-  // post /auth/tokens
-  getNewAccessToken: async function (req, res, next) {
-    try {
-      const authHeader = req.header('Authorization');
-      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
-
-      const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET_KEY);
-      const newAccessToken = tokenHandler.createAccessToken(decodedAccessToken);
-
-      res.header('Authorization', newAccessToken);
-
-      res.status(StatusCodes.OK).json({
-        message: '새 Access Token을 발급했습니다.',
       });
     } catch (err) {
       next(err);

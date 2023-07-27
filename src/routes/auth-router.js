@@ -14,7 +14,7 @@ authRouter.put('/signin/password-reset', authController.resetPassword);
 authRouter.post('/validation', tokenHandler.verifyAccessToken, authController.checkUserValidation);
 
 // 새로운 AccessToken 발급
-authRouter.post('/tokens', tokenHandler.verifyRefreshToken, authController.getNewAccessToken);
+authRouter.post('/tokens', tokenHandler.verifyRefreshToken, tokenHandler.getNewAccessToken);
 
 /**
  * 로그아웃, 회원탈퇴시 토큰 무효화

@@ -16,7 +16,7 @@ const tokenHandler = {
         throw new customError(StatusCodes.UNAUTHORIZED, 'Access Token이 없습니다.');
       }
 
-      const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET_KEY);
+      const decodedAccessToken = jwt.decode(accessToken);
       const currentTime = Math.floor(Date.now() / 1000);
       if (decodedAccessToken.exp <= currentTime) {
         throw new customError(StatusCodes.UNAUTHORIZED, 'Access Token을 새로 발급받아주세요.', true);
@@ -43,16 +43,19 @@ const tokenHandler = {
 
       // Redis에서 refreshToken 확인해줘야 함
       // 없으면 새로 로그인하라고 보내줘야 함
+
+      next();
     } catch (err) {
       next(err);
     }
   },
 
   // Access Token 생성
-  createAccessToken: function (data) {
+  createAccessToken: function (userEmail) {
+    console.log('create', userEmail);
     const newAccessToken = jwt.sign(
       {
-        email: data.email,
+        email: userEmail,
       },
       process.env.ACCESS_TOKEN_SECRET_KEY,
       {
@@ -81,6 +84,33 @@ const tokenHandler = {
     );
 
     return newRefreshToken;
+  },
+
+  // 만료시 새로운 Access Token 발급
+  getNewAccessToken: function (req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+      const { email: userEmail } = jwt.decode(accessToken);
+      const newAccessToken = tokenHandler.createAccessToken(userEmail);
+
+      res.header('Authorization', newAccessToken);
+
+      res.status(StatusCodes.OK).json({
+        message: '새 Access Token을 발급했습니다.',
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  // Refresh, Access 토큰 생성
+  signToken: function (userEmail) {
+    const refreshToken = tokenHandler.createRefreshToken();
+    const accessToken = tokenHandler.createAccessToken(userEmail);
+
+    return { refreshToken, accessToken };
   },
 };
 
