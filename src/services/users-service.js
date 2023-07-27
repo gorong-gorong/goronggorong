@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 import { bcryptUtils } from '../utils';
 import { customError } from '../middlewares';
+import { ordersService } from '../services';
 
 const usersService = {
   // 중복된 사용자인지 확인
@@ -45,12 +46,15 @@ const usersService = {
   },
 
   // 회원탈퇴
-  deleteUser: async function (_id) {
-    const result = await userModel.deleteUser(_id);
+  deleteUser: async function (userId) {
+    const result = await userModel.deleteUser(userId);
 
     if (!result) {
       throw new customError(StatusCodes.BAD_REQUEST, '사용자 삭제에 실패했습니다.');
     }
+
+    // 탈퇴할 사용자의 주문 내역 삭제
+    await ordersService.deleteUserOrders(userId);
   },
 
   // 사용자 정보 가져오기
