@@ -1,3 +1,4 @@
+import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { main } from '/layouts/main.js';
 await main();
 import { postPayment, getUserInfo } from '/lib/Fetcher.js';
@@ -139,7 +140,7 @@ deliveryInfoWrap.address.innerHTML = address;
 deliveryInfoWrap.name.innerHTML = name;
 deliveryInfoWrap.phone.innerHTML = phone;
 userName.innerHTML = name;
-userPhone.innerHTML = phone;
+userPhone.innerHTML = formatPhoneNumber(phone);
 
 changeDeliveryInfoWrap.phone.addEventListener('input', (e) => {
   inputNumberTypeCheck(e, (targetNumber) => {
