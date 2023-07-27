@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
+import { ObjectId } from 'mongodb';
 import { customError } from '../middlewares';
 
 const tokenHandler = {
@@ -20,7 +21,7 @@ const tokenHandler = {
       }
 
       req.decoded = decodedAccessToken;
-      console.log('🪙  Token has been verified!');
+      console.log('🪙 Access Token has been verified!\n');
 
       next();
     } catch (err) {
@@ -46,7 +47,7 @@ const tokenHandler = {
 
   // Refresh Token 생성
   createRefreshToken: function () {
-    const refreshId = ''; // uuid
+    const refreshId = new ObjectId().toString('hex'); // uuid
     const newRefreshToken = jwt.sign(
       {
         type: 'refresh',

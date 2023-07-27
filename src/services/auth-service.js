@@ -7,10 +7,10 @@ import { tokenHandler } from '.';
 const authService = {
   // Refresh, Access 토큰 생성
   signToken: async function (user) {
-    // const refreshToken = tokenHandler.createRefreshToken();
+    const refreshToken = tokenHandler.createRefreshToken();
     const accessToken = tokenHandler.createAccessToken(user);
 
-    return accessToken;
+    return { refreshToken, accessToken };
   },
 
   // 비밀번호 초기화

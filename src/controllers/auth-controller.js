@@ -8,10 +8,10 @@ const authController = {
       const { email, password } = req.body;
       const user = await authService.checkUserValidation(email);
       await authService.verifyPassword(password, user.password);
-      // const { refreshToken, accessToken } = await authService.signToken(user);
-      const accessToken = await authService.signToken(user);
+      const { refreshToken, accessToken } = await authService.signToken(user);
+      // const accessToken = await authService.signToken(user);
 
-      // res.header('X-Refresh-Token', `Bearer ${refreshToken}`);
+      res.header('X-Refresh-Token', `Bearer ${refreshToken}`);
       res.header('Authorization', `Bearer ${accessToken}`);
 
       return res.status(StatusCodes.OK).json({
