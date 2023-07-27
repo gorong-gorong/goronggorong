@@ -11,8 +11,14 @@ servers:
     description: Local server
 
 components:
+  # arbitrary name for the security scheme
   securitySchemes:
-    bearerAuth: # arbitrary name for the security scheme
+    RefreshToken:
+      type: apiKey
+      in: header
+      name: X-Refresh-Token
+      description: 앞에 bearer를 추가해주세요.
+    AccessToken:
       type: http
       scheme: bearer
       bearerFormat: JWT

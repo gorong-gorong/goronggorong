@@ -145,7 +145,7 @@ paths:
       summary: 유저 정보 가져오기
       description: get /users로 수정
       security:
-        - bearerAuth: []
+        - AccessToken: []
       deprecated: true
 
       responses:
@@ -186,7 +186,7 @@ paths:
       summary: 비밀번호 확인
       description: 구 mypage/check-valid-user
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       requestBody:
         content:

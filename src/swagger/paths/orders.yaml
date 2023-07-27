@@ -5,7 +5,7 @@ paths:
         - orders
       summary: 결제
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       requestBody:
         content:
@@ -92,7 +92,7 @@ paths:
       summary: 사용자별 주문 목록
       description: 전 /orders/user/order-list
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       responses:
         '200':
@@ -118,7 +118,7 @@ paths:
         - orders
       summary: 주문 상세
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       parameters:
         - name: id
@@ -156,7 +156,7 @@ paths:
       summary: 주문취소
       description: 전 /orders/cancel/{id}
       security:
-        - bearerAuth: []
+        - AccessToken: []
 
       parameters:
         - name: id
