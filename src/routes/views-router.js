@@ -36,9 +36,6 @@ viewsRouter.use('/orders/cart', serveStatics('cart'));
 // 결제 페이지
 viewsRouter.use('/orders/payment', serveStatics('payment'));
 
-// 결제 성공
-viewsRouter.use('/orders/payment/order-complete', serveStatics('order-complete'));
-
 // 주문 상세 확인
 viewsRouter.use('/orders/:orderId', serveStatics('order-detail'));
 
