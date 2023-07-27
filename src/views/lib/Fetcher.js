@@ -68,7 +68,7 @@ export async function getOrderInfo(orderId) {
 
 // 주문 취소
 export async function cancelOrder(orderId) {
-  return await Api.Put(domain, `orders/cancel/${orderId}`);
+  return await Api.Put(domain, `orders/${orderId}/cancellation`);
 }
 
 // 결제
