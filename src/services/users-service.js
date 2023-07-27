@@ -17,10 +17,10 @@ const usersService = {
   },
 
   // 사용자 생성
-  createUser: async function (userInfo) {
-    const hashedPassword = await bcryptUtils.createHashPassword(userInfo.password);
+  createUser: async function (userData) {
+    const hashedPassword = await bcryptUtils.createHashPassword(userData.password);
     const user = await userModel.createUser({
-      ...userInfo,
+      ...userData,
       password: hashedPassword,
     });
 
@@ -32,11 +32,10 @@ const usersService = {
   },
 
   // 사용자 정보 수정
-  updateUser: async function (_id, updateInfo) {
-    const user = await userModel.findById(_id);
-    const hashedPassword = await bcryptUtils.createHashPassword(updateInfo.password);
-    const result = await userModel.updateUser(user._id, {
-      ...updateInfo,
+  updateUser: async function (userEmail, updateData) {
+    const hashedPassword = await bcryptUtils.createHashPassword(updateData.password);
+    const result = await userModel.updateUser(userEmail, {
+      ...updateData,
       password: hashedPassword,
     });
 
@@ -46,20 +45,20 @@ const usersService = {
   },
 
   // 회원탈퇴
-  deleteUser: async function (userId) {
-    const result = await userModel.deleteUser(userId);
+  deleteUser: async function (userEmail) {
+    const result = await userModel.deleteUser(userEmail);
 
     if (!result) {
       throw new customError(StatusCodes.BAD_REQUEST, '사용자 삭제에 실패했습니다.');
     }
 
     // 탈퇴할 사용자의 주문 내역 삭제
-    await ordersService.deleteUserOrders(userId);
+    await ordersService.deleteUserOrders(userEmail);
   },
 
   // 사용자 정보 가져오기
-  getUser: async function (_id) {
-    const user = await userModel.findById(_id);
+  getUser: async function (userEmail) {
+    const user = await userModel.findByEmail(userEmail);
 
     if (!user) {
       throw new customError(StatusCodes.NOT_FOUND, '사용자가 없습니다.');

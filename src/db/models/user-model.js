@@ -2,36 +2,29 @@ import { User } from '../schemas';
 
 const userModel = {
   // email로 사용자 검색
-  findByEmail: async function (email) {
-    const user = await User.findOne({ email });
-
-    return user;
-  },
-
-  // id로 사용자 검색
-  findById: async function (_id) {
-    const user = await User.findOne({ _id });
+  findByEmail: async function (userEmail) {
+    const user = await User.findOne({ email: userEmail });
 
     return user;
   },
 
   // 사용자 생성
-  createUser: async function (userInfo) {
-    const user = await User.create(userInfo);
+  createUser: async function (userData) {
+    const user = await User.create(userData);
 
     return user;
   },
 
   // 사용자 정보 수정
-  updateUser: async function (userId, editedInfo) {
-    const updatedResult = await User.updateOne({ _id: userId }, editedInfo);
+  updateUser: async function (userEmail, editedData) {
+    const updatedResult = await User.updateOne({ email: userEmail }, editedData);
 
     return updatedResult;
   },
 
   // 사용자 삭제
-  deleteUser: async function (userId) {
-    const deletedUser = await User.deleteOne({ _id: userId });
+  deleteUser: async function (userEmail) {
+    const deletedUser = await User.deleteOne({ email: userEmail });
 
     return deletedUser;
   },

@@ -20,8 +20,8 @@ const usersController = {
   // get /users
   getUser: async function (req, res, next) {
     try {
-      const decodedToken = req.decoded;
-      const user = await usersService.getUser(decodedToken._id);
+      const userEmail = req.decoded.email;
+      const user = await usersService.getUser(userEmail);
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보를 불러왔습니다.',
@@ -38,8 +38,8 @@ const usersController = {
       // email 수정 불가능
       // phone, name, password, address 수정가능하게
       const { name, phone, password, address } = req.body;
-      const decodedToken = req.decoded;
-      await usersService.updateUser(decodedToken._id, { name, phone, password, address });
+      const userEmail = req.decoded.email;
+      await usersService.updateUser(userEmail, { name, phone, password, address });
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보를 수정했습니다.',
@@ -52,8 +52,8 @@ const usersController = {
   // delete /users
   deleteUser: async function (req, res, next) {
     try {
-      const decodedToken = req.decoded;
-      await usersService.deleteUser(decodedToken._id);
+      const userEmail = req.decoded.email;
+      await usersService.deleteUser(userEmail);
 
       return res.status(StatusCodes.OK).json({
         message: '회원 탈퇴했습니다.',

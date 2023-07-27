@@ -33,8 +33,8 @@ const orderModel = {
   },
 
   // 사용자 주문 삭제
-  deleteUserOrders: async function (userId) {
-    const deleteResult = await Order.deleteMany({ user: userId });
+  deleteUserOrders: async function (userEmail) {
+    const deleteResult = await Order.deleteMany({ email: userEmail });
 
     return deleteResult;
   },
