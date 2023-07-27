@@ -56,7 +56,7 @@ viewsRouter.use('/lib', serveStatics('lib'));
 
 // 404 페이지
 viewsRouter.use(function (req, res, next) {
-  res.status(404).sendFile(path.join(__dirname, '../views/404/404.html'));
+  res.status(404).sendFile(path.join(__dirname, '../../public/404/404.html'));
 });
 
 export default viewsRouter;
