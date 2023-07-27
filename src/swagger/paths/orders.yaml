@@ -76,14 +76,8 @@ paths:
                   data:
                     type: object
                     properties:
-                      order:
-                        type: object
-                        $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
-              examples:
-                cardPayment:
-                  $ref: '../components/orders-examples.yaml#/components/examples/cardPayment'
-                accountPayment:
-                  $ref: '../components/orders-examples.yaml#/components/examples/accountPayment'
+                      orderId:
+                        type: string
 
   /orders:
     get:
@@ -107,7 +101,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      orders:
+                      orderList:
                         $ref: '../components/schemas.yaml#/components/schemas/combinedOrder'
               example:
                 $ref: '../components/orders-examples.yaml#/components/examples/combinedOrderList'
