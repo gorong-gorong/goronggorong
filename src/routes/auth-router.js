@@ -13,4 +13,14 @@ authRouter.put('/signin/password-reset', authController.resetPassword);
 // 유효한 사용자인지 확인
 authRouter.post('/validation', tokenHandler.verifyAccessToken, authController.checkUserValidation);
 
+// 새로운 AccessToken 발급
+authRouter.post('/tokens', tokenHandler.verifyRefreshToken, authController.getNewAccessToken);
+
+/**
+ * 로그아웃, 회원탈퇴시 토큰 무효화
+ * Refresh Token: Redis에서 삭제
+ * Access Token: Redis blacklist에 추가
+ */
+// authRouter.delete('/tokens', authController.deleteTokens);
+
 export default authRouter;
