@@ -38,10 +38,6 @@ paths:
     $ref: './paths/auth.yaml#/paths/~1auth~1validation'
   /auth/tokens:
     $ref: './paths/auth.yaml#/paths/~1auth~1tokens'
-  /auth/user-info: # deprecated
-    $ref: './paths/auth.yaml#/paths/~1auth~1user-info'
-  /auth/signup: # deprecated
-    $ref: './paths/auth.yaml#/paths/~1auth~1signup'
 
   # /products
   /products:

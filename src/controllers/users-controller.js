@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { usersService } from '../services';
+import { tokenHandler, usersService } from '../services';
 
 const usersController = {
   // post /users
@@ -52,11 +52,14 @@ const usersController = {
   // delete /users
   deleteUser: async function (req, res, next) {
     try {
+      await tokenHandler.deleteRefreshFromRedis(req);
+      await tokenHandler.addAccessTokenToBlackList(req);
+
       const userEmail = req.decoded.email;
       await usersService.deleteUser(userEmail);
 
       return res.status(StatusCodes.OK).json({
-        message: '회원 탈퇴했습니다.',
+        message: '회원 탈퇴 했습니다.',
       });
     } catch (err) {
       next(err);

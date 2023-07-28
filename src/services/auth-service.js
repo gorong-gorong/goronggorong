@@ -2,7 +2,6 @@ import { StatusCodes } from 'http-status-codes';
 import { userModel } from '../db';
 import { customError } from '../middlewares';
 import { bcryptUtils, createRandomPassword } from '../utils';
-import { tokenHandler } from '.';
 
 const authService = {
   // 비밀번호 초기화
