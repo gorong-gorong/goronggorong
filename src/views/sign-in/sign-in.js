@@ -1,4 +1,5 @@
 import { postSignin } from '../lib/Fetcher.js';
+import { setToken } from '../lib/Token.js';
 
 const signForm = document.querySelector('.sign__form');
 const id = document.querySelector('.form__id');
@@ -16,10 +17,9 @@ const handleSubmit = async (e) => {
     email: id.value.trim(),
     password: pw.value.trim(),
   };
-  const Token = await postSignin(data);
-  localStorage.setItem('accessToken', Token.authorization.split(' ')[1]);
-  const refreshToken = Token['x-refresh-token'];
-  document.cookie = `refreshToken=${refreshToken}; path=/`;
+  // 로그인 요청 후 응답 헤더로 받은 토큰을 브라우저에 저장
+  const responseHeaders = await postSignin(data);
+  setToken(responseHeaders);
 
   // 아이디 저장
   if (rememberCheck.checked) {

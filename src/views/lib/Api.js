@@ -1,7 +1,8 @@
+import { getToken } from '/lib/Token.js';
+
 async function request({ endpoint, method, params = '', data = {} }) {
   const apiUrl = params ? `${endpoint}/${params}` : endpoint;
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = document.cookie.split('=')[1];
+  const { accessToken, refreshToken } = getToken();
   const headers = {
     'Content-Type': 'application/json',
     Authorization: accessToken ? `Bearer ${accessToken}` : null,
