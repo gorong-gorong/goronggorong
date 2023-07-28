@@ -1,6 +1,6 @@
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { formatAddress } from '/lib/utils/format-address.js';
-import { postPayment, getUserInfo } from '/lib/Fetcher.js';
+import { postPayment, getUserInfo } from '/lib/api/Fetcher.js';
 import { main } from '/layouts/main.js';
 await main();
 
@@ -255,7 +255,7 @@ paymentBtn.addEventListener('click', async (e) => {
   localStorage.removeItem('orders');
   const data = reqBody.getValue();
   const PaymentData = await postPayment(data);
-  const orderId = PaymentData.order.orderId;
+  const orderId = PaymentData.orderId;
   alert('결제성공');
   window.location.href = `/orders/${orderId}`;
 });

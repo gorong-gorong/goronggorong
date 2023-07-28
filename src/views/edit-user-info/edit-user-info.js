@@ -1,4 +1,5 @@
-import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
+import { removeToken } from '/lib/api/Token.js';
+import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/api/Fetcher.js';
 import { formatAddress } from '/lib/utils/format-address.js';
 
 const nameInput = document.querySelector('.form__name');
@@ -30,11 +31,9 @@ const handleSubmit = async (e) => {
     phone: phoneInput.value,
     address: formatAddress(),
   };
-  const userToken = await putUserInfo(data);
+  await putUserInfo(data);
   alert(`회원정보가 수정되었습니다.`);
   window.location.href = '/mypage';
-  // 토큰 업데이트
-  // localStorage.setItem('userToken', userToken);
 };
 submitButton.addEventListener('click', handleSubmit);
 
@@ -46,8 +45,8 @@ const handleDeleteClick = async () => {
     alert('입력하신 비밀번호가 일치하지 않습니다.');
   } else if (confirm('탈퇴하시겠습니까?')) {
     await deleteUserInfo();
+    removeToken();
     window.alert(`탈퇴되었습니다`);
-    localStorage.removeItem('userToken');
     window.location.href = '/';
   }
 };

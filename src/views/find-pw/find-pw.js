@@ -1,29 +1,29 @@
-import { passwordReset } from '/lib/Fetcher.js';
+import { passwordReset } from '/lib/api/Fetcher.js';
 
-const userName = document.querySelector('.form__name');
-const id = document.querySelector('.form__id');
-const phone = document.querySelector('.form__phone');
-const submitBtn = document.querySelector('.form__submit');
+const nameInput = document.querySelector('.form__name');
+const idInput = document.querySelector('.form__id');
+const phoneInput = document.querySelector('.form__phone');
+const submitButton = document.querySelector('.form__submit');
 
 const handleSubmit = async (e) => {
   e.preventDefault();
   const data = {
-    name: userName.value,
-    email: id.value,
-    phone: phone.value,
+    name: nameInput.value,
+    email: idInput.value,
+    phone: phoneInput.value,
   };
   const newPassword = await passwordReset(data);
   modal.classList.add('is-active');
-  newPw.value = newPassword.resetPassword;
+  newPasswordInput.value = newPassword.resetPassword;
 };
-submitBtn.addEventListener('click', handleSubmit);
+submitButton.addEventListener('click', handleSubmit);
 
 // 모달관련 dom요소
 const modal = document.querySelector('.modal');
-const exitBtn = document.querySelector('.delete');
-const copyBtn = document.querySelector('.modal-copy');
-const signinBtn = document.querySelector('.modal-signin');
-const newPw = document.querySelector('.new-pw--value');
+const exitButton = document.querySelector('.delete');
+const copyButton = document.querySelector('.modal-copy');
+const signinButton = document.querySelector('.modal-signin');
+const newPasswordInput = document.querySelector('.new-pw--value');
 
 //모달 관련 이벤트
 const handleExitClick = () => {
@@ -31,11 +31,9 @@ const handleExitClick = () => {
 };
 
 const handleCopyClick = async () => {
-  const newPw = document.querySelector('.new-pw--value');
-
   if (navigator.clipboard && navigator.clipboard.writeText) {
     try {
-      await navigator.clipboard.writeText(newPw.value);
+      await navigator.clipboard.writeText(newPasswordInput.value);
       alert(`비밀번호가 복사되었습니다.
       로그인 후 비밀번호를 변경해주세요!`);
     } catch (err) {
@@ -44,7 +42,7 @@ const handleCopyClick = async () => {
     }
   } else {
     //clipboard api를 지원하지 않는 브라우저의 경우 execCommand를 사용
-    newPw.select();
+    newPasswordInput.select();
     document.execCommand('copy');
     alert(`비밀번호가 복사되었습니다.
     로그인 후 비밀번호를 변경해주세요!`);
@@ -54,6 +52,6 @@ const handleCopyClick = async () => {
 const handleSigninClick = () => {
   window.location.href = '/signin';
 };
-exitBtn.addEventListener('click', handleExitClick);
-copyBtn.addEventListener('click', handleCopyClick);
-signinBtn.addEventListener('click', handleSigninClick);
+exitButton.addEventListener('click', handleExitClick);
+copyButton.addEventListener('click', handleCopyClick);
+signinButton.addEventListener('click', handleSigninClick);

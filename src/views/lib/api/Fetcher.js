@@ -1,4 +1,4 @@
-import * as Api from '/lib/Api.js';
+import * as Api from '/lib/api/Api.js';
 
 const version = 'v1';
 const domain = `/api/${version}`;

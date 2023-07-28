@@ -1,4 +1,4 @@
-import { postValidUser } from '/lib/Fetcher.js';
+import { postValidUser } from '/lib/api/Fetcher.js';
 
 const pw = document.querySelector('.form__pw');
 console.log('🚀 ~ file: check-valid-user.js:4 ~ pw:', pw.value);

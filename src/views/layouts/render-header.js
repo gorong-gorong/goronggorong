@@ -1,10 +1,10 @@
-const userToken = localStorage.getItem('userToken');
+const accessToken = localStorage.getItem('accessToken');
 
 function renderHeader() {
   const header = document.querySelector('header');
 
   //로그인 한 유저의 헤더
-  if (userToken) {
+  if (accessToken) {
     header.innerHTML = `
   <nav class="nav">
     <a href="/"><img class="nav__logo" src="/img/logo.png" width="140" alt="고롱고롱 로고"/></a>

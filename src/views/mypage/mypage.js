@@ -1,6 +1,7 @@
-import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
+import { getUserInfo, getOrderList } from '/lib/api/Fetcher.js';
 import { formatDate } from '/lib/utils/format-date.js';
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
+import { removeToken } from '/lib/api/Token.js';
 import { main } from '/layouts/main.js';
 await main();
 
@@ -24,7 +25,7 @@ ${address}
 // 로그아웃 로직
 const signout = document.querySelector('.user__signout');
 const handleSignoutClick = () => {
-  localStorage.removeItem('userToken');
+  removeToken();
   alert('로그아웃 되었습니다.');
 };
 signout.addEventListener('click', handleSignoutClick);
@@ -41,8 +42,7 @@ let status = [0, 0, 0, 0, 0, 0];
 
 // 주문 내역
 const ordersData = await getOrderList();
-const orders = ordersData.orders;
-
+const orderList = ordersData.orderList;
 const createOrderPreview = (order) => {
   const orderDate = formatDate(order.created_at);
 
@@ -75,7 +75,7 @@ const createOrderPreview = (order) => {
 };
 
 // 상품 결제, 배송 상태
-if (!orders.length) {
+if (!orderList.length) {
   for (let i = 0; i < 6; i++) {
     status[i] = 0;
     state[i].innerText = '0';
@@ -83,16 +83,16 @@ if (!orders.length) {
 }
 
 // 상품 주문 내역
-const orderList = document.querySelector('.order');
+const orderListElement = document.querySelector('.order');
 
-if (orders.length === 0) {
-  orderList.innerHTML = `
+if (orderList.length === 0) {
+  orderListElement.innerHTML = `
   <li class="order__empty">
   <img src = '/img/empty-cart.png'>
   <p>아직 주문 내역이 없습니다.</p>
   </li>`;
 } else {
-  orders.forEach((order) => {
+  orderList.forEach((order) => {
     //배송 상태
     if (order.deliveryStatus === '입금대기') {
       status[0] += 1;
@@ -116,6 +116,6 @@ if (orders.length === 0) {
       state[i].innerText = status[i];
     }
     //order preview 생성
-    orderList.innerHTML += createOrderPreview(order);
+    orderListElement.innerHTML += createOrderPreview(order);
   });
 }

@@ -1,6 +1,6 @@
 import { main } from '/layouts/main.js';
 await main();
-import { getItemData } from '/lib/Fetcher.js';
+import { getItemData } from '/lib/api/Fetcher.js';
 import { createItem } from './create-item.js';
 
 const amountAll = document.querySelector('.prod__item--amount');

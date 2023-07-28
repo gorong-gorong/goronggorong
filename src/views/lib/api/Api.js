@@ -1,9 +1,12 @@
+import { getToken } from '/lib/api/Token.js';
+
 async function request({ endpoint, method, params = '', data = {} }) {
   const apiUrl = params ? `${endpoint}/${params}` : endpoint;
-  const userToken = localStorage.getItem('userToken');
+  const { accessToken, refreshToken } = getToken();
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: userToken ? `Bearer ${userToken}` : null,
+    Authorization: accessToken ? `Bearer ${accessToken}` : null,
+    'x-refresh-token': refreshToken,
   };
 
   try {
@@ -29,18 +32,16 @@ async function request({ endpoint, method, params = '', data = {} }) {
         throw new Error('잘못된 메소드 접근입니다.');
     }
 
-    if (params === 'auth/signin' || params === '/mypage/edit-user-info') {
-      return response.data.data.token;
+    if (params === 'auth/signin') {
+      return response.headers;
     }
     return response.data.data;
   } catch (error) {
-    if (error.response) {
-      alert(error.response.data.message);
-      const { status } = error.response;
-      throw new Error(status);
-    } else {
-      alert(error.message);
+    if (error.response.data.isTokenNeedRefresh) {
+      alert('일정 시간이 지나 자동으로 로그아웃되었어요. 다시 로그인해주세요🔐');
+      window.location.href = '/signin';
     }
+    alert(error.response.data.message);
   }
 }
 
