@@ -21,6 +21,6 @@ authRouter.post('/tokens', tokenHandler.verifyRefreshToken, tokenHandler.getNewA
  * Refresh Token: Redis에서 삭제
  * Access Token: Redis blacklist에 추가
  */
-// authRouter.delete('/tokens', authController.deleteTokens);
+// authRouter.delete('/tokens', tokenHandler.deleteTokens);
 
 export default authRouter;

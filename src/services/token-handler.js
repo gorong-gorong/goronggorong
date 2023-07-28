@@ -2,20 +2,26 @@ import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import { ObjectId } from 'mongodb';
 import { customError } from '../middlewares';
+import { redisClient } from '../db';
 
 const tokenHandler = {
+  /** MiddleWares */
   // Access Token 유효성 검사 및 디코딩
-  verifyAccessToken: function (req, res, next) {
+  verifyAccessToken: async function (req, res, next) {
     try {
       const authHeader = req.header('Authorization');
       const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
-
-      // Redis blacklist에서 검사해줘야 함.
-
       if (!accessToken) {
         throw new customError(StatusCodes.UNAUTHORIZED, 'Access Token이 없습니다.');
       }
 
+      // Redis blacklist에서 검사(bl_accessToken)
+      const isBlacklist = await redisClient.get(`bl_${accessToken}`);
+      if (isBlacklist) {
+        throw new customError(StatusCodes.UNAUTHORIZED, 'Access Token을 새로 발급받아주세요.', true);
+      }
+
+      // Access Token 만료됐는지 확인
       const decodedAccessToken = jwt.decode(accessToken);
       const currentTime = Math.floor(Date.now() / 1000);
       if (decodedAccessToken.exp <= currentTime) {
@@ -32,7 +38,7 @@ const tokenHandler = {
   },
 
   // Refresh Token 유효성 검사 및 만료일 검사
-  verifyRefreshToken: function (req, res, next) {
+  verifyRefreshToken: async function (req, res, next) {
     try {
       const authHeader = req.header('X-Refresh-Token');
       const refreshToken = authHeader ? authHeader.replace('Bearer ', '') : null;
@@ -41,8 +47,12 @@ const tokenHandler = {
         throw new customError(StatusCodes.UNAUTHORIZED, 'Refresh Token이 없습니다.');
       }
 
-      // Redis에서 refreshToken 확인해줘야 함
-      // 없으면 새로 로그인하라고 보내줘야 함
+      // Redis에서 refreshToken 유효성 확인
+      const { refreshId } = jwt.decode(refreshToken);
+      const isValid = await redisClient.get(`refresh_${refreshId}`);
+      if (!isValid) {
+        throw new customError(StatusCodes.UNAUTHORIZED, '새로 로그인 해주세요.', true);
+      }
 
       next();
     } catch (err) {
@@ -50,9 +60,9 @@ const tokenHandler = {
     }
   },
 
+  /** Services */
   // Access Token 생성
   createAccessToken: function (userEmail) {
-    console.log('create', userEmail);
     const newAccessToken = jwt.sign(
       {
         email: userEmail,
@@ -68,9 +78,8 @@ const tokenHandler = {
   },
 
   // Refresh Token 생성
-  // 생성과 동시에 redis에 저장
-  createRefreshToken: function () {
-    const refreshId = new ObjectId().toString('hex'); // uuid
+  createRefreshToken: async function () {
+    const refreshId = new ObjectId().toString('hex');
     const newRefreshToken = jwt.sign(
       {
         type: 'refresh',
@@ -82,6 +91,15 @@ const tokenHandler = {
         expiresIn: process.env.REFRESH_TOKEN_EXPIRE,
       },
     );
+
+    // Redis에 저장(만료기간 설정)
+    const refreshTokenKey = `refresh_${refreshId}`;
+    console.log(refreshTokenKey);
+    const result1 = await redisClient.set(refreshTokenKey, newRefreshToken);
+    const result2 = await redisClient.expire(refreshTokenKey, Number(process.env.REFRESH_REDIS_EXPIRE));
+    if (!result1 || !result2) {
+      throw new customError(StatusCodes.BAD_REQUEST, 'Redis 저장 실패');
+    }
 
     return newRefreshToken;
   },
@@ -95,7 +113,7 @@ const tokenHandler = {
       const { email: userEmail } = jwt.decode(accessToken);
       const newAccessToken = tokenHandler.createAccessToken(userEmail);
 
-      res.header('Authorization', newAccessToken);
+      res.header('Authorization', `Bearer ${newAccessToken}`);
 
       res.status(StatusCodes.OK).json({
         message: '새 Access Token을 발급했습니다.',
@@ -106,8 +124,8 @@ const tokenHandler = {
   },
 
   // Refresh, Access 토큰 생성
-  signToken: function (userEmail) {
-    const refreshToken = tokenHandler.createRefreshToken();
+  signToken: async function (userEmail) {
+    const refreshToken = await tokenHandler.createRefreshToken();
     const accessToken = tokenHandler.createAccessToken(userEmail);
 
     return { refreshToken, accessToken };
