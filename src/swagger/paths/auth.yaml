@@ -1,55 +1,4 @@
 paths:
-  /auth/signup:
-    post:
-      tags:
-        - auth
-      summary: 회원가입
-      description: post /users로 수정
-      deprecated: true
-
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-                phone:
-                  type: string
-                address:
-                  type: string
-              example:
-                { name: John, email: test@test.com, password: qwerty1234, phone: string, address: 서울시 강남구 *** }
-
-      responses:
-        '201':
-          description: 사용자가 생성됐습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example: { 'message': 사용자가 생성됐습니다. }
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '../components/schemas.yaml#/components/schemas/error'
-              examples:
-                type1:
-                  $ref: '../components/bad-request.yaml#/components/examples/OverlapUser'
-                type2:
-                  $ref: '../components/bad-request.yaml#/components/examples/FailToCreateUser'
-
   /auth/signin:
     post:
       tags:
@@ -128,43 +77,6 @@ paths:
         '404':
           description: 사용자가 없습니다.
 
-  /auth/user-info:
-    get:
-      tags:
-        - auth
-      summary: 유저 정보 가져오기
-      description: get /users로 수정
-      security:
-        - AccessToken: []
-      deprecated: true
-
-      responses:
-        '200':
-          description: 사용자 정보를 불러왔습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  data:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      email:
-                        type: string
-                      phone:
-                        type: string
-                      address:
-                        type: string
-                example:
-                  {
-                    message: 사용자 정보를 불러왔습니다.,
-                    data: { name: string, email: string, phone: string, address: string },
-                  }
-
   /auth/validation:
     post:
       tags:
@@ -213,3 +125,23 @@ paths:
               schema:
                 type: string
               description: 새로운 Access Token
+    delete:
+      tags:
+        - auth
+      summary: 로그아웃시 토큰 차단
+      description: 사용자의 Refresh, Access Token 제거/ 블랙리스트 추가
+      security:
+        - AccessToken: []
+        - RefreshToken: []
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 토큰을 차단했습니다.
