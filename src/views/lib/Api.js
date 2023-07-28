@@ -37,13 +37,11 @@ async function request({ endpoint, method, params = '', data = {} }) {
     }
     return response.data.data;
   } catch (error) {
-    if (error.response) {
-      alert(error.response.data.message);
-      const { status } = error.response;
-      throw new Error(status);
-    } else {
-      alert(error.message);
+    if (error.response.data.isTokenNeedRefresh) {
+      alert('일정 시간이 지나 자동으로 로그아웃되었어요. 다시 로그인해주세요🔐');
+      window.location.href = '/signin';
     }
+    alert(error.response.data.message);
   }
 }
 
