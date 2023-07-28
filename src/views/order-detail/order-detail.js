@@ -1,4 +1,4 @@
-import { getOrderInfo, cancelOrder } from '/lib/Fetcher.js';
+import { getOrderInfo, cancelOrder } from '/lib/api/Fetcher.js';
 import { formatDate } from '/lib/utils/format-date.js';
 import { main } from '/layouts/main.js';
 await main();

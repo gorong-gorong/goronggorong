@@ -1,7 +1,7 @@
-import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
+import { getUserInfo, getOrderList } from '/lib/api/Fetcher.js';
 import { formatDate } from '/lib/utils/format-date.js';
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
-import { removeToken } from '/lib/Token.js';
+import { removeToken } from '/lib/api/Token.js';
 import { main } from '/layouts/main.js';
 await main();
 

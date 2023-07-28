@@ -1,5 +1,5 @@
-import { postSignup } from '../lib/Fetcher.js';
-import { formatAddress } from '../lib/utils/format-address.js';
+import { postSignup } from '/lib/api/Fetcher.js';
+import { formatAddress } from '/lib/utils/format-address.js';
 
 const signForm = document.querySelector('.sign__form');
 const nameInput = document.querySelector('.form__name');

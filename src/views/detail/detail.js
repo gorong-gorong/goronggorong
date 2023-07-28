@@ -1,6 +1,6 @@
 import { main } from '/layouts/main.js';
 await main();
-import { getItemById } from '/lib/Fetcher.js';
+import { getItemById } from '/lib/api/Fetcher.js';
 
 const itemImgs = document.querySelectorAll('.item__img');
 const names = document.querySelectorAll('.item__name');

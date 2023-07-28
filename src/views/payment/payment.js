@@ -1,6 +1,6 @@
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { formatAddress } from '/lib/utils/format-address.js';
-import { postPayment, getUserInfo } from '/lib/Fetcher.js';
+import { postPayment, getUserInfo } from '/lib/api/Fetcher.js';
 import { main } from '/layouts/main.js';
 await main();
 

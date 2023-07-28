@@ -1,4 +1,4 @@
-import { passwordReset } from '/lib/Fetcher.js';
+import { passwordReset } from '/lib/api/Fetcher.js';
 
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');

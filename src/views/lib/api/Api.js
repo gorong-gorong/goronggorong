@@ -1,4 +1,4 @@
-import { getToken } from '/lib/Token.js';
+import { getToken } from '/lib/api/Token.js';
 
 async function request({ endpoint, method, params = '', data = {} }) {
   const apiUrl = params ? `${endpoint}/${params}` : endpoint;

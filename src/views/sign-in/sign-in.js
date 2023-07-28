@@ -1,5 +1,5 @@
-import { postSignin } from '../lib/Fetcher.js';
-import { setToken } from '../lib/Token.js';
+import { postSignin } from '/lib/api/Fetcher.js';
+import { setToken } from '/lib/api/Token.js';
 
 const signForm = document.querySelector('.sign__form');
 const idInput = document.querySelector('.form__id');

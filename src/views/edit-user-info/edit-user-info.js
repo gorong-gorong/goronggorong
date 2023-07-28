@@ -1,5 +1,5 @@
-import { removeToken } from '/lib/Token.js';
-import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
+import { removeToken } from '/lib/api/Token.js';
+import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/api/Fetcher.js';
 import { formatAddress } from '/lib/utils/format-address.js';
 
 const nameInput = document.querySelector('.form__name');
