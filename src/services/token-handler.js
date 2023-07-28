@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { ObjectId } from 'mongodb';
 import { customError } from '../middlewares';
 import { redisClient } from '../db';
+import { token } from 'morgan';
 
 const tokenHandler = {
   /** MiddleWares */
@@ -68,10 +69,9 @@ const tokenHandler = {
       const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
 
       const { email: userEmail } = jwt.decode(accessToken);
-      const newAccessToken = tokenHandler.createAccessToken(userEmail);
+      const newAccessToken = tokenHandler.generateAccessToken(userEmail);
 
       res.header('Authorization', `Bearer ${newAccessToken}`);
-
       res.status(StatusCodes.OK).json({
         message: '새 Access Token을 발급했습니다.',
       });
@@ -83,29 +83,10 @@ const tokenHandler = {
   // Refresh Token: Redis 삭제, Access Token: 블랙리스트 추가
   deleteTokens: async function (req, res, next) {
     try {
-      // Refresh Token Redis 삭제
-      let authHeader = req.header('X-Refresh-Token');
-      const refreshToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+      await tokenHandler.deleteRefreshFromRedis(req);
+      await tokenHandler.addAccessTokenToBlackList(req);
 
-      const { refreshId } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET_KEY);
-      const refreshTokenKey = `refresh_${refreshId}`;
-      await redisClient.del(refreshTokenKey);
-
-      // Access Token Blacklist
-      authHeader = req.header('Authorization');
-      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
-
-      const { exp } = jwt.decode(accessToken);
-      const currentTime = Math.floor(Date.now() / 1000);
-      if (exp >= currentTime) {
-        const accessTokenKey = `bl_${accessToken}`;
-        const expireTime = exp - currentTime;
-
-        await redisClient.set(accessTokenKey, accessToken);
-        await redisClient.expire(accessTokenKey, expireTime);
-      }
-
-      res.status(StatusCodes.OK).json({
+      return res.status(StatusCodes.OK).json({
         message: '토큰을 차단했습니다.',
       });
     } catch (error) {
@@ -114,7 +95,7 @@ const tokenHandler = {
   },
 
   // Access Token 생성
-  createAccessToken: function (userEmail) {
+  generateAccessToken: function (userEmail) {
     const newAccessToken = jwt.sign(
       {
         email: userEmail,
@@ -130,7 +111,7 @@ const tokenHandler = {
   },
 
   // Refresh Token 생성
-  createRefreshToken: async function () {
+  generateRefreshToken: async function () {
     const refreshId = new ObjectId().toString('hex');
     const newRefreshToken = jwt.sign(
       {
@@ -146,9 +127,9 @@ const tokenHandler = {
 
     // Redis에 저장(만료기간 설정)
     const refreshTokenKey = `refresh_${refreshId}`;
-    const result1 = await redisClient.set(refreshTokenKey, newRefreshToken);
-    const result2 = await redisClient.expire(refreshTokenKey, Number(process.env.REFRESH_REDIS_EXPIRE));
-    if (!result1 || !result2) {
+    const setResult = await redisClient.set(refreshTokenKey, newRefreshToken);
+    const expireResult = await redisClient.expire(refreshTokenKey, Number(process.env.REFRESH_REDIS_EXPIRE));
+    if (!setResult || !expireResult) {
       throw new customError(StatusCodes.BAD_REQUEST, 'Redis 저장 실패');
     }
 
@@ -157,10 +138,43 @@ const tokenHandler = {
 
   // Refresh, Access Token 생성
   signToken: async function (userEmail) {
-    const refreshToken = await tokenHandler.createRefreshToken();
-    const accessToken = tokenHandler.createAccessToken(userEmail);
+    const refreshToken = await tokenHandler.generateRefreshToken();
+    const accessToken = tokenHandler.generateAccessToken(userEmail);
 
     return { refreshToken, accessToken };
+  },
+
+  // Refresh Redis에서 삭제
+  deleteRefreshFromRedis: async function (req) {
+    // Refresh Token Redis 삭제
+    const authHeader = req.header('X-Refresh-Token');
+    const refreshToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+    const { refreshId } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET_KEY);
+    const refreshTokenKey = `refresh_${refreshId}`;
+    const deleteResult = await redisClient.del(refreshTokenKey);
+    if (!deleteResult) {
+      throw new customError(StatusCodes.BAD_REQUEST, 'Redis 삭제 실패');
+    }
+  },
+
+  // Access Token 블랙리스트에 추가
+  addAccessTokenToBlackList: async function (req) {
+    const authHeader = req.header('Authorization');
+    const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+    const { exp } = jwt.decode(accessToken);
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (exp >= currentTime) {
+      const accessTokenKey = `bl_${accessToken}`;
+      const expireTime = exp - currentTime;
+
+      const setResult = await redisClient.set(accessTokenKey, accessToken);
+      const expireResult = await redisClient.expire(accessTokenKey, expireTime);
+      if (!setResult || !expireResult) {
+        throw new customError(StatusCodes.BAD_REQUEST, 'Redis 저장 실패');
+      }
+    }
   },
 };
 

@@ -12,7 +12,6 @@ const authController = {
 
       res.header('X-Refresh-Token', `Bearer ${refreshToken}`);
       res.header('Authorization', `Bearer ${accessToken}`);
-
       return res.status(StatusCodes.OK).json({
         message: '로그인에 성공했습니다.',
       });
