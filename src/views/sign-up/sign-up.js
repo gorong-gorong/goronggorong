@@ -1,24 +1,24 @@
 import { postSignup } from '../lib/Fetcher.js';
 import { formatAddress } from '../lib/utils/format-address.js';
 
-const userName = document.querySelector('.form__name');
-const id = document.querySelector('.form__id');
-const pw = document.querySelector('.form__pw');
-const pwCheck = document.querySelector('.form__pw-check');
-const phone = document.querySelector('.form__phone');
-const submitBtn = document.querySelector('.form__submit');
+const signForm = document.querySelector('.sign__form');
+const nameInput = document.querySelector('.form__name');
+const idInput = document.querySelector('.form__id');
+const passwordInput = document.querySelector('.form__pw');
+const passwordCheckInput = document.querySelector('.form__pw-check');
+const phoneInput = document.querySelector('.form__phone');
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  if (pw.value !== pwCheck.value) {
+  if (passwordInput.value !== passwordCheckInput.value) {
     alert('비밀번호가 일치하지 않습니다.');
     return;
   } else {
     const data = {
-      name: userName.value,
-      email: id.value,
-      password: pw.value,
-      phone: phone.value,
+      name: nameInput.value,
+      email: idInput.value,
+      password: passwordInput.value,
+      phone: phoneInput.value,
       address: formatAddress(),
     };
     await postSignup(data);
@@ -29,4 +29,4 @@ const handleSubmit = async (e) => {
     window.location.href = '/signin';
   }
 };
-submitBtn.addEventListener('click', handleSubmit);
+signForm.addEventListener('submit', handleSubmit);
