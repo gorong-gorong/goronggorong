@@ -39,7 +39,12 @@ const usersController = {
       // phone, name, password, address 수정가능하게
       const { name, phone, password, address } = req.body;
       const userEmail = req.decoded.email;
-      await usersService.updateUser(userEmail, { name, phone, password, address });
+
+      if (password) {
+        await usersService.updateUser(userEmail, { password });
+      } else if (name && phone && address) {
+        await usersService.updateUser(userEmail, { name, phone, address });
+      }
 
       return res.status(StatusCodes.OK).json({
         message: '사용자 정보를 수정했습니다.',
