@@ -87,7 +87,7 @@ const tokenHandler = {
       let authHeader = req.header('X-Refresh-Token');
       const refreshToken = authHeader ? authHeader.replace('Bearer ', '') : null;
 
-      const { refreshId } = jwt.verify(refreshToken);
+      const { refreshId } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET_KEY);
       const refreshTokenKey = `refresh_${refreshId}`;
       await redisClient.del(refreshTokenKey);
 
@@ -146,7 +146,6 @@ const tokenHandler = {
 
     // Redis에 저장(만료기간 설정)
     const refreshTokenKey = `refresh_${refreshId}`;
-    console.log(refreshTokenKey);
     const result1 = await redisClient.set(refreshTokenKey, newRefreshToken);
     const result2 = await redisClient.expire(refreshTokenKey, Number(process.env.REFRESH_REDIS_EXPIRE));
     if (!result1 || !result2) {
