@@ -1,6 +1,7 @@
 import { getUserInfo, getOrderList } from '/lib/Fetcher.js';
 import { formatDate } from '/lib/utils/format-date.js';
 import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
+import { removeToken } from '/lib/Token.js';
 import { main } from '/layouts/main.js';
 await main();
 
@@ -24,8 +25,7 @@ ${address}
 // 로그아웃 로직
 const signout = document.querySelector('.user__signout');
 const handleSignoutClick = () => {
-  localStorage.removeItem('accessToken');
-  document.cookie = `refreshToken=; path=/`;
+  removeToken();
   alert('로그아웃 되었습니다.');
 };
 signout.addEventListener('click', handleSignoutClick);

@@ -1,3 +1,4 @@
+import { removeToken } from '/lib/Token.js';
 import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/Fetcher.js';
 import { formatAddress } from '/lib/utils/format-address.js';
 
@@ -44,8 +45,8 @@ const handleDeleteClick = async () => {
     alert('입력하신 비밀번호가 일치하지 않습니다.');
   } else if (confirm('탈퇴하시겠습니까?')) {
     await deleteUserInfo();
+    removeToken();
     window.alert(`탈퇴되었습니다`);
-    localStorage.removeItem('accessToken');
     window.location.href = '/';
   }
 };
