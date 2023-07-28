@@ -17,7 +17,7 @@ authRouter.post('/validation', tokenHandler.verifyAccessToken, authController.ch
 authRouter.post('/tokens', tokenHandler.verifyRefreshToken, tokenHandler.getNewAccessToken);
 
 /**
- * 로그아웃, 회원탈퇴시 토큰 무효화
+ * 로그아웃시 토큰 무효화
  * Refresh Token: Redis에서 삭제
  * Access Token: Redis blacklist에 추가
  */

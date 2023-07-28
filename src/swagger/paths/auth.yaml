@@ -128,7 +128,7 @@ paths:
     delete:
       tags:
         - auth
-      summary: 로그아웃, 회원탈퇴시 토큰 차단
+      summary: 로그아웃시 토큰 차단
       description: 사용자의 Refresh, Access Token 제거/ 블랙리스트 추가
       security:
         - AccessToken: []
