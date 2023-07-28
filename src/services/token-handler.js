@@ -61,6 +61,54 @@ const tokenHandler = {
   },
 
   /** Services */
+  // 만료시 새로운 Access Token 발급
+  getNewAccessToken: function (req, res, next) {
+    try {
+      const authHeader = req.header('Authorization');
+      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+      const { email: userEmail } = jwt.decode(accessToken);
+      const newAccessToken = tokenHandler.createAccessToken(userEmail);
+
+      res.header('Authorization', `Bearer ${newAccessToken}`);
+
+      res.status(StatusCodes.OK).json({
+        message: '새 Access Token을 발급했습니다.',
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  // Refresh Token: Redis 삭제, Access Token: 블랙리스트 추가
+  deleteTokens: async function (req, res, next) {
+    try {
+      // Refresh Token Redis 삭제
+      let authHeader = req.header('X-Refresh-Token');
+      const refreshToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+      const { refreshId } = jwt.verify(refreshToken);
+      const refreshTokenKey = `refresh_${refreshId}`;
+      await redisClient.del(refreshTokenKey);
+
+      // Access Token Blacklist
+      authHeader = req.header('Authorization');
+      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
+
+      const { exp } = jwt.decode(accessToken);
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (exp >= currentTime) {
+        const accessTokenKey = `bl_${accessToken}`;
+        const expireTime = exp - currentTime;
+
+        await redisClient.set(accessTokenKey, accessToken);
+        await redisClient.expire(accessTokenKey, expireTime);
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
   // Access Token 생성
   createAccessToken: function (userEmail) {
     const newAccessToken = jwt.sign(
@@ -104,26 +152,7 @@ const tokenHandler = {
     return newRefreshToken;
   },
 
-  // 만료시 새로운 Access Token 발급
-  getNewAccessToken: function (req, res, next) {
-    try {
-      const authHeader = req.header('Authorization');
-      const accessToken = authHeader ? authHeader.replace('Bearer ', '') : null;
-
-      const { email: userEmail } = jwt.decode(accessToken);
-      const newAccessToken = tokenHandler.createAccessToken(userEmail);
-
-      res.header('Authorization', `Bearer ${newAccessToken}`);
-
-      res.status(StatusCodes.OK).json({
-        message: '새 Access Token을 발급했습니다.',
-      });
-    } catch (err) {
-      next(err);
-    }
-  },
-
-  // Refresh, Access 토큰 생성
+  // Refresh, Access Token 생성
   signToken: async function (userEmail) {
     const refreshToken = await tokenHandler.createRefreshToken();
     const accessToken = tokenHandler.createAccessToken(userEmail);
