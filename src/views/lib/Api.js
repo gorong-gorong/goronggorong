@@ -1,9 +1,11 @@
 async function request({ endpoint, method, params = '', data = {} }) {
   const apiUrl = params ? `${endpoint}/${params}` : endpoint;
-  const userToken = localStorage.getItem('userToken');
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = document.cookie.split('=')[1];
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: userToken ? `Bearer ${userToken}` : null,
+    Authorization: accessToken ? `Bearer ${accessToken}` : null,
+    'x-refresh-token': refreshToken,
   };
 
   try {
@@ -29,8 +31,8 @@ async function request({ endpoint, method, params = '', data = {} }) {
         throw new Error('잘못된 메소드 접근입니다.');
     }
 
-    if (params === 'auth/signin' || params === '/mypage/edit-user-info') {
-      return response.data.data.token;
+    if (params === 'auth/signin') {
+      return response.headers;
     }
     return response.data.data;
   } catch (error) {

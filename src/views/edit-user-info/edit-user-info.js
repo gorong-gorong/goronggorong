@@ -30,11 +30,9 @@ const handleSubmit = async (e) => {
     phone: phoneInput.value,
     address: formatAddress(),
   };
-  const userToken = await putUserInfo(data);
+  await putUserInfo(data);
   alert(`회원정보가 수정되었습니다.`);
   window.location.href = '/mypage';
-  // 토큰 업데이트
-  // localStorage.setItem('userToken', userToken);
 };
 submitButton.addEventListener('click', handleSubmit);
 
@@ -47,7 +45,7 @@ const handleDeleteClick = async () => {
   } else if (confirm('탈퇴하시겠습니까?')) {
     await deleteUserInfo();
     window.alert(`탈퇴되었습니다`);
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('accessToken');
     window.location.href = '/';
   }
 };
