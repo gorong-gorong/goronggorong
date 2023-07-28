@@ -104,6 +104,10 @@ const tokenHandler = {
         await redisClient.set(accessTokenKey, accessToken);
         await redisClient.expire(accessTokenKey, expireTime);
       }
+
+      res.status(StatusCodes.OK).json({
+        message: '토큰을 차단했습니다.',
+      });
     } catch (error) {
       next(error);
     }
