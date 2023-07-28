@@ -33,11 +33,19 @@ const usersService = {
 
   // 사용자 정보 수정
   updateUser: async function (userEmail, updateData) {
-    const hashedPassword = await bcryptUtils.createHashPassword(updateData.password);
-    const result = await userModel.updateUser(userEmail, {
-      ...updateData,
-      password: hashedPassword,
-    });
+    let result;
+
+    if (updateData.password) {
+      const hashedPassword = await bcryptUtils.createHashPassword(updateData.password);
+
+      result = await userModel.updateUser(userEmail, {
+        password: hashedPassword,
+      });
+    } else {
+      result = await userModel.updateUser(userEmail, {
+        ...updateData,
+      });
+    }
 
     if (!result) {
       throw new customError(StatusCodes.BAD_REQUEST, '사용자 정보를 수정하는데 실패했습니다.');
