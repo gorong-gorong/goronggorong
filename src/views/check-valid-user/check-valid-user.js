@@ -1,16 +1,18 @@
 import { postValidUser } from '/lib/api/Fetcher.js';
 
-const pw = document.querySelector('.form__pw');
-console.log('🚀 ~ file: check-valid-user.js:4 ~ pw:', pw.value);
-const submit = document.querySelector('.form__submit');
+const signForm = document.querySelector('.sign__form');
+const passwordInput = document.querySelector('.form__password');
+
+const url = window.location.search;
+const redirectUrl = url.split('=')[1];
 
 const handleSubmit = async (e) => {
   e.preventDefault();
   const data = {
-    password: pw.value,
+    password: passwordInput.value,
   };
 
   await postValidUser(data);
-  window.location.href = '/mypage/edit-user-info';
+  window.location.href = `/mypage/${redirectUrl}`;
 };
-submit.addEventListener('click', handleSubmit);
+signForm.addEventListener('submit', handleSubmit);
