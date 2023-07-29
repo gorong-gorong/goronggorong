@@ -21,10 +21,12 @@ services:
   node:
     container_name: node
     restart: on-failure
-    build: ./deploy/node
+    build:
+      context: ./
+      dockerfile: ./deploy/node/Dockerfile
 
     volumes:
-      - ./:/usr/src/app
+      # - ./:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - 5000:5000
