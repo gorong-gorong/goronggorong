@@ -1,0 +1,13 @@
+.git
+.gitignore
+.prettierrc
+.dockerignore
+
+dump.rdb
+
+README.md
+
+node_modules/
+deploy/
+build/
+dist/
