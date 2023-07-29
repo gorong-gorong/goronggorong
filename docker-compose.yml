@@ -21,7 +21,8 @@ services:
   node:
     container_name: node
     restart: on-failure
-    build: .
+    build: ./deploy/node
+
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
