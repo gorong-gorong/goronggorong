@@ -49,7 +49,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (error) {
         // 토큰 갱신에 실패한 경우 처리
-        alert('토큰 재발급에 실패하였습니다. 다시 로그인해주세요🔐');
+        alert('일정 시간이 지나 로그아웃되었습니다. 다시 로그인해주세요🔐');
         window.location.href = '/signin';
 
         return Promise.reject(error);
