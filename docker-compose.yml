@@ -14,18 +14,16 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - node
 
   node:
     container_name: node
     restart: on-failure
-    build:
-      context: ../
-      dockerfile: ./deploy/node/Dockerfile
+    build: .
     volumes:
-      - ../:/usr/src/app
+      - ./:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - 5000:5000
