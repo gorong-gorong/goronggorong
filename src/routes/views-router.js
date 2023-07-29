@@ -31,7 +31,7 @@ viewsRouter.use('/mypage/check-valid-user', serveStatics('check-valid-user'));
 viewsRouter.use('/mypage/edit-user-info', serveStatics('edit-user-info'));
 
 // 비밀번호 변경
-viewsRouter.use('/mypage/change-password', serveStatics('change-password'));
+viewsRouter.use('/mypage/update-password', serveStatics('update-password'));
 
 // 장바구니
 viewsRouter.use('/orders/cart', serveStatics('cart'));
