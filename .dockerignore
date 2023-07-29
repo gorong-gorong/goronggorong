@@ -4,6 +4,7 @@
 .dockerignore
 
 dump.rdb
+docker-compose.yml
 
 README.md
 
