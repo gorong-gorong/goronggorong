@@ -4,8 +4,6 @@ import { formatAddress } from '/lib/utils/format-address.js';
 
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');
-const passwordInput = document.querySelector('.form__pw');
-const passwordCheckInput = document.querySelector('.form__pw-check');
 const phoneInput = document.querySelector('.form__phone');
 const submitButton = document.querySelector('.form__submit');
 const deleteButton = document.querySelector('.delete-btn');
@@ -27,26 +25,21 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   const data = {
     name: nameInput.value,
-    password: passwordInput.value,
     phone: phoneInput.value,
     address: formatAddress(),
   };
   await putUserInfo(data);
-  alert(`회원정보가 수정되었습니다.`);
+  alert(`회원정보가 수정되었어요.`);
   window.location.href = '/mypage';
 };
 submitButton.addEventListener('click', handleSubmit);
 
 // 회원탈퇴 로직
 const handleDeleteClick = async () => {
-  if (!passwordInput.value || !passwordCheckInput.value) {
-    alert('비밀번호를 입력 해 주세요');
-  } else if (passwordCheckInput.value !== passwordInput.value) {
-    alert('입력하신 비밀번호가 일치하지 않습니다.');
-  } else if (confirm('탈퇴하시겠습니까?')) {
+  if (confirm('정말 탈퇴하실건가요?😹\n 탈퇴 시 주문 내역 및 개인정보가 모두 삭제되니 주의해주세요.')) {
     await deleteUserInfo();
     removeToken();
-    window.alert(`탈퇴되었습니다`);
+    window.alert(`탈퇴되었어요😿`);
     window.location.href = '/';
   }
 };
