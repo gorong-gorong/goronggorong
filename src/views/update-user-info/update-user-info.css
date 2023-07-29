@@ -1,17 +1,10 @@
-.delete-btn{
-  margin-top: 24px;
-  font-size: 16px;
-  font-weight: 400;
+.delete-btn {
   border: 0;
-  width: 340px;
-  height: 56px;
-  border-radius: 100px;
-  border: #c1c1c1 solid 1px;
-  background-color: white;
-  padding: 0px 16px 0px 16px;
+  margin-top: 24px;
   color: #878787;
+  background-color: white;
 }
 
-.delete-btn:hover{
-  background-color: #c1c1c120;
+.delete-btn:hover {
+  color: #5a5959;
 }
