@@ -3,7 +3,7 @@ import { passwordReset } from '/lib/api/Fetcher.js';
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');
 const phoneInput = document.querySelector('.form__phone');
-const submitButton = document.querySelector('.form__submit');
+const signForm = document.querySelector('.sign__form');
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -16,7 +16,7 @@ const handleSubmit = async (e) => {
   modal.classList.add('is-active');
   newPasswordInput.value = newPassword.resetPassword;
 };
-submitButton.addEventListener('click', handleSubmit);
+signForm.addEventListener('submit', handleSubmit);
 
 // 모달관련 dom요소
 const modal = document.querySelector('.modal');

@@ -5,7 +5,7 @@ import { formatAddress } from '/lib/utils/format-address.js';
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');
 const phoneInput = document.querySelector('.form__phone');
-const submitButton = document.querySelector('.form__submit');
+const signForm = document.querySelector('.sign__form');
 const deleteButton = document.querySelector('.delete-btn');
 const addressInputs = document.querySelectorAll('.form__address-data input');
 
@@ -32,7 +32,7 @@ const handleSubmit = async (e) => {
   alert(`회원정보가 수정되었어요.`);
   window.location.href = '/mypage';
 };
-submitButton.addEventListener('click', handleSubmit);
+signForm.addEventListener('submit', handleSubmit);
 
 // 회원탈퇴 로직
 const handleDeleteClick = async () => {
