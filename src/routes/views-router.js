@@ -28,7 +28,7 @@ viewsRouter.use('/mypage', serveStatics('mypage'));
 viewsRouter.use('/mypage/check-valid-user', serveStatics('check-valid-user'));
 
 // 회원정보 수정
-viewsRouter.use('/mypage/edit-user-info', serveStatics('edit-user-info'));
+viewsRouter.use('/mypage/update-user-info', serveStatics('update-user-info'));
 
 // 비밀번호 변경
 viewsRouter.use('/mypage/update-password', serveStatics('update-password'));
