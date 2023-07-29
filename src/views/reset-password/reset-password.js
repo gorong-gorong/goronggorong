@@ -34,8 +34,7 @@ const handleCopyClick = async () => {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     try {
       await navigator.clipboard.writeText(newPasswordInput.value);
-      alert(`비밀번호가 복사되었습니다.
-      로그인 후 비밀번호를 변경해주세요!`);
+      alert('비밀번호가 복사되었습니다.\n로그인 후 비밀번호를 변경해주세요!');
     } catch (err) {
       console.error('Failed to copy text: ', err);
       alert('비밀번호 복사에 실패했습니다.');
@@ -44,8 +43,7 @@ const handleCopyClick = async () => {
     //clipboard api를 지원하지 않는 브라우저의 경우 execCommand를 사용
     newPasswordInput.select();
     document.execCommand('copy');
-    alert(`비밀번호가 복사되었습니다.
-    로그인 후 비밀번호를 변경해주세요!`);
+    alert('비밀번호가 복사되었습니다.\n로그인 후 비밀번호를 변경해주세요!');
   }
 };
 

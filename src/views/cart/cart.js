@@ -76,7 +76,7 @@ const makeListItem = (id, content) => {
   decreaseButton.innerText = '-';
   decreaseButton.addEventListener('click', () => {
     if (Number(amountNumber.innerText) <= 1) {
-      alert('수량을 확인해 주세요');
+      alert('수량을 확인해주세요');
     } else {
       amountNumber.innerText = --content.amount;
       const items = JSON.parse(localStorage.getItem('cart'));
@@ -154,7 +154,7 @@ choiceDeleteBtn.addEventListener('click', () => {
       localStorageEventHandle(deleteTarget[i].id);
     }
   } else {
-    alert('선택된 제품이 없습니다.');
+    alert('제품을 선택해주세요.');
   }
 });
 
@@ -178,11 +178,11 @@ choiceOrder.addEventListener('click', (e) => {
       );
     } else {
       e.preventDefault();
-      alert('로그인이 필요합니다.');
+      alert('로그인후 구매할 수 있어요.\n로그인 페이지로 이동합니다.');
       window.location.href = '/signin';
     }
   } else {
-    alert('선택된 제품이 없습니다.');
+    alert('제품을 선택해주세요.');
     e.preventDefault();
     return;
   }
@@ -199,11 +199,11 @@ allOrderBtn.addEventListener('click', (e) => {
       localStorage.setItem('cart', JSON.stringify([]));
     } else {
       e.preventDefault();
-      alert('로그인이 필요합니다.');
+      alert('로그인후 구매할 수 있어요.\n로그인 페이지로 이동합니다.');
       window.location.href = '/signin';
     }
   } else {
-    alert('선택된 제품이 없습니다.');
+    alert('제품을 선택해주세요.');
     e.preventDefault();
     return;
   }

@@ -22,9 +22,7 @@ const handleSubmit = async (e) => {
       address: formatAddress(),
     };
     await postSignup(data);
-    alert(`
-    성공적으로 회원가입되었어요🎉
-    로그인 페이지로 이동합니다.`);
+    alert('성공적으로 회원가입되었어요🎉\n로그인 페이지로 이동합니다.');
     //로그인페이지로 이동
     window.location.href = '/signin';
   }

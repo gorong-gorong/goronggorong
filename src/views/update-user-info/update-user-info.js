@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
     address: formatAddress(),
   };
   await putUserInfo(data);
-  alert(`회원정보가 수정되었어요.`);
+  alert('회원정보가 수정되었어요.');
   window.location.href = '/mypage';
 };
 signForm.addEventListener('submit', handleSubmit);
@@ -39,7 +39,7 @@ const handleDeleteClick = async () => {
   if (confirm('정말 탈퇴하실건가요?😹\n 탈퇴 시 주문 내역 및 개인정보가 모두 삭제되니 주의해주세요.')) {
     await deleteUserInfo();
     removeToken();
-    window.alert(`탈퇴되었어요😿`);
+    window.alert('탈퇴되었어요😿');
     window.location.href = '/';
   }
 };

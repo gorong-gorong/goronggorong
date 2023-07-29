@@ -55,20 +55,14 @@ const addCart = () => {
     //cartItem에 이름이 같은 아이템이 있는지 찾기
     const existingItem = cartItem.find((item) => item.name === newItem.name);
     if (existingItem) {
-      if (
-        window.confirm(`기존에 장바구니에 추가 된 아이템입니다. 수량을 변경했어요😽
-장바구니로 이동할까요?`)
-      ) {
+      if (window.confirm('기존에 장바구니에 추가 된 아이템입니다. 수량을 변경했어요😽\n장바구니로 이동할까요?')) {
         window.location.href = CART_PAGE;
       }
       //새로운 수량입력값으로 변경
       existingItem.amount = navAmount.value;
     } else {
       cartItem.push(newItem);
-      if (
-        window.confirm(`장바구니에 아이템을 추가했습니다🐶
-장바구니로 이동할까요?`)
-      ) {
+      if (window.confirm('장바구니에 아이템을 추가했습니다🐶\n장바구니로 이동할까요?')) {
         window.location.href = CART_PAGE;
       }
     }
@@ -76,10 +70,7 @@ const addCart = () => {
   //기존 스토리지에 아이템이 없는 경우
   else {
     cartItem.push(newItem);
-    if (
-      window.confirm(`장바구니에 아이템을 추가했습니다🐶
-장바구니로 이동할까요?`)
-    ) {
+    if (window.confirm('장바구니에 아이템을 추가했습니다🐶\n장바구니로 이동할까요?')) {
       window.location.href = CART_PAGE;
     }
   }

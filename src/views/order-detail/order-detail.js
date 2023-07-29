@@ -45,7 +45,7 @@ receiverRequest.innerHTML = receiver.requestMessage;
 const cancelButton = document.querySelector('.cancel-order');
 
 const handleCancelClick = async () => {
-  if (window.confirm(`주문을 취소할까요?`)) {
+  if (window.confirm('주문을 취소할까요?')) {
     await cancelOrder(OrderId);
     alert('주문을 취소했습니다.');
     window.location.href = '/mypage';

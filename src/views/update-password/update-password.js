@@ -12,7 +12,7 @@ const handleSubmit = async (e) => {
   };
   if (passwordInput.value === passwordCheckInput.value) {
     await putUserInfo(data);
-    alert(`비밀번호가 변경되었어요.`);
+    alert('비밀번호가 변경되었어요.');
     window.location.href = '/mypage';
   } else {
     alert('입력하신 비밀번호가 일치하지 않아요.\n다시 확인해주세요.');
