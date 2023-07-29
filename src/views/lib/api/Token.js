@@ -7,6 +7,12 @@ export function setToken(responseHeaders) {
   document.cookie = `refreshToken=${refreshToken}; path=/`;
 }
 
+//액세스 토큰만 브라우저에 저장
+export function setAccessToken(responseHeaders) {
+  const accessToken = responseHeaders.authorization.split(' ')[1]; // Bearer 제외
+  localStorage.setItem('accessToken', accessToken);
+}
+
 // 브라우저에 저장된 토큰 값 가져오기
 export function getToken() {
   const accessToken = localStorage.getItem('accessToken');
