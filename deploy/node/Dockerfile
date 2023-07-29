@@ -1,4 +1,4 @@
-FROM node:18.12.0
+FROM node:latest
 
 # 작업 디렉토리 생성 및 설정
 WORKDIR /usr/src/app

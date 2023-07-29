@@ -1,5 +1,6 @@
 services:
   redis:
+    container_name: redis
     restart: on-failure
     image: redis:6.2.6
     ports:
@@ -7,6 +8,7 @@ services:
     command: redis-server
 
   nginx:
+    container_name: nginx
     restart: on-failure
     build: ./nginx
     ports:
@@ -15,6 +17,7 @@ services:
       - node
 
   node:
+    container_name: node
     restart: on-failure
     build:
       context: ../
