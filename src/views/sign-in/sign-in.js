@@ -1,5 +1,8 @@
 import { postSignin } from '/lib/api/Fetcher.js';
 import { setToken } from '/lib/api/Token.js';
+import { redirectToMyPageIfLoggedIn } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToMyPageIfLoggedIn();
 
 const signForm = document.querySelector('.sign__form');
 const idInput = document.querySelector('.form__id');

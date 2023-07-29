@@ -1,4 +1,6 @@
-const accessToken = localStorage.getItem('accessToken');
+import { getToken } from '/lib/api/Token.js';
+
+const { accessToken } = getToken();
 
 function renderHeader() {
   const header = document.querySelector('header');

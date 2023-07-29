@@ -4,6 +4,9 @@ import { formatPhoneNumber } from '/lib/utils/format-phone-number.js';
 import { removeToken } from '/lib/api/Token.js';
 import { main } from '/layouts/main.js';
 await main();
+import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToSignInIfLoggedOut();
 
 // 회원정보
 const userName = document.querySelector('.user__name');
@@ -26,7 +29,7 @@ ${address}
 const signout = document.querySelector('.user__signout');
 const handleSignoutClick = () => {
   removeToken();
-  alert('로그아웃 되었습니다.');
+  alert('로그아웃 되었어요.');
 };
 signout.addEventListener('click', handleSignoutClick);
 

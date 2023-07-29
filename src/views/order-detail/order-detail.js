@@ -2,6 +2,9 @@ import { getOrderInfo, cancelOrder } from '/lib/api/Fetcher.js';
 import { formatDate } from '/lib/utils/format-date.js';
 import { main } from '/layouts/main.js';
 await main();
+import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToSignInIfLoggedOut();
 
 const OrderId = location.pathname.split('/')[2];
 
@@ -47,7 +50,7 @@ const cancelButton = document.querySelector('.cancel-order');
 const handleCancelClick = async () => {
   if (window.confirm('주문을 취소할까요?')) {
     await cancelOrder(OrderId);
-    alert('주문을 취소했습니다.');
+    alert('주문을 취소했어요.');
     window.location.href = '/mypage';
   }
 };

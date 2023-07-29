@@ -1,4 +1,7 @@
 import { putUserInfo } from '/lib/api/Fetcher.js';
+import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToSignInIfLoggedOut();
 
 const signForm = document.querySelector('.sign__form');
 const passwordInput = document.querySelector('.form__pw');

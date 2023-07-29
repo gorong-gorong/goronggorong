@@ -1,5 +1,8 @@
 import { postSignup } from '/lib/api/Fetcher.js';
 import { formatAddress } from '/lib/utils/format-address.js';
+import { redirectToMyPageIfLoggedIn } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToMyPageIfLoggedIn();
 
 const signForm = document.querySelector('.sign__form');
 const nameInput = document.querySelector('.form__name');
@@ -11,7 +14,7 @@ const phoneInput = document.querySelector('.form__phone');
 const handleSubmit = async (e) => {
   e.preventDefault();
   if (passwordInput.value !== passwordCheckInput.value) {
-    alert('비밀번호가 일치하지 않습니다.');
+    alert('입력하신 비밀번호가 일치하지 않아요.\n다시 확인해주세요.');
     return;
   } else {
     const data = {

@@ -1,6 +1,9 @@
 import { removeToken } from '/lib/api/Token.js';
 import { getUserInfo, putUserInfo, deleteUserInfo } from '/lib/api/Fetcher.js';
 import { formatAddress } from '/lib/utils/format-address.js';
+import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToSignInIfLoggedOut();
 
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');

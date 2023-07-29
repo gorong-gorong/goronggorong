@@ -3,6 +3,9 @@ import { formatAddress } from '/lib/utils/format-address.js';
 import { postPayment, getUserInfo } from '/lib/api/Fetcher.js';
 import { main } from '/layouts/main.js';
 await main();
+import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+
+redirectToSignInIfLoggedOut();
 
 // 결제완료 시 서버에 보낼 데이터
 const reqBody = (() => {
