@@ -1,0 +1,12 @@
+.login-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 24px;
+  margin-left: 8px;
+  color: #878787;
+}
+
+.login-link:hover {
+  color: #5a5959;
+  text-decoration: underline;
+}
