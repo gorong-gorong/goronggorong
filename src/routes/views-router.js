@@ -1,6 +1,8 @@
 import { Router } from 'express';
-import { serveStatics } from '../utils';
+import { StatusCodes } from 'http-status-codes';
 import path from 'path';
+import { serveStatics } from '../utils';
+
 const viewsRouter = Router();
 
 // 메인페이지
@@ -56,7 +58,7 @@ viewsRouter.use('/lib', serveStatics('lib'));
 
 // 404 페이지
 viewsRouter.use(function (req, res, next) {
-  res.status(404).sendFile(path.join(__dirname, '../../public/404/404.html'));
+  res.status(StatusCodes.NOT_FOUND).sendFile(path.join(__dirname, '../../public/404/404.html'));
 });
 
 export default viewsRouter;
