@@ -10,17 +10,17 @@ db.on('connected', () => console.log('MongoDB Connected!'));
 db.on('error', (err) => console.error('MongoDB Error', err));
 
 // Redis
-let redisClient = createClient();
-(async () => {
-  redisClient.on('connect', () => {
-    console.log('Redis connected!');
-  });
-  redisClient.on('error', (error) => {
-    console.error('Redis Client Error', error);
-  });
+let redisClient = createClient({
+  host: 'redis',
+  port: 6379,
+});
 
-  await redisClient.connect();
-})();
+redisClient.on('connect', () => {
+  console.log('Redis connected!');
+});
+redisClient.on('error', (error) => {
+  console.error('Redis Client Error', error);
+});
 
 export { redisClient };
 export * from './models';

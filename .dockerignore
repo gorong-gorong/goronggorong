@@ -1,0 +1,14 @@
+.git
+.gitignore
+.prettierrc
+.dockerignore
+
+dump.rdb
+docker-compose.yml
+
+README.md
+
+node_modules/
+deploy/
+build/
+dist/

@@ -2,9 +2,11 @@
   "name": "goronggorong",
   "version": "1.0.0",
   "description": "<p> \t<img src=\"https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=Babel&logoColor=white\"> \t<img src=\"https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white\"> </p>",
-  "main": "./src/app.js",
+  "main": "./src",
   "scripts": {
-    "start": "node app",
+    "build": "npm run api-docs & npm run babel",
+    "babel": "babel src -d dist",
+    "start": "node dist/app",
     "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/build.yaml --type yaml",
     "dev": "npm run api-docs & nodemon ./src/app --exec babel-node"
   },
@@ -21,9 +23,7 @@
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "redis": "^4.6.7",
-    "winston": "^3.8.2"
-  },
-  "devDependencies": {
+    "winston": "^3.8.2",
     "@babel/cli": "^7.22.9",
     "@babel/core": "^7.22.9",
     "@babel/node": "^7.22.6",
@@ -31,10 +31,12 @@
     "@babel/preset-env": "^7.22.9",
     "bcrypt": "^5.1.0",
     "http-status-codes": "^2.2.0",
-    "nodemon": "^3.0.1",
-    "prettier": "^2.8.8",
     "swagger-cli": "^4.0.4",
     "swagger-ui-express": "^5.0.0",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prettier": "^2.8.8"
   }
 }
