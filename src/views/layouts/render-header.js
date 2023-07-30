@@ -1,6 +1,9 @@
 import { getToken } from '/lib/api/Token.js';
 
 const { accessToken } = getToken();
+const url = window.location;
+const path = url.pathname + url.search;
+const redirectUrl = path.slice(1);
 
 function renderHeader() {
   const header = document.querySelector('header');
@@ -32,7 +35,7 @@ function renderHeader() {
 
         <ul class="nav__user-menu">
           <li>
-            <a class="nav__signin" href="/signin">
+            <a class="nav__signin" href="/signin/?redirect=${redirectUrl}">
               로그인
             </a>
           </li>
