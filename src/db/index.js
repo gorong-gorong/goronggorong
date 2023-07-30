@@ -10,7 +10,14 @@ db.on('connected', () => console.log('MongoDB Connected!'));
 db.on('error', (err) => console.error('MongoDB Error', err));
 
 // Redis
-let redisClient = createClient();
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options = {
+    host: 'redis',
+    port: 6379,
+  };
+}
+const redisClient = createClient(options);
 
 (async () => {
   redisClient.on('connect', () => {
