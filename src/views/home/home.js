@@ -1,6 +1,6 @@
 import { main } from '/layouts/main.js';
 await main();
-import { renderInfiniteItemList } from './render-infinite.js';
+import { renderInfiniteItemList, startObserver, stopObserver } from './render-infinite.js';
 import { renderPaginatedItemList } from './render-pagination.js';
 
 const itemViewCount = document.querySelector('.prod__item--view');
@@ -19,12 +19,16 @@ renderPaginatedItemList(initPageState);
 // 페이지당 표시 할 아이템 수 선택
 const handleSelectViewCount = (e) => {
   if (e.target.value === 'all') {
+    initPageState.page = 1;
     pagination.style.display = 'none';
     renderInfiniteItemList(initPageState);
+    startObserver();
   } else {
     initPageState.page = 1;
+    pagination.style.display = 'flex';
     initPageState.perPage = Number(e.target.value);
     renderPaginatedItemList(initPageState);
+    stopObserver();
   }
 };
 itemViewCount.addEventListener('change', handleSelectViewCount);
