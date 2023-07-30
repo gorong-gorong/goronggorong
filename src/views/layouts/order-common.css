@@ -76,6 +76,10 @@ section {
   background-color: white;
 }
 
+.content__button-wrap button:disabled:hover {
+  background-color: #c1c1c120;
+}
+
 a {
   text-decoration: none;
 }

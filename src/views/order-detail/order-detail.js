@@ -46,6 +46,9 @@ receiverRequest.innerHTML = receiver.requestMessage;
 
 // 주문 취소하기
 const cancelButton = document.querySelector('.cancel-order');
+if (deliveryStatus === '주문취소' || deliveryStatus === '배송중' || deliveryStatus === '배송완료') {
+  cancelButton.disabled = true;
+}
 
 const handleCancelClick = async () => {
   if (window.confirm('주문을 취소할까요?')) {
