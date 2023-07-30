@@ -11,6 +11,7 @@ db.on('error', (err) => console.error('MongoDB Error', err));
 
 // Redis
 let redisClient = createClient();
+
 (async () => {
   redisClient.on('connect', () => {
     console.log('Redis connected!');
@@ -18,6 +19,7 @@ let redisClient = createClient();
   redisClient.on('error', (error) => {
     console.error('Redis Client Error', error);
   });
+
   await redisClient.connect();
 })();
 
