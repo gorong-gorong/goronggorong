@@ -13,8 +13,7 @@ db.on('error', (err) => console.error('MongoDB Error', err));
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options = {
-    host: 'redis',
-    port: 6379,
+    url: 'redis://redis:6379',
   };
 }
 const redisClient = createClient(options);
