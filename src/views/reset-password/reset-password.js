@@ -1,7 +1,7 @@
 import { passwordReset } from '/lib/api/Fetcher.js';
-import { redirectToSignInIfLoggedOut } from '/lib/utils/redirect-by-login-status.js';
+import { redirectToMyPageIfLoggedIn } from '/lib/utils/redirect-by-login-status.js';
 
-redirectToSignInIfLoggedOut();
+redirectToMyPageIfLoggedIn();
 
 const nameInput = document.querySelector('.form__name');
 const idInput = document.querySelector('.form__id');
