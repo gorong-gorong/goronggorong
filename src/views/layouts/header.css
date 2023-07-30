@@ -2,17 +2,25 @@ header {
   display: flex;
   justify-content: center;
   background-color: white;
+  border-bottom: 1px solid rgb(232, 232, 232);
 }
 .nav {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
   padding-top: 32px;
-  position: sticky;
   width: 1200px;
+}
+.nav__logo {
+  width: 120px;
+  position: relative;
+  bottom: 12px;
 }
 
 .nav__user-menu {
+  justify-self: end;
   display: flex;
+  justify-content: end;
   align-items: center;
 }
 .nav__user-menu li {
@@ -20,7 +28,7 @@ header {
 }
 .nav__user-menu a {
   text-decoration: none;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   color: #6f6f6f;
 }

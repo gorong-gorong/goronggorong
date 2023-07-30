@@ -12,14 +12,16 @@ function renderHeader() {
   if (accessToken) {
     header.innerHTML = `
   <nav class="nav">
+  <div class="nave__space"></div>
     <a href="/"><img class="nav__logo" src="/img/logo.png" width="140" alt="고롱고롱 로고"/></a>
 
     <ul class="nav__user-menu">
       <li>
-        <a class="nav__mypage" href="/mypage"><img class="icon" src="/img/profile.png" /></a>
+        <a class="nav__mypage" href="/mypage">마이페이지</a>
       </li>
+      /
       <li>
-        <a href="/orders/cart"><img class="icon" src="/img/cart.png" /></a>
+        <a href="/orders/cart">장바구니</a>
       </li>
     </ul>
   </nav>
@@ -29,6 +31,7 @@ function renderHeader() {
   else {
     header.innerHTML = `
       <nav class="nav">
+      <div class="nave__space"></div>
         <a href="/">
           <img class="nav__logo" src="/img/logo.png" width="140" alt="고롱고롱 로고"/>
         </a>
@@ -39,14 +42,16 @@ function renderHeader() {
               로그인
             </a>
           </li>
+          /
           <li>
             <a class="nav__signup" href="/signup">
               회원가입
             </a>
           </li>
+          /
           <li>
-            <a href="/orders/cart">
-              <img class="icon" src="/img/cart.png" />
+            <a class="nav__cart" href="/orders/cart">
+              장바구니
             </a>
           </li>
         </ul>
