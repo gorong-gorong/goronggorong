@@ -32,8 +32,13 @@ function renderHeader() {
 
         <ul class="nav__user-menu">
           <li>
-            <a class="nav__login" href="/signin">
+            <a class="nav__signin" href="/signin">
               로그인
+            </a>
+          </li>
+          <li>
+            <a class="nav__signup" href="/signup">
+              회원가입
             </a>
           </li>
           <li>
