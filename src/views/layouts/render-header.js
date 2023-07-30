@@ -1,4 +1,6 @@
-const accessToken = localStorage.getItem('accessToken');
+import { getToken } from '/lib/api/Token.js';
+
+const { accessToken } = getToken();
 
 function renderHeader() {
   const header = document.querySelector('header');
@@ -30,8 +32,13 @@ function renderHeader() {
 
         <ul class="nav__user-menu">
           <li>
-            <a class="nav__login" href="/signin">
+            <a class="nav__signin" href="/signin">
               로그인
+            </a>
+          </li>
+          <li>
+            <a class="nav__signup" href="/signup">
+              회원가입
             </a>
           </li>
           <li>

@@ -16,7 +16,7 @@ viewsRouter.use('/products/:category', serveStatics('category'));
 viewsRouter.use('/signin', serveStatics('sign-in'));
 
 // 비밀번호 찾기
-viewsRouter.use('/signin/find-password', serveStatics('find-pw'));
+viewsRouter.use('/signin/reset-password', serveStatics('reset-password'));
 
 // 회원가입
 viewsRouter.use('/signup', serveStatics('sign-up'));
