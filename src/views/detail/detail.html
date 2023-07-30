@@ -16,10 +16,7 @@
     <header></header>
     <main role="main" class="prod-detail">
       <section class="overview">
-        <img
-          class="overview__img item__img"
-          src
-        />
+        <img class="overview__img item__img" src />
         <div class="overview__detail">
           <p class="overview__category"></p>
           <p class="overview__title item__name"></p>
@@ -27,15 +24,11 @@
           <p class="overview__description"></p>
         </div>
       </section>
-      
+
       <!-- 하단 장바구니/구매하기 버튼 영역 -->
       <nav class="bottom-nav-container">
         <div class="bottom-nav">
-          <img
-            class="bottom-nav__img item__img"
-            src
-            width="68px"
-          />
+          <img class="bottom-nav__img item__img" src width="68px" />
           <div class="bottom-nav__info">
             <p class="bottom-nav__title item__name"></p>
             <p><strong class="bottom-nav__price--value item__price"></strong>원</p>
@@ -44,7 +37,16 @@
             <p>총 <strong class="bottom-nav__price--value item__price--total"></strong>원</p>
           </div>
           <div class="bottom-nav__amount">
-            <input class="bottom-nav__amount--count" type="number" value="1" min="1">개</input>
+            <button class="bottom-nav__amount-decrease">-</button>
+            <input
+              class="bottom-nav__amount--count"
+              type="text"
+              value="1"
+              min="1"
+              inputmode="numeric"
+              pattern="\d*"
+            />개
+            <button class="bottom-nav__amount-increase">+</button>
           </div>
           <button class="bottom-nav__btn--cart">장바구니 담기</button>
         </div>

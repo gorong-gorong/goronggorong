@@ -34,6 +34,12 @@ const handleSubmit = async (e) => {
     localStorage.removeItem('savedId');
   }
   // 로그인 완료 후 이전페이지로 리다이렉트
-  window.history.go(-1);
+  const url = window.location.search;
+  const redirectUrl = url.split('redirect=')[1];
+  if (redirectUrl) {
+    window.location.href = `/${redirectUrl}`;
+  } else {
+    window.location.href = '/';
+  }
 };
 signForm.addEventListener('submit', handleSubmit);

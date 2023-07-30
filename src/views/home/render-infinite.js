@@ -43,6 +43,12 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 });
-observer.observe(bottom);
+const startObserver = () => {
+  observer.observe(bottom);
+};
 
-export { renderInfiniteItemList };
+const stopObserver = () => {
+  observer.disconnect();
+};
+
+export { renderInfiniteItemList, startObserver, stopObserver };

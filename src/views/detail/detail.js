@@ -9,11 +9,13 @@ const totalPrice = document.querySelector('.item__price--total');
 const category = document.querySelector('.overview__category');
 const description = document.querySelector('.overview__description');
 const navAmount = document.querySelector('.bottom-nav__amount--count');
+const decreaseButton = document.querySelector('.bottom-nav__amount-decrease');
+const increaseButton = document.querySelector('.bottom-nav__amount-increase');
 const navCartBtn = document.querySelector('.bottom-nav__btn--cart');
 
+// url에서 받아온 아이템아이디로 api요청
 const url = window.location.search;
 const itemId = url.split('=')[1];
-
 const data = await getItemById(itemId);
 const item = data.product;
 
@@ -28,17 +30,34 @@ itemImgs.forEach((itemImg) => {
 });
 
 names.forEach((name) => (name.innerText = item.name));
-
 prices.forEach((price) => (price.innerText = item.price.toLocaleString()));
-
 category.innerText = item.category;
 description.innerText = item.description;
-
 totalPrice.innerHTML = item.price.toLocaleString();
-navAmount.addEventListener('change', () => {
+
+// 총 가격 업데이트
+const updateTotalPrice = () => {
+  // 숫자 이외의 문자 제거
+  const numericValue = navAmount.value.replace(/\D/g, '');
+  navAmount.value = numericValue;
   totalPrice.innerHTML = (navAmount.value * item.price).toLocaleString();
+};
+// 구매 수량 선택
+navAmount.addEventListener('change', updateTotalPrice);
+decreaseButton.addEventListener('click', () => {
+  if (navAmount.value === '1') {
+    alert('1개 이상 선택해주세요!');
+    return;
+  }
+  navAmount.value--;
+  updateTotalPrice();
+});
+increaseButton.addEventListener('click', () => {
+  navAmount.value++;
+  updateTotalPrice();
 });
 
+// 장바구니 담기 로직
 let cartItem = [];
 const addCart = () => {
   const newItem = {

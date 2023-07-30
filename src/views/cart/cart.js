@@ -179,7 +179,7 @@ choiceOrder.addEventListener('click', (e) => {
     } else {
       e.preventDefault();
       alert('로그인후 구매할 수 있어요.\n로그인 페이지로 이동합니다.');
-      window.location.href = '/signin';
+      window.location.href = '/signin?redirect=orders/cart';
     }
   } else {
     alert('제품을 선택해주세요.');
@@ -200,7 +200,7 @@ allOrderBtn.addEventListener('click', (e) => {
     } else {
       e.preventDefault();
       alert('로그인후 구매할 수 있어요.\n로그인 페이지로 이동합니다.');
-      window.location.href = '/signin';
+      window.location.href = '/signin?redirect=orders/cart';
     }
   } else {
     alert('제품을 선택해주세요.');

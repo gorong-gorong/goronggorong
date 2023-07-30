@@ -122,10 +122,6 @@ body footer {
   height: 50px;
   border-radius: 100px;
 }
-.bottom-nav__amount--count[type='number']::-webkit-inner-spin-button {
-  opacity: 1;
-  margin-left: 4px;
-}
 .bottom-nav__amount--count:focus {
   outline: 0;
 }
