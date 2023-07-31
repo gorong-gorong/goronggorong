@@ -21,6 +21,7 @@ services:
       MONGODB_INIT_DATABASE: ${MONGODB_NAME}
 
   mongo-seed:
+    container_name: mongo-seed
     build:
       context: ./
       dockerfile: ./deploy/mongo-seed/Dockerfile
