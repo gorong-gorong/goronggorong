@@ -7,66 +7,56 @@
     <title>고롱고롱::주문내역</title>
     <link rel="stylesheet" type="text/css" href="./order-detail.css" />
     <link rel="stylesheet" type="text/css" href="/layouts/main.css" />
-    <link rel="stylesheet" type="text/css" href="/layouts/order-common.css" />
     <link rel="icon" href="/img/favicon.png" />
     <script defer src="./order-detail.js" type="module"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <header></header>
+    <h3 class="page-title">주문내역</h3>
     <main>
-      <h3>주문내역</h3>
-      <div class="contents">
-        <div class="success-order">
-          <section>
-            <div class="item-status">
-              <div class="order-id"></div>
-              <div class="order-date"></div>
-              <div class="order-status"></div>
-              <ul class="item-info-wrap"></ul>
-            </div>
-          </section>
-          <section class="success-order__user-adress">
-            <div class="content-title">
-              <span>배송지</span>
-            </div>
-            <div class="content">
-              <div class="receiver-info">
-                <span class="receiver-name"></span>
-                <span class="receiver-address"></span>
-                <span class="receiver-phone"></span>
-                <span class="receiver-request"></span>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div class="content-title">
-              <span>결제정보</span>
-            </div>
-            <div class="content">
-              <div>총 결제금액</div>
-              <div class="total-price"></div>
-            </div>
-          </section>
-          <section>
-            <div class="content-title">
-              <span>결제수단 정보</span>
-            </div>
-            <div class="content">
-              <span class="payment-type"></span>
-            </div>
-          </section>
-          <section>
-            <div class="content-title"></div>
-            <div class="content">
-              <div class="content__button-wrap">
-                <button class="cancel-order">주문 취소하기</button>
-                <a href="/mypage"><button>마이페이지 가기</button></a>
-              </div>
-            </div>
-          </section>
+      <section class="order-detail-page">
+        <div class="item-status">
+          <div class="order-id item-status-data"></div>
+          <div class="order-date item-status-data"></div>
+          <div class="order-status item-status-data"></div>
+          <ul class="item-info-wrap"></ul>
         </div>
-      </div>
+      </section>
+      <section class="success-order__user-adress order-info">
+        <div class="content-title">
+          <span>배송지</span>
+        </div>
+        <div class="content">
+          <div class="receiver-info">
+            <span class="receiver-name"></span>
+            <span class="receiver-address"></span>
+            <span class="receiver-phone"></span>
+            <span class="receiver-request"></span>
+          </div>
+        </div>
+      </section>
+      <section class="order-info">
+        <div class="content-title">
+          <span>결제정보</span>
+        </div>
+        <div class="content">
+          <div>총 결제금액</div>
+          <div class="total-price"></div>
+        </div>
+      </section>
+      <section class="order-info">
+        <div class="content-title">
+          <span>결제수단</span>
+        </div>
+        <div class="content">
+          <span class="payment-type"></span>
+        </div>
+      </section>
+      <section class="content__button-wrap">
+        <button class="cancel-order">주문 취소하기</button>
+        <a href="/mypage"><button class="content__button-myPage">마이페이지 가기</button></a>
+      </section>
     </main>
     <footer></footer>
   </body>
