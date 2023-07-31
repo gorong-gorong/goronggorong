@@ -33,20 +33,22 @@
             <p class="bottom-nav__title item__name"></p>
             <p><strong class="bottom-nav__price--value item__price"></strong>원</p>
           </div>
-          <div class="bottom-nav__total">
-            <p>총 <strong class="bottom-nav__price--value item__price--total"></strong>원</p>
-          </div>
           <div class="bottom-nav__amount">
-            <button class="bottom-nav__amount-decrease">-</button>
-            <input
-              class="bottom-nav__amount--count"
-              type="text"
-              value="1"
-              min="1"
-              inputmode="numeric"
-              pattern="\d*"
-            />개
-            <button class="bottom-nav__amount-increase">+</button>
+            <div>
+              <button class="bottom-nav__amount-decrease">-</button>
+              <input
+                class="bottom-nav__amount--count"
+                type="text"
+                value="1"
+                min="1"
+                inputmode="numeric"
+                pattern="\d*"
+              />
+              <button class="bottom-nav__amount-increase">+</button>
+            </div>
+            <div class="bottom-nav__total">
+              <p>총 <strong class="bottom-nav__price--value item__price--total"></strong>원</p>
+            </div>
           </div>
           <button class="bottom-nav__btn--cart">장바구니 담기</button>
         </div>
