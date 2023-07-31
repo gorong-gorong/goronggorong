@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { createClient } from 'redis';
 
 // Mongoose
-mongoose.connect('mongo://mongo:27017');
+mongoose.connect('mongodb://mongodb:27017');
 
 const db = mongoose.connection;
 
