@@ -10,11 +10,14 @@ services:
   mongodb:
     container_name: mongodb
     restart: on-failure
-    image: mongo
+    image: mongo:4.4
     ports:
       - 27017:27017
     volumes:
       - ./data:/data
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
 
   nginx:
     container_name: nginx
