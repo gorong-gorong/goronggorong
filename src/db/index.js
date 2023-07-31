@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { createClient } from 'redis';
 
 // Mongoose
-mongoose.connect('mongodb://mongodb:27017');
+mongoose.connect(process.env.MONGODB_KEY);
 
 const db = mongoose.connection;
 
@@ -13,7 +13,7 @@ db.on('error', (err) => console.error('MongoDB Error', err));
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options = {
-    url: 'redis://redis:6379',
+    url: process.env.REDIS_KEY,
   };
 }
 const redisClient = createClient(options);
