@@ -1,5 +1,19 @@
 # 🐕 반려동물용품 쇼핑몰: 고롱고롱 🐈
 
+### 데모사이트
+
+![홈페이지 썸네일](https://github.com/gorong-gorong/goronggorong/assets/126763111/8394c1b9-8ec2-4d3a-8c5c-5344714158e4)<br>
+▶️ 시연영상 https://youtu.be/2-nOUlkWqxg<br>
+🌐 배포주소 http://www.goronggorong.store/<br>
+**테스트계정**
+
+- 아이디 : test@test.com
+- 비밀번호 :test1234@
+
+---
+
+### 스택
+
 | 직무         | 기술 스택                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **FrontEnd** | <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"> <img alt="CSS" src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"> <img alt="JavaScript" src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=javascript&logoColor=white">                                                                                                                          |
