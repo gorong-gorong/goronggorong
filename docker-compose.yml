@@ -15,22 +15,6 @@ services:
       - 27017:27017
     volumes:
       - ./data:/data
-    environment:
-      MONGODB_INIT_ROOT_USERNAME: ${MONGODB_INIT_ROOT_USERNAME}
-      MONGODB_INIT_ROOT_PASSWORD: ${MONGODB_INIT_ROOT_PASSWORD}
-      MONGODB_INIT_DATABASE: ${MONGODB_NAME}
-
-  mongo-seed:
-    container_name: mongo-seed
-    build:
-      context: ./
-      dockerfile: ./deploy/mongo-seed/Dockerfile
-    environment:
-      MONGODB_INIT_ROOT_USERNAME: ${MONGODB_INIT_ROOT_USERNAME}
-      MONGODB_INIT_ROOT_PASSWORD: ${MONGODB_INIT_ROOT_PASSWORD}
-      MONGODB_INIT_DATABASE: ${MONGODB_NAME}
-    depends_on:
-      - mongodb
 
   nginx:
     container_name: nginx
