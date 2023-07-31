@@ -1,20 +1,17 @@
+import fs from 'fs';
+import path from 'path';
 import mongoose from 'mongoose';
 import { createClient } from 'redis';
-const fs = require('fs');
-const path = require('path');
-const { MongoClient } = require('mongodb');
 
+// MongoDB
 mongoose.connect(`${process.env.MONGODB_KEY}/${process.env.MONGODB_NAME}`);
 const db = mongoose.connection;
-
 db.on('connected', () => console.log('MongoDB Connected!'));
 db.on('error', (err) => console.error('MongoDB Error', err));
 
-// Mongoose
 async function insertProductData() {
   try {
-	// 컬렉션에 데이터가 있는지 확인
-	const productsCollection = db.collection('products');
+  	const productsCollection = db.collection('products');
 
    	// product-data.json 파일 읽기
    	const filePath = path.join(__dirname, '../../data/product-data.json');
