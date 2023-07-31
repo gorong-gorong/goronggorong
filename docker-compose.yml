@@ -14,7 +14,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - data:/data
+      - ./data:/data
 
   nginx:
     container_name: nginx
