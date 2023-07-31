@@ -65,15 +65,16 @@
 }
 
 .payment-btn {
+  cursor: pointer;
+  margin: auto;
   font-size: 16px;
   font-weight: 600;
   border: 0;
-  height: 40px;
-  width: 400px;
+  width: 200px;
+  height: 56px;
   border-radius: 100px;
   padding: 0px 16px 0px 16px;
   background-color: #ffe04b;
-  margin-left: 100px;
 }
 
 .payment-btn:hover {
@@ -105,16 +106,17 @@
 }
 
 #change-delivery-info-btn {
-  margin-top: 20px;
+  cursor: pointer;
   font-size: 16px;
   font-weight: 600;
   border: 0;
-  width: 90px;
-  height: 120px;
-  border-radius: 10px;
+  width: 200px;
+  height: 56px;
+  border-radius: 100px;
   border: #c1c1c1 solid 1px;
   background-color: #c1c1c120;
   padding: 0px 16px 0px 16px;
+  margin-right: 8px;
 }
 
 #change-delivery-info-btn:hover {
