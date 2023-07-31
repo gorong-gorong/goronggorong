@@ -7,6 +7,15 @@ services:
       - 6379:6379
     command: redis-server
 
+  mongodb:
+    container_name: mongodb
+    restart: on-failure
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data
+
   nginx:
     container_name: nginx
     image: nginx:1.18.0
@@ -26,7 +35,9 @@ services:
       dockerfile: ./deploy/node/Dockerfile
 
     volumes:
-      # - ./:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - 5000:5000
+    depends_on:
+      - redis
+      - mongodb
