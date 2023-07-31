@@ -72,10 +72,37 @@
 .pagination {
   display: flex;
   justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
 }
-
+.pagination__count {
+  display: flex;
+  gap: 8px;
+}
+.pagination__count button,
+.pagination__button-prev,
+.pagination__button-next {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #dfe3e8;
+  background-color: #ffffff;
+  font-weight: 700;
+}
 .pagination__button-active {
-  background-color: yellow;
+  border: 1px solid #ffb904 !important;
+}
+.pagination__button-prev {
+  background: url(/img/prev.png) center no-repeat;
+}
+.pagination__button-next {
+  background: url(/img/next.png) center no-repeat;
+}
+.pagination__button-prev:disabled,
+.pagination__button-next:disabled {
+  cursor: unset;
+  background-color: #dfe3e8;
 }
 
 .bottom {
