@@ -19,6 +19,13 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
 
+  mongo-seed:
+    build:
+      context: ./
+      dockerfile: ./deploy/mongo-seed/Dockerfile
+    depends_on:
+      - mongodb
+
   nginx:
     container_name: nginx
     image: nginx:1.18.0
