@@ -119,8 +119,8 @@ const writeCartList = () => {
   const localStorageCart = JSON.parse(localStorage.getItem('cart'));
   cartList.innerHTML = '';
   if (!localStorageCart || localStorageCart.length <= 0) {
-    cartList.innerHTML = `<li class='empty-cart'>장바구니에 담긴 상품이 없습니다.</li>
-      <li class='empty-cart-img'><img src="/img/empty-cart.png"></li>`;
+    cartList.innerHTML = `<li class='empty-cart'>
+      <img class='empty-cart-img' src="/img/empty-cart.png">아직 장바구니에 담긴 상품이 없어요.</li>`;
   } else {
     for (let i = 0; i < localStorageCart.length; i++) {
       cartList.appendChild(makeListItem(i, localStorageCart[i]));
