@@ -14,29 +14,30 @@
   </head>
   <body>
     <header></header>
-    <div>
-      <h3 id="page-title">장바구니</h3>
-    </div>
-    <main>
-      <section>
+    <h3 id="page-title">장바구니</h3>
+    <main role="main" class="cartPage">
+      <div id="delete-button-wrap">
+        <button id="choice-delete">선택삭제</button>
+        <button id="all-delete">전체삭제</button>
+      </div>
+      <section class="cart-list-container">
         <ul class="cart-list"></ul>
-        <div id="order-delete-button-wrap">
-          <div id="delete-button-wrap">
-            <button id="choice-delete">선택삭제</button>
-            <button id="all-delete">전체삭제</button>
-          </div>
-          <div id="order-button-wrap">
-            <a id="all-order" href="/orders/payment"><button>전체상품 주문</button></a>
-          </div>
-        </div>
+      </section>
+
+      <section class="order-button-container">
         <div id="total-price-wrap">
-          <span>합계</span>
-          <div>
+          <span>총</span>
+          <p>
             <span id="total-price">0</span>
             원
-          </div>
+          </p>
         </div>
-        <a href="/orders/payment" class="choice-order-button-wrap"><button id="choice-order">주문하기</button></a>
+        <div id="order-button-wrap">
+          <a id="all-order" href="/orders/payment"><button>전체 주문하기</button></a>
+          <a href="/orders/payment" class="choice-order-button-wrap"
+            ><button id="choice-order">선택 주문하기</button></a
+          >
+        </div>
       </section>
     </main>
     <footer></footer>

@@ -1,44 +1,40 @@
-body {
-  background-color: #f7f7f7;
-}
-
 body header {
   padding-bottom: 20px;
 }
 
 main {
-  width: 1200px;
+  max-width: 1200px;
   margin: auto;
 }
 
 h3 {
-  padding: 0 10px;
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 1.2em;
-  margin-top: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 24px 0 24px 0;
+  border-bottom: 1px solid #dddddd;
 }
 
 .contents {
+  width: 100%;
   padding-bottom: 39px;
   background-color: #ffffff;
   border-radius: 20px;
 }
 
-.contents > div {
-  border-radius: 6px;
-  margin-top: 20px;
-  padding: 20px 54px;
-}
-
 section {
   display: flex;
-  border-bottom: 1px solid #abb2b9;
+  border-bottom: 1px solid #dddddd;
   padding: 26px 0px 26px 0px;
-  justify-content: center;
+}
+section:last-child {
+  border-bottom: 0;
 }
 
 .content-title {
+  font-size: 18px;
+  font-weight: 700;
   width: 220px;
   padding: 0 20px;
 }
@@ -47,6 +43,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: left;
+  gap: 8px;
   max-width: 800px;
   padding-right: 30px;
   width: calc(100% - 225px);
@@ -56,28 +53,6 @@ section {
   display: flex;
   justify-content: space-between;
   width: 600px;
-}
-
-.content__button-wrap button {
-  margin: 0 2.5px;
-  height: 40px;
-  font-size: 16px;
-  font-weight: 600;
-  border: 0;
-  width: 250px;
-  height: 56px;
-  border-radius: 100px;
-  border: #c1c1c1 solid 1px;
-  background-color: #c1c1c120;
-  padding: 0px 16px 0px 16px;
-}
-
-.content__button-wrap button:hover {
-  background-color: white;
-}
-
-.content__button-wrap button:disabled:hover {
-  background-color: #c1c1c120;
 }
 
 a {
