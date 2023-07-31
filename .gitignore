@@ -2,7 +2,6 @@
 .env
 
 node_modules/
-
 log/
 
 # Swagger
@@ -11,3 +10,6 @@ dist/
 
 # Redis
 dump.rdb
+
+# DB
+data/*/
