@@ -1,10 +1,10 @@
 # 🐕 반려동물용품 쇼핑몰: 고롱고롱 🐈
 
-### 데모사이트
+https://github.com/gorong-gorong/goronggorong/assets/126763111/8dd721db-f1a2-486c-bf12-712b0771a670
 
-![홈페이지 썸네일](https://github.com/gorong-gorong/goronggorong/assets/126763111/8394c1b9-8ec2-4d3a-8c5c-5344714158e4)<br>
-▶️ 시연영상 https://youtu.be/2-nOUlkWqxg<br>
+### 데모사이트
 🌐 배포주소 http://www.goronggorong.store/<br>
+
 **테스트계정**
 
 - 아이디 : test@test.com
