@@ -2,7 +2,8 @@
 
 <div align="center">
 
-![홈페이지 썸네일](https://github.com/gorong-gorong/goronggorong/assets/126763111/8394c1b9-8ec2-4d3a-8c5c-5344714158e4)
+https://github.com/gorong-gorong/goronggorong/assets/126763111/d971f48e-34e6-452b-a097-9d351f2c06e0
+
 
 </div>
 
