@@ -22,6 +22,9 @@ https://github.com/gorong-gorong/goronggorong/assets/126763111/d971f48e-34e6-452
 ### 데모 사이트
 
 [🔗 배포 사이트(http://www.goronggorong.store)](http://www.goronggorong.store/)
+| 테스트 아이디 | test@test.com | 
+| --- | --- |
+| **테스트 비밀번호** | **#test1234** |
 
 [🔗 API 문서(Swagger)](http://www.goronggorong.store/api-docs)
 
