@@ -21,14 +21,14 @@ https://github.com/gorong-gorong/goronggorong/assets/126763111/d971f48e-34e6-452
 
 ### 데모 사이트
 
-[🔗 배포 사이트(http://www.goronggorong.store)](http://www.goronggorong.store/)
-| 테스트 아이디 | test@test.com | 
-| --- | --- |
-| **테스트 비밀번호** | **#test1234** |
+- [🔗 배포 사이트(http://www.goronggorong.store)](http://www.goronggorong.store/)
+  | 테스트 아이디 | test@test.com | 
+  | --- | --- |
+  | **테스트 비밀번호** | **#test1234** |
 
-[🔗 API 문서(Swagger)](http://www.goronggorong.store/api-docs)
+- [🔗 API 문서(Swagger)](http://www.goronggorong.store/api-docs)
 
-▶️ **시연 영상** https://youtu.be/2-nOUlkWqxg
+- **시연 영상** https://youtu.be/2-nOUlkWqxg
 
 ## Stacks
 
@@ -73,8 +73,8 @@ https://github.com/gorong-gorong/goronggorong/assets/126763111/d971f48e-34e6-452
 ### Requirement
 
 <div>
-  <img alt="Docker" src="https://img.shields.io/badge/Docker-24.0.5-2496ED?style=flat&logo=Docker&logoColor=white">
-  <img alt="Docker Compose" src="https://img.shields.io/badge/Docker Compose-2.20.2-2496ED?style=flat&logo=Docker Compose&logoColor=white">
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-24.0.7-2496ED?style=flat&logo=Docker&logoColor=white">
+  <img alt="Docker Compose" src="https://img.shields.io/badge/Docker Compose-2.21.0-2496ED?style=flat&logo=Docker Compose&logoColor=white">
 </div>
 
 ### Installation
@@ -84,10 +84,10 @@ $ git clone https://github.com/gorong-gorong/goronggorong.git
 $ cd goronggorong
 
 # 실행
-$ docker up
+$ docker compose up
 
 # 종료
-$ docker down
+$ docker compose down
 ```
 
 ### 환경변수
