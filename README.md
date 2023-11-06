@@ -58,7 +58,7 @@ https://github.com/gorong-gorong/goronggorong/assets/126763111/d971f48e-34e6-452
 <div>
   <img alt="NGINX" src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white">
   <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white">
-  <img alt="Amazon Lightsail" src="https://img.shields.io/badge/Amazon Lightsail-E17107?style=flat&logoColor=white">
+  <img alt="AWS Lightsail" src="https://img.shields.io/badge/AWS Lightsail-E17107?style=flat&logoColor=white">
 </div>
 
 ### Tools
